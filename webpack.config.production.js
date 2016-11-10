@@ -6,6 +6,7 @@ const CssConfig = devConfig[1]
 
 const NODE_ENV = process.env.NODE_ENV || 'production'
 const JS_ENTRY_PATH = 'ui/js/entries'
+const PUBLIC_PATH = join(__dirname, 'server/public')
 
 const JsConfig = () => {
   let entries = readdirSync(join(__dirname, JS_ENTRY_PATH))
@@ -18,7 +19,7 @@ const JsConfig = () => {
       })
     }, {}),
     output: {
-      path: join(__dirname, 'public/js'),
+      path: join(PUBLIC_PATH, 'js'),
       filename: '[name].bundle.js',
       publicPath: '/js/'
     },

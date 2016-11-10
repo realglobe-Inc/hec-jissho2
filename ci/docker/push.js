@@ -8,4 +8,7 @@ const pkg = require('../../package.json')
 
 process.chdir(__dirname + '/../..')
 
-execSync(`docker push realglobe-docker-virtual.jfrog.io/${pkg.name}:latest .`, {stdio: 'inherit'})
+execSync(`docker push realglobe-docker-virtual.jfrog.io/${pkg.name}:latest .`, {
+  stdio: 'inherit',
+  cwd: __dirname + '/../../server'
+})
