@@ -12,7 +12,9 @@ function drop () {
     let modelList = [
       'Photo',
       'Camera',
-      'User'
+      'User',
+      'ReportInfo',
+      'Report'
     ]
     for (let name of modelList) {
       let model = models[name]
