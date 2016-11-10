@@ -32,5 +32,6 @@ tmp
 .npmrc
 .DS_Store
 
-public/js
-public/css
+server/public/js
+server/public/css
+server/public/uploaded
