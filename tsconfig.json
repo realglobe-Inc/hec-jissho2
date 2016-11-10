@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "lib": [
+            "dom",
+            "es2017"
+        ],
+        "types": [
+            "mocha"
+        ],
+        "jsx": "react",
+        "strictNullChecks": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": false,
+        "rootDir": ".",
+        "sourceMap": true,
+        "listFiles": true,
+        "traceResolution": false,
+        "newLine": "LF",
+        "noEmitOnError": true,
+        "listEmittedFiles": false
+    },
+    "compileOnSave": false
+}

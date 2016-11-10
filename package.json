@@ -1,0 +1,54 @@
+{
+  "name": "hec-jissho2",
+  "version": "1.0.0",
+  "description": "総務省IoT実証実験2",
+  "scripts": {
+    "start": "./bin/app.js",
+    "dev": "./bin/dev.js",
+    "compile": "webpack --config webpack.config.production.js",
+    "prePublish": "./ci/externals.sh && npm run compile"
+  },
+  "repository": "realglobe-Inc/hec-jissho2",
+  "author": {
+    "name": "Fuji Haruka",
+    "email": "fujiharuka@realglobe.jp",
+    "url": "https://github.com/FujiHaruka"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/mocha": "^2.2.32",
+    "@types/react": "^0.14.44",
+    "@types/react-dom": "^0.14.18",
+    "@types/react-redux": "^4.4.32",
+    "@types/redux": "^3.6.31",
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "json-loader": "^0.5.4",
+    "node-sass": "^3.11.2",
+    "postcss-loader": "^1.1.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0",
+    "sass-loader": "^4.0.2",
+    "source-map-loader": "^0.1.5",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^1.0.0",
+    "typescript": "^2.0.8",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.13.1"
+  },
+  "bugs": {
+    "url": "https://github.com/realglobe-Inc/hec-jissho2/issues"
+  },
+  "homepage": "https://github.com/realglobe-Inc/hec-jissho2#readme",
+  "engines": {
+    "node": ">=6",
+    "npm": ">=3"
+  },
+  "publishConfig": {
+    "registry": "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-local"
+  }
+}
