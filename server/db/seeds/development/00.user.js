@@ -1,13 +1,18 @@
+const uuid = require('uuid')
+
 const model = 'User'
 const seed = [{
   id: 1,
-  key: 'edac'
+  key: 'edac',
+  uuid: uuid.v4()
 }, {
   id: 2,
-  key: 'realglobe'
+  key: 'realglobe',
+  uuid: uuid.v4()
 }, {
   id: 3,
-  key: 'demo'
+  key: 'demo',
+  uuid: uuid.v4()
 }]
 
 module.exports = {

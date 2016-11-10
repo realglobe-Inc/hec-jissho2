@@ -3,12 +3,14 @@
  */
 'use strict'
 
-const { mkdirpAsync } = require('asfs')
-const { env } = require('apeman').ctx(__dirname)
+const env = require('../../env')
 const { PHOTO_DIR, PUBLIC_DIR } = env.paths
 const fs = require('fs')
 const path = require('path')
 const co = require('co')
+const mkdirp = require('mkdirp')
+const promisify = require('es6-promisify')
+const mkdirpAsync = promisify(mkdirp)
 
 /** @lends savePhotoImage */
 function savePhotoImage (camera, photo, stream, options = {}) {

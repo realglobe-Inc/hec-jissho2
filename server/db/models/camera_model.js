@@ -7,11 +7,17 @@ const Camera = Model('camera', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    unique: false
   },
   /* Access token */
   token: {
     type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
+  },
+  /* UUID */
+  uuid: {
+    type: Sequelize.UUID,
     allowNull: false,
     unique: true
   }

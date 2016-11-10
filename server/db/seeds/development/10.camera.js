@@ -1,3 +1,4 @@
+const uuid = require('uuid')
 const { generateToken } = require('../../../helper')
 
 const model = 'Camera'
@@ -5,7 +6,8 @@ const seed = [1, 2, 3].map((i) => ({
   id: i,
   name: `camera-${i}`,
   token: generateToken(),
-  ownerId: i
+  ownerId: i,
+  uuid: uuid.v4()
 }))
 
 module.exports = {

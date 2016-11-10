@@ -7,6 +7,12 @@ const User = Model('user', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true
+  },
+  /* UUID */
+  uuid: {
+    type: Sequelize.UUID,
+    allowNull: false,
+    unique: true
   }
 })
 

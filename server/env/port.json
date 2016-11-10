@@ -1,14 +1,10 @@
 {
   "default": {
-    "SERVER": 3000
-  },
-  "development": {
-    "SERVER": 3000
+    "HUB": 3001,
+    "REST": 3002
   },
   "test": {
-    "SERVER": 3001
-  },
-  "production": {
-    "SERVER": #{process.env.PORT}
+    "HUB": 3101,
+    "REST": 3102
   }
 }

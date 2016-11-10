@@ -8,6 +8,22 @@ const Photo = Model('photo', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true
+  },
+  /* Additional information */
+  info: {
+    type: Sequelize.JSON,
+    allowNull: true
+  },
+  /* Alt attribute */
+  image_alt: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  /* UUID */
+  uuid: {
+    type: Sequelize.UUID,
+    allowNull: false,
+    unique: true
   }
 })
 

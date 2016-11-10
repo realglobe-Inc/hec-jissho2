@@ -7,11 +7,10 @@
 const co = require('co')
 const uuid = require('uuid')
 const { clone } = require('asobj')
-const { db } = require('apeman').ctx(__dirname)
+const models = require('../../db/models')
 const compose = require('sg-server/lib/compose')
-const { generateToken } = require('../../../lib/helpers')
+const { generateToken } = require('../../helper')
 const savePhotoImage = require('../helpers/save_photo_image')
-const notify = require('../helpers/notify')
 const oneCameraMW = require('../middlewares/one_camera_mw')
 const onePhotoMW = require('../middlewares/one_photo_mw')
 const schemaMW = require('../middlewares/schema_mw')
@@ -21,7 +20,7 @@ const {
   Camera,
   Photo,
   User
-} = db.models
+} = models
 
 /** @lends cameraEndpoint */
 const cameraEndpoint = {
@@ -69,7 +68,7 @@ const cameraEndpoint = {
         let created = yield Camera.create(data)
         ctx.status = 201
         ctx.body = { created }
-        notify({ event: 'rest:camera:created', data: { id: created.id } })
+        // notify({ event: 'rest:camera:created', data: { id: created.id } })
       })
     }
   ]),
@@ -111,7 +110,7 @@ const cameraEndpoint = {
           let created = yield Photo.create(data)
           ctx.status = 201
           ctx.body = { created }
-          notify({ event: 'rest:photo:created', data: { id: created.id, cameraId: camera.id } })
+          // notify({ event: 'rest:photo:created', data: { id: created.id, cameraId: camera.id } })
         })
       }
     ]),
@@ -146,4 +145,3 @@ const cameraEndpoint = {
 }
 
 module.exports = cameraEndpoint
-

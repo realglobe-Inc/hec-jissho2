@@ -27,9 +27,9 @@ tmp
 
 .DS_Store
 
-shim/browser
-shim/package.json
-
 var
 dump.rdb
 tmp
+
+example
+misc
