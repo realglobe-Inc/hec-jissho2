@@ -9,11 +9,12 @@ process.chdir(__dirname + '/../..')
 const { mysql } = require('ci-docker-commands')
 
 function run () {
-  const { ROOT_PASSWORD } = require('../../env').database
+  const { DATABASE, ROOT_PASSWORD, PORT } = require('../../server/env').database
 
   let { ip, port } = mysql.runMysql({
-    database: 'db',
-    rootPassword: ROOT_PASSWORD
+    database: DATABASE,
+    rootPassword: ROOT_PASSWORD,
+    port: PORT
   })
 
   console.log(`Your database is ready! ${JSON.stringify({ ip, port })}`)
@@ -24,4 +25,3 @@ module.exports = run
 if (!module.parent) {
   run()
 }
-

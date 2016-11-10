@@ -1,0 +1,13 @@
+{
+  "default": {
+    "DATABASE": "hec-jissho2",
+    "ROOT_USER": "root",
+    "ROOT_PASSWORD": "a25kYWRhZ3dlZWF0YXRhbGd",
+    "PORT": 3307,
+    "HOST": "172.17.0.1",
+    "PROTOCOL": "tcp"
+  },
+  "production": {
+    "DB_URL": "#{process.env.CLEARDB_DATABASE_URL}"
+  }
+}

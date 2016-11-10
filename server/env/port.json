@@ -3,8 +3,7 @@
     "SERVER": 3000
   },
   "development": {
-    "SERVER": 3000,
-    "BUILD_SERVER": 3002
+    "SERVER": 3000
   },
   "test": {
     "SERVER": 3001
