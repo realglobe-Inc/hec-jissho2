@@ -66,6 +66,7 @@ const JsConfig = () => {
 
 const CssConfig = () => {
   let entries = readdirSync(join(__dirname, CSS_ENTRY_PATH))
+    .filter((file) => file.match(/\.scss$/))
     .map((file) => file.split('.')[0])
 
   return {

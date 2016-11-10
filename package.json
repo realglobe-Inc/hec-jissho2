@@ -6,7 +6,8 @@
     "start": "./bin/app.js",
     "dev": "./bin/dev.js",
     "compile": "webpack --config webpack.config.production.js",
-    "prePublish": "./ci/externals.sh && npm run compile"
+    "test": "karma start",
+    "prepublish": "./ci/externals.sh && npm run compile"
   },
   "repository": "realglobe-Inc/hec-jissho2",
   "author": {
@@ -50,5 +51,15 @@
   },
   "publishConfig": {
     "registry": "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-local"
+  },
+  "devDependencies": {
+    "ci-docker-commands": "^1.0.2",
+    "karma": "^1.1.2",
+    "karma-firefox-launcher": "^1.0.0",
+    "node-sass-json-importer": "^2.1.1",
+    "karma-mocha": "^1.1.1",
+    "mocha": "^3.0.0",
+    "sg-travis": "^1.1.33",
+    "sugo-ci-site": "^1.0.21"
   }
 }
