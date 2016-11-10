@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const { port } = require('../env')
-const restServer = require('../rest/server')
+const uploadServer = require('../lib/upload_server')
 
-restServer
+uploadServer
   .listen(port.REST)
   .then(() => {
     console.log(`REST server started at port ${port.REST}`)

@@ -3,7 +3,7 @@
  */
 'use strict'
 
-const env = require('../../env')
+const env = require('../../../env')
 const { PHOTO_DIR, PUBLIC_DIR } = env.paths
 const fs = require('fs')
 const path = require('path')
