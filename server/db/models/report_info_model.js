@@ -6,6 +6,13 @@ const Model = require('./model')
 const Report = require('./report_model')
 
 const ReportInfo = Model('report_info', {
+  report_full_id: {
+    type: Sequelize.STRING,
+    references: {
+      model: Report,
+      key: 'report_full_id'
+    }
+  },
   /* 緯度 */
   lat: {
     type: Sequelize.DOUBLE(9, 6)
@@ -18,10 +25,6 @@ const ReportInfo = Model('report_info', {
   event: {
     type: Sequelize.STRING
   },
-  /* 心拍数 */
-  heart_rate: {
-    type: Sequelize.INTEGER
-  },
   /* 送られてきた時間 */
   sent_at: {
     type: Sequelize.DATE
@@ -31,7 +34,5 @@ const ReportInfo = Model('report_info', {
     type: Sequelize.JSON
   }
 })
-
-ReportInfo.belongsTo(Report)
 
 module.exports = ReportInfo

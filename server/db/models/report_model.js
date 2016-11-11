@@ -8,7 +8,8 @@ const Report = Model('report', {
   /* Actor key + 通報 ID */
   report_full_id: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   /* SUGO-Actor key */
   actor_key: {
@@ -33,7 +34,7 @@ const Report = Model('report', {
   /* 通報がクローズされた日時 */
   closed_at: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: true
   }
 })
 
