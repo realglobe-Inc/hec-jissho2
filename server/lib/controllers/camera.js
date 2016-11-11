@@ -65,6 +65,7 @@ const cameraController = {
         }
         delete data.owner
         data.ownerId = owner.id
+        data.uuid = uuid.v4()
         let created = yield Camera.create(data)
         ctx.status = 201
         ctx.body = { created }

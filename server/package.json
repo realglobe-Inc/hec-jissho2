@@ -20,5 +20,8 @@
     "sugo-hub": "^4.0.9",
     "sugo-observer": "^2.0.8",
     "uuid": "^2.0.3"
+  },
+  "devDependencies": {
+    "sqlite3": "^3.1.8"
   }
 }

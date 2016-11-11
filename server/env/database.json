@@ -1,5 +1,6 @@
 {
   "default": {
+    "DIALECT": "mysql",
     "DATABASE": "hec-jissho2",
     "ROOT_USER": "root",
     "ROOT_PASSWORD": "a25kYWRhZ3dlZWF0YXRhbGd",
@@ -7,7 +8,20 @@
     "HOST": "172.17.0.1",
     "PROTOCOL": "tcp"
   },
+  "test": {
+    "DIALECT": "sqlite",
+    "DATABASE": "hec-jissho2",
+    "USERNAME": "hec-jissho2",
+    "PASSWORD": "hec-jissho2",
+    "STORAGE": "tmp/test_database.db"
+  },
   "production": {
-    "DB_URL": "#{process.env.CLEARDB_DATABASE_URL}"
+    "DIALECT": "mysql",
+    "DATABASE": "hec-jissho2",
+    "ROOT_USER": "root",
+    "ROOT_PASSWORD": "a25kYWRhZ3dlZWF0YXRhbGd",
+    "PORT": 3307,
+    "HOST": "172.17.0.1",
+    "PROTOCOL": "tcp"
   }
 }
