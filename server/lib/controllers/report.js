@@ -41,6 +41,11 @@ const reportController = {
           },
           order: 'sent_at'
         })
+        if (!latest) {
+          // ここは通らない
+          ctx.body = {}
+          return
+        }
         ctx.body = latest.dataValues
       })
     }
@@ -84,7 +89,7 @@ const reportController = {
             is_open: false,
             closed_date
           }, {
-            where: report_full_id
+            where: { report_full_id }
           })
           ctx.body = {
             success: true

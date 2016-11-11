@@ -11,8 +11,9 @@ const reportServer = require('../../server/lib/report_server')
 const fs = require('fs')
 const aport = require('aport')
 const db = require('../../server/db')
+const reportUrl = require('../../server/helper/urls').report
 
-describe('Report server endpoints', function () {
+describe('Report server', function () {
   let request = arequest.create({ jar: true })
   this.timeout(10000)
   let restPort
@@ -30,73 +31,54 @@ describe('Report server endpoints', function () {
 
   it('Api request', () => co(function * () {
     let baseUrl = `http://localhost:${restPort}`
-    let uuid, token, photo_uuid
-    // Create camera
+    let report_full_id
+    // Get open reports
     {
-      let url = `${baseUrl}/rest/cameras`
+      let url = `${baseUrl}${reportUrl.getOpenReports()}`
       let { statusCode, body } = yield request({
-        url: url,
+        url,
+        method: 'GET',
+        json: true
+      })
+      assert.ok(body.length > 0)
+      assert.equal(statusCode, 200)
+      report_full_id = body[0].report_full_id
+    }
+    // Get report info
+    {
+      let url = `${baseUrl}${reportUrl.getReportInfo(report_full_id)}`
+      let { statusCode, body } = yield request({
+        url,
+        method: 'GET',
+        json: true
+      })
+      assert.equal(body.report_full_id, report_full_id)
+      assert.equal(statusCode, 200)
+    }
+    // Close report
+    {
+      let url = `${baseUrl}${reportUrl.closeReport(report_full_id)}`
+      let { statusCode, body } = yield request({
+        url,
         method: 'POST',
         json: true,
         body: {
-          name: 'test-camera-01',
-          owner: 'demo'
+          closed_date: new Date()
         }
       })
-      assert.equal(statusCode, 201)
-      let { created } = body
-      assert.ok(created)
-      uuid = created.uuid
-      token = created.token
-    }
-    // Get camera
-    {
-      let url = `${baseUrl}/rest/cameras/${uuid}?token=${token}`
-      let { statusCode, body } = yield request({
-        url: url,
-        method: 'GET'
-      })
+      assert.ok(body.success)
       assert.equal(statusCode, 200)
-      assert.equal(body.uuid, uuid)
     }
-    // Post image to the camera
+    // Get closed report
     {
-      let url = `${baseUrl}/rest/cameras/${uuid}/photos`
-      let image = `${__dirname}/../../server/misc/mocks/mock-images/01.jpg`
-      let { statusCode, body } = yield request({
-        url: url,
-        method: 'POST',
-        formData: {
-          token,
-          info: JSON.stringify({ foo: 'This is foo' }),
-          extension: '.jpg', // File extension
-          image: fs.createReadStream(image)
-        }
-      })
-      assert.equal(statusCode, 201)
-      let { created } = body
-      assert.ok(created)
-      photo_uuid = created.uuid
-    }
-    // Get image
-    {
-      let url = `${baseUrl}/rest/cameras/${uuid}/photos/${photo_uuid}?token=${token}`
+      let url = `${baseUrl}${reportUrl.getClosedReports()}`
       let { statusCode, body } = yield request({
         url,
-        method: 'GET'
+        method: 'GET',
+        json: true
       })
       assert.equal(statusCode, 200)
-      assert.ok(body)
-    }
-    // Delete image
-    {
-      let url = `${baseUrl}/rest/cameras/${uuid}/photos/${photo_uuid}?token=${token}`
-      let { statusCode, body } = yield request({
-        url,
-        method: 'DELETE'
-      })
-      assert.equal(statusCode, 200)
-      assert.ok(body)
+      assert.ok(body.find(report => report.report_full_id === report_full_id))
     }
   }))
 })

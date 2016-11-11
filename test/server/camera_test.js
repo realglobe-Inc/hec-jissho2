@@ -11,8 +11,9 @@ const cameraServer = require('../../server/lib/camera_server')
 const fs = require('fs')
 const aport = require('aport')
 const db = require('../../server/db')
+const cameraUrl = require('../../server/helper/urls').camera
 
-describe('Camera server endpoints', function () {
+describe('Camera server', function () {
   let request = arequest.create({ jar: true })
   this.timeout(10000)
   let restPort
@@ -33,7 +34,7 @@ describe('Camera server endpoints', function () {
     let uuid, token, photo_uuid
     // Create camera
     {
-      let url = `${baseUrl}/rest/cameras`
+      let url = `${baseUrl}${cameraUrl.createCamera()}`
       let { statusCode, body } = yield request({
         url: url,
         method: 'POST',
@@ -51,7 +52,7 @@ describe('Camera server endpoints', function () {
     }
     // Get camera
     {
-      let url = `${baseUrl}/rest/cameras/${uuid}?token=${token}`
+      let url = `${baseUrl}${cameraUrl.getCamera(uuid)}?token=${token}`
       let { statusCode, body } = yield request({
         url: url,
         method: 'GET'
@@ -61,7 +62,7 @@ describe('Camera server endpoints', function () {
     }
     // Post image to the camera
     {
-      let url = `${baseUrl}/rest/cameras/${uuid}/photos`
+      let url = `${baseUrl}${cameraUrl.createPhoto(uuid)}`
       let image = `${__dirname}/../../server/misc/mocks/mock-images/01.jpg`
       let { statusCode, body } = yield request({
         url: url,
@@ -80,7 +81,7 @@ describe('Camera server endpoints', function () {
     }
     // Get image
     {
-      let url = `${baseUrl}/rest/cameras/${uuid}/photos/${photo_uuid}?token=${token}`
+      let url = `${baseUrl}${cameraUrl.getPhoto(uuid, photo_uuid)}?token=${token}`
       let { statusCode, body } = yield request({
         url,
         method: 'GET'
@@ -90,7 +91,7 @@ describe('Camera server endpoints', function () {
     }
     // Delete image
     {
-      let url = `${baseUrl}/rest/cameras/${uuid}/photos/${photo_uuid}?token=${token}`
+      let url = `${baseUrl}${cameraUrl.deletePhoto(uuid, photo_uuid)}?token=${token}`
       let { statusCode, body } = yield request({
         url,
         method: 'DELETE'

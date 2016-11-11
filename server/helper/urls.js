@@ -1,6 +1,7 @@
 /**
  * urls of entrypoints
  */
+const encode = require('urlencode')
 const { REST_URL } = require('@self/lib/consts')
 const CAMERA_URL = REST_URL.OF_CAMERA
 const REPORT_URL = REST_URL.OF_REPORT
@@ -9,7 +10,8 @@ function replace (target, opt) {
   let keys = Object.keys(opt)
   let replaced = target
   for (let key of keys) {
-    replaced = replaced.replace(`:${key}`, opt[key])
+    let encoded = encode(opt[key])
+    replaced = replaced.replace(`:${key}`, encoded)
   }
   return replaced
 }
