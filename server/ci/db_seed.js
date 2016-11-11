@@ -2,8 +2,8 @@
 /**
  * Seed Datebase
  */
-
-const NODE_ENV = process.env.NODE_ENV || 'development'
+process.env.DEBUG = 'hec:db'
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 const co = require('co')
 const db = require('@self/db')

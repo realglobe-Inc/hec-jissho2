@@ -7,6 +7,7 @@ const fs = require('fs')
 const promisify = require('es6-promisify')
 const readdir = promisify(fs.readdir)
 const colors = require('colors')
+const debug = require('debug')('hec:db')
 
 const db = {
   sync (options) {
@@ -14,7 +15,7 @@ const db = {
       let modelList = Object.keys(models).map((name) => models[name])
       for (let model of modelList) {
         yield model.sync(options)
-        console.log(`${model.name} created.`)
+        debug(`${model.name} created.`)
       }
     })
   },
@@ -29,7 +30,7 @@ const db = {
         for (let data of seed) {
           yield Model.create(data)
         }
-        console.log(`${name} seeded.`)
+        debug(`${name} seeded.`)
       }
     })
   },
@@ -38,9 +39,9 @@ const db = {
       let modelList = Object.keys(models).map((name) => models[name])
       for (let model of modelList) {
         let all = yield model.findAll()
-        console.log(colors.green(`--- ${model.name} ---`))
-        console.log(all.map((data) => data.dataValues))
-        console.log('')
+        debug(colors.green(`--- ${model.name} ---`))
+        debug(all.map((data) => data.dataValues))
+        debug('')
       }
     })
   },
@@ -57,7 +58,7 @@ const db = {
       for (let name of modelList) {
         let model = models[name]
         yield model.drop(options)
-        console.log(`${model.name} dropped.`)
+        debug(`${model.name} dropped.`)
       }
     })
   }
