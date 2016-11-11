@@ -12,7 +12,7 @@ before_install:
 - npm install -g mocha
 install:
 - npm install
-- npm install server
+- (cd server; npm install)
 script:
 - ./ci/build.js
 - ./ci/compile.js
