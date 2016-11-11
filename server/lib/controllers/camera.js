@@ -1,6 +1,6 @@
 /**
  * Endpoints for camera
- * @module cameraEndpoint
+ * @module cameraController
  */
 'use strict'
 
@@ -22,8 +22,8 @@ const {
   User
 } = models
 
-/** @lends cameraEndpoint */
-const cameraEndpoint = {
+/** @lends cameraController */
+const cameraController = {
   /**
    * Get a camera
    */
@@ -144,4 +144,4 @@ const cameraEndpoint = {
   }
 }
 
-module.exports = cameraEndpoint
+module.exports = cameraController

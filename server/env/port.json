@@ -1,10 +1,12 @@
 {
   "default": {
-    "HUB": 3001,
-    "REST": 3002
+    "UI": 3001,
+    "CAMERA": 3002,
+    "REPORT": 3003
   },
   "test": {
-    "HUB": 3101,
-    "REST": 3102
+    "UI": 3101,
+    "CAMERA": 3102,
+    "REPORT": 3103
   }
 }
