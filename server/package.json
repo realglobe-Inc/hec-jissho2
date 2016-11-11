@@ -16,6 +16,9 @@
     "mysql": "^2.12.0",
     "sequelize": "^3.24.8",
     "sg-server": "^1.4.2",
+    "sugo-caller": "^3.0.5",
+    "sugo-hub": "^4.0.9",
+    "sugo-observer": "^2.0.8",
     "uuid": "^2.0.3"
   }
 }

@@ -3,8 +3,9 @@
  */
 const sugoHub = require('sugo-hub')
 const env = require('@self/env')
-const endpoints = require('./report/endpoints')
-const { observer } = require('./report/helpers/observer')
+const endpoints = require('./endpoints/report')
+// const { observer } = require('./helpers/observer')
+const observer = () => {}
 
 let reportServer = sugoHub({
   endpoints,

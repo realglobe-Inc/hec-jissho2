@@ -9,6 +9,9 @@ module.exports = {
   [URL.OPEN_REPORTS]: {
     GET: controller.opening.findAll
   },
+  [URL.OPEN_REPORT]: {
+    GET: controller.opening.findLatestInfo
+  },
   [URL.CLOSE_REPORTS]: {
     GET: controller.closing.findAll
   },

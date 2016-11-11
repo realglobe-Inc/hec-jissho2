@@ -5,5 +5,5 @@ const cameraServer = require('../lib/camera_server')
 cameraServer
   .listen(port.CAMERA)
   .then(() => {
-    console.log(`CAMERA server started at port ${port.CAMERA}`)
+    console.log(`CAMERA server listening on port ${port.CAMERA}`)
   })
