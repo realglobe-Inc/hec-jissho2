@@ -6,7 +6,7 @@
     "start": "./bin/app.js",
     "dev": "./bin/dev.js",
     "compile": "webpack --config webpack.config.production.js",
-    "test": "NODE_ENV=test karma start; mocha test/server",
+    "test": "karma start; mocha test/server",
     "prepublish": "./ci/externals.sh && npm run compile"
   },
   "repository": "realglobe-Inc/hec-jissho2",

@@ -1,5 +1,5 @@
 /**
- * Test case for Camera server.
+ * Test case for report server.
  * Runs with mocha.
  */
 'use strict'
@@ -7,12 +7,12 @@
 const assert = require('assert')
 const co = require('co')
 const arequest = require('arequest')
-const cameraServer = require('../../server/lib/camera_server')
+const reportServer = require('../../server/lib/report_server')
 const fs = require('fs')
 const aport = require('aport')
 const db = require('../../server/db')
 
-describe('Camera server endpoints', function () {
+describe('Report server endpoints', function () {
   let request = arequest.create({ jar: true })
   this.timeout(10000)
   let restPort
@@ -20,11 +20,11 @@ describe('Camera server endpoints', function () {
     yield db.sync({ force: true })
     yield db.seed()
     restPort = yield aport()
-    yield cameraServer.listen({ port: restPort })
+    yield reportServer.listen({ port: restPort })
   }))
 
   after(() => co(function * () {
-    yield cameraServer.close()
+    yield reportServer.close()
     yield db.drop()
   }))
 
