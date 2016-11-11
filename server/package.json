@@ -2,6 +2,7 @@
   "name": "hec-jissho2-server",
   "version": "1.0.0",
   "scripts": {
+    "prepublish": "./ci/setup.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

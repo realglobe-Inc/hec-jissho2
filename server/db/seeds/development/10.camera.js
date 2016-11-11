@@ -1,5 +1,5 @@
 const uuid = require('uuid')
-const { generateToken } = require('../../../helper')
+const { generateToken } = require('@self/helper')
 
 const model = 'Camera'
 const seed = [1, 2, 3].map((i) => ({

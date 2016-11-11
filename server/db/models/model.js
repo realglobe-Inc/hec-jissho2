@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const { DATABASE, ROOT_USER, ROOT_PASSWORD, PORT, HOST, PROTOCOL } = require('../../env').database
+const { DATABASE, ROOT_USER, ROOT_PASSWORD, PORT, HOST, PROTOCOL } = require('@self/env').database
 const debug = require('debug')('hec:db')
 
 /**
