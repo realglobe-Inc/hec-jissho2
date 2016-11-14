@@ -24,14 +24,15 @@ if (process.env.NODE_ENV !== 'test') {
 let reportServer = sugoHub(config)
 
 Object.assign(reportServer, {
-  createObserver () {
+  createObserver (actorOptions) {
     let { port } = this
     if (typeof port !== 'number') {
       throw new Error(`Port given to Report observer is ${port}`)
     }
     return new Observer({
       protocol: 'http',
-      host: `localhost:${port}`
+      host: `localhost:${port}`,
+      actorOptions
     })
   }
 })

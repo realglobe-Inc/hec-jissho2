@@ -5,7 +5,12 @@ const debug = require('debug')('hec:report-observer')
 const formatter = require('@self/helper/formatter')
 const models = require('@self/db/models')
 const { Report, ReportInfo } = models
+const sugoActor = require('sugo-actor')
+const { Module } = sugoActor
+
 const REPORTER_MODULE = 'reporter'
+const MASTER_ACTOR_KEY = 'qq:master-reporter'
+const MASTER_ACTOR_MODULE = 'master-reporter'
 
 /**
  * sugo-hub を監視して、 通報用 actor の接続を検出する。
@@ -18,26 +23,44 @@ class ReportObserver {
     const s = this
     let {
       protocol,
-      host
+      host,
+      actorOptions
     } = options
     s.protocol = protocol
     s.host = host
     s.observer = sugoObserver(s._handler.bind(s), options)
     s.callers = {}
+
+    // masterReporter が emit する
+    s.masterReporter = new Module({})
+    s.masterActor = sugoActor(Object.assign({
+      key: MASTER_ACTOR_KEY,
+      modules: {
+        [MASTER_ACTOR_MODULE]: s.masterReporter
+      }
+    }, actorOptions))
   }
 
   /**
    * 監視を開始する
    */
   start (options) {
-    return this.observer.start()
+    const s = this
+    return co(function * () {
+      yield s.observer.start()
+      yield s.masterActor.connect()
+    })
   }
 
   /**
    * 監視を終了する
    */
   stop () {
-    return this.observer.stop()
+    const s = this
+    return co(function * () {
+      yield s.observer.stop()
+      yield s.masterActor.disconnect()
+    })
   }
 
   /**
@@ -48,7 +71,7 @@ class ReportObserver {
     return co(function * () {
       let actorKey = data.key
       // report actor のイベントでなければ無視する
-      let isReport = event.startsWith('actor') && actorKey.startsWith('qq:')
+      let isReport = event.startsWith('actor') && actorKey.startsWith('qq:reporter:')
       if (!isReport) {
         return
       }
@@ -69,7 +92,7 @@ class ReportObserver {
         // Add event listener
         // hitoe.on('warning', s._pushReportDb(actorKey)('warning'))
         let event = 'emergency'
-        reporter.on(event, s._pushReportDb({actorKey, event}))
+        reporter.on(event, s._pushReportDb({actorKey, event}).bind(s))
         reporter.on('error', (err) => { console.error(err) })
       }
 
@@ -96,6 +119,7 @@ class ReportObserver {
    * 毎回 ReportInfo につっこむ。
    */
   _pushReportDb ({actorKey, event}) {
+    const s = this
     return (report) => co(function * () {
       let infoData = formatter.infoRawToDb({report, actorKey, event})
       debug('Observer recieve report', infoData)
@@ -117,6 +141,7 @@ class ReportObserver {
       }
 
       yield ReportInfo.create(infoData)
+      s.masterReporter.emit('emergency', infoData)
     }).catch((err) => console.error(err))
   }
 }

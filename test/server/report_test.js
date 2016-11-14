@@ -12,6 +12,7 @@ const aport = require('aport')
 const asleep = require('asleep')
 const db = require('../../server/db')
 const reportUrl = require('../../server/helper/urls').report
+const sugoCaller = require('sugo-caller')
 const sugoActor = require('sugo-actor')
 const { Module } = sugoActor
 
@@ -28,7 +29,10 @@ describe('Report server', function () {
     restPort = yield aport()
     baseUrl = `http://localhost:${restPort}`
     yield reportServer.listen(restPort)
-    observer = reportServer.createObserver()
+    observer = reportServer.createObserver({
+      protocol: 'http',
+      host: `localhost:${restPort}`
+    })
     yield observer.start()
   }))
 
@@ -116,6 +120,19 @@ describe('Report server', function () {
     })
     yield actor.connect()
 
+    // Connect master actor
+    let caller = sugoCaller({
+      protocol: 'http',
+      host: `localhost:${restPort}`
+    })
+    let masterActor = yield caller.connect('qq:master-reporter')
+    let masterReporter = masterActor.get('master-reporter')
+    let gotReport = null
+    masterReporter.on('emergency', (data) => {
+      gotReport = data
+    })
+    assert.ok(masterReporter)
+
     // Emit report
     yield asleep(1000)
     reporter.report()
@@ -133,8 +150,10 @@ describe('Report server', function () {
       method: 'GET',
       json: true
     })
-    assert.ok(reportInfo.report_full_id, reportFullId)
+    assert.equal(reportInfo.report_full_id, reportFullId)
+    assert.equal(gotReport.report_full_id, reportFullId)
 
+    yield masterActor.disconnect()
     yield actor.disconnect()
   }))
 })
