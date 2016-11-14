@@ -62,6 +62,14 @@ class ReportObserver {
     return co(function * () {
       yield s.observer.stop()
       yield s.masterActor.disconnect()
+      for (let key of Object.keys(s.callers)) {
+        let actor = s.callers[key]
+        try {
+          yield actor.disconnect(key)
+        } catch (e) {
+          console.error(e)
+        }
+      }
     })
   }
 
@@ -110,6 +118,7 @@ class ReportObserver {
           yield actor.disconnect(actorKey)
         } catch (e) {
           // エラーが出ても接続はちゃんと切れる
+          console.error(e)
         }
       }
     }).catch((err) => console.error(err))
