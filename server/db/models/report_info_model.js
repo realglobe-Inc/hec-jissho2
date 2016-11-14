@@ -26,7 +26,7 @@ const ReportInfo = Model('report_info', {
     type: Sequelize.STRING
   },
   /* 送られてきた時間 */
-  sent_at: {
+  date: {
     type: Sequelize.DATE
   },
   /* 付加情報 */

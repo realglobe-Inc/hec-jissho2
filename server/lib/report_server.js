@@ -4,8 +4,7 @@
 const sugoHub = require('sugo-hub')
 const env = require('@self/env')
 const endpoints = require('./endpoints/report')
-// const { observer } = require('./helpers/observer')
-const observer = () => {}
+const Observer = require('./helpers/report_observer')
 
 let config = {
   endpoints
@@ -25,7 +24,17 @@ if (process.env.NODE_ENV !== 'test') {
 let reportServer = sugoHub(config)
 
 Object.assign(reportServer, {
-  observer
+  createObserver () {
+    let { port } = this
+    if (typeof port !== 'number') {
+      throw new Error(`port is ${port}`)
+    }
+    return new Observer({
+      protocol: 'http',
+      hostname: 'localhost',
+      port
+    })
+  }
 })
 
 module.exports = reportServer

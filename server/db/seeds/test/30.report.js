@@ -1,11 +1,11 @@
-const { formatReport } = require('@self/helper')
+const formatter = require('@self/helper/formatter')
 const model = 'Report'
 const seed = [1, 2, 3].map((i) => {
   let actorKey = `qq:reporter:${i}`
   let reportId = i
   return {
     id: i,
-    report_full_id: formatReport.toReportFullId({actorKey, reportId}),
+    report_full_id: formatter.toReportFullId({actorKey, reportId}),
     actor_key: actorKey,
     report_id: reportId,
     is_open: true,
