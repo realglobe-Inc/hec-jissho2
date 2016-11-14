@@ -33,7 +33,8 @@ co(function * () {
 
   // Proxy
   yield proxy.listen(port.PROXY)
+  debug(`Proxy server listening on port ${port.PROXY}`)
 
   yield dev.listen(port.DEV)
-  debug(`Proxy server listening on port ${port.PROXY}`)
+  debug(`Dev server listening on port ${port.DEV}`)
 })

@@ -7,20 +7,10 @@
             "dom",
             "es2017"
         ],
-        "types": [
-            "mocha"
-        ],
         "jsx": "react",
-        "strictNullChecks": true,
         "noFallthroughCasesInSwitch": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noUnusedLocals": true,
-        "experimentalDecorators": true,
-        "forceConsistentCasingInFileNames": true,
         "skipDefaultLibCheck": true,
         "skipLibCheck": false,
-        "rootDir": ".",
         "sourceMap": true,
         "listFiles": true,
         "traceResolution": false,
@@ -28,5 +18,9 @@
         "noEmitOnError": true,
         "listEmittedFiles": false
     },
-    "compileOnSave": false
+    "compileOnSave": false,
+    "include": [
+      "ui/js/*",
+      "ui/js/**/*"
+    ]
 }
