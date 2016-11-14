@@ -8,9 +8,11 @@ const { Report, ReportInfo } = models
 const sugoActor = require('sugo-actor')
 const { Module } = sugoActor
 
-const REPORTER_MODULE = 'reporter'
-const MASTER_ACTOR_KEY = 'qq:master-reporter'
-const MASTER_ACTOR_MODULE = 'master-reporter'
+const { SUGOS } = require('../consts')
+const {
+  REPORTER_MODULE,
+  MASTER_ACTOR
+} = SUGOS
 
 /**
  * sugo-hub を監視して、 通報用 actor の接続を検出する。
@@ -34,9 +36,9 @@ class ReportObserver {
     // masterReporter が emit する
     s.masterReporter = new Module({})
     s.masterActor = sugoActor(Object.assign({
-      key: MASTER_ACTOR_KEY,
+      key: MASTER_ACTOR.KEY,
       modules: {
-        [MASTER_ACTOR_MODULE]: s.masterReporter
+        [MASTER_ACTOR.MODULE]: s.masterReporter
       }
     }, actorOptions))
   }
@@ -131,7 +133,8 @@ class ReportObserver {
       if (!found) {
         let actor_key = formatter.toActorKey(report_full_id)
         let report_id = formatter.toReportId(report_full_id)
-        Report.create({
+        s.masterReporter.emit(MASTER_ACTOR.NEW_REPORT_EVENT, { report_full_id })
+        yield Report.create({
           report_full_id,
           actor_key,
           report_id,
@@ -141,7 +144,7 @@ class ReportObserver {
       }
 
       yield ReportInfo.create(infoData)
-      s.masterReporter.emit('emergency', infoData)
+      s.masterReporter.emit(MASTER_ACTOR.REPORT_INFO_EVENT, infoData)
     }).catch((err) => console.error(err))
   }
 }

@@ -7,14 +7,18 @@
 const assert = require('assert')
 const co = require('co')
 const arequest = require('arequest')
-const reportServer = require('../../server/lib/report_server')
+const reportServer = require('@self/server/lib/report_server')
 const aport = require('aport')
 const asleep = require('asleep')
-const db = require('../../server/db')
-const reportUrl = require('../../server/helper/urls').report
+const db = require('@self/server/db')
+const reportUrl = require('@self/server/helper/urls').report
 const sugoCaller = require('sugo-caller')
 const sugoActor = require('sugo-actor')
 const { Module } = sugoActor
+const {
+  REPORTER_MODULE,
+  MASTER_ACTOR
+} = require('@self/server/lib/consts').SUGOS
 
 describe('Report server', function () {
   let request = arequest.create({ jar: true })
@@ -125,10 +129,10 @@ describe('Report server', function () {
       protocol: 'http',
       host: `localhost:${restPort}`
     })
-    let masterActor = yield caller.connect('qq:master-reporter')
-    let masterReporter = masterActor.get('master-reporter')
+    let masterActor = yield caller.connect(MASTER_ACTOR.KEY)
+    let masterReporter = masterActor.get(MASTER_ACTOR.MODULE)
     let gotReport = null
-    masterReporter.on('emergency', (data) => {
+    masterReporter.on(MASTER_ACTOR.REPORT_INFO_EVENT, (data) => {
       gotReport = data
     })
     assert.ok(masterReporter)

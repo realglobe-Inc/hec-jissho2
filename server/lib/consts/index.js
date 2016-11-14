@@ -14,5 +14,15 @@ module.exports = {
       CLOSE_REPORTS: '/rest/reports/close',
       CLOSE_REPORT : '/rest/reports/close/:report_full_id'
     }
+  },
+
+  SUGOS: {
+    REPORTER_MODULE: 'reporter',
+    MASTER_ACTOR: {
+      KEY: 'qq:master-reporter',
+      MODULE: 'master-reporter',
+      NEW_REPORT_EVENT: 'new-report',
+      REPORT_INFO_EVENT: 'report-info'
+    }
   }
 }
