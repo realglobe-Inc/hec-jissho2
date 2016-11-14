@@ -13,10 +13,8 @@
         "skipLibCheck": false,
         "sourceMap": true,
         "listFiles": true,
-        "traceResolution": false,
         "newLine": "LF",
-        "noEmitOnError": true,
-        "listEmittedFiles": false
+        "noEmitOnError": true
     },
     "compileOnSave": false,
     "include": [

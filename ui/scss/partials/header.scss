@@ -1,11 +1,12 @@
 .header {
-  color: white;
+  color: $app-color;
   width: 100%;
   margin: 0;
   height: $header-height;
   display: flex;
   align-items: center;
   position: relative;
+  border-bottom: 2px solid $app-color;
   h1 {
     margin-top: 0;
     margin-bottom: 0;
@@ -13,7 +14,7 @@
     font-size: $header-height * 0.5;
     a {
       text-decoration: none;
-      color: white;
+      color: $app-color;
     }
   }
 }

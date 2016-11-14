@@ -25,7 +25,7 @@ let devServer = new DevServer(compiler, {
   // webpack-dev-middleware options
   quiet: false,
   noInfo: true,
-  publicPath: '/',
+  publicPath: '/jissho2/',
   stats: { colors: true }
 })
 
