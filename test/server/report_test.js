@@ -22,7 +22,7 @@ const {
 
 describe('Report server', function () {
   let request = arequest.create({ jar: true })
-  this.timeout(10000)
+  this.timeout(15000)
   let restPort
   let observer
   let baseUrl
