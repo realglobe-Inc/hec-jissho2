@@ -32,6 +32,9 @@ tmp
 .npmrc
 .DS_Store
 
+var
+*.rdb
+
 server/public/js
 server/public/css
 server/public/uploaded

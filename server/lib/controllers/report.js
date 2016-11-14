@@ -39,7 +39,7 @@ const reportController = {
           where: {
             report_full_id
           },
-          order: 'sent_at'
+          order: 'date'
         })
         if (!latest) {
           // ここは通らない

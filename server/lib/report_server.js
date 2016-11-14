@@ -27,12 +27,11 @@ Object.assign(reportServer, {
   createObserver () {
     let { port } = this
     if (typeof port !== 'number') {
-      throw new Error(`port is ${port}`)
+      throw new Error(`Port given to Report observer is ${port}`)
     }
     return new Observer({
       protocol: 'http',
-      hostname: 'localhost',
-      port
+      host: `localhost:${port}`
     })
   }
 })

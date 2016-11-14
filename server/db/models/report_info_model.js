@@ -3,15 +3,10 @@
  */
 const Sequelize = require('sequelize')
 const Model = require('./model')
-const Report = require('./report_model')
 
 const ReportInfo = Model('report_info', {
   report_full_id: {
-    type: Sequelize.STRING,
-    references: {
-      model: Report,
-      key: 'report_full_id'
-    }
+    type: Sequelize.STRING
   },
   /* 緯度 */
   lat: {

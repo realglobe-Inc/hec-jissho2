@@ -3,8 +3,8 @@ const sugoCaller = require('sugo-caller')
 const co = require('co')
 const debug = require('debug')('hec:report-observer')
 const formatter = require('@self/helper/formatter')
-const db = require('@self/db')
-const { Report, ReportInfo } = db
+const models = require('@self/db/models')
+const { Report, ReportInfo } = models
 const REPORTER_MODULE = 'reporter'
 
 /**
@@ -16,6 +16,12 @@ class ReportObserver {
    */
   constructor (options) {
     const s = this
+    let {
+      protocol,
+      host
+    } = options
+    s.protocol = protocol
+    s.host = host
     s.observer = sugoObserver(s._handler.bind(s), options)
     s.callers = {}
   }
@@ -48,10 +54,11 @@ class ReportObserver {
       }
 
       // 接続時
-      if (event === 'actor:update' && data.spec.hitoe) {
+      if (event === 'actor:update' && data.spec.reporter) {
         // caller
         debug('Trying to connect caller: ', actorKey)
-        let {protocol, host} = s.location
+        let {protocol, host} = s
+        console.log(protocol, host)
         let caller = sugoCaller({protocol, host})
         let actor = yield caller.connect(actorKey)
         let reporter = actor.get(REPORTER_MODULE)
@@ -90,11 +97,11 @@ class ReportObserver {
    */
   _pushReportDb ({actorKey, event}) {
     return (report) => co(function * () {
-      let infoData = formatter.formatRawToDb({report, actorKey, event})
+      let infoData = formatter.infoRawToDb({report, actorKey, event})
       debug('Observer recieve report', infoData)
 
       let { report_full_id } = infoData
-      let found = Report.findOne({
+      let found = yield Report.findOne({
         where: { report_full_id }
       })
       if (!found) {
@@ -109,7 +116,7 @@ class ReportObserver {
         })
       }
 
-      ReportInfo.create(infoData)
+      yield ReportInfo.create(infoData)
     }).catch((err) => console.error(err))
   }
 }

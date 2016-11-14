@@ -8,29 +8,39 @@ const assert = require('assert')
 const co = require('co')
 const arequest = require('arequest')
 const reportServer = require('../../server/lib/report_server')
-const fs = require('fs')
 const aport = require('aport')
+const asleep = require('asleep')
 const db = require('../../server/db')
 const reportUrl = require('../../server/helper/urls').report
+const sugoActor = require('sugo-actor')
+const { Module } = sugoActor
 
 describe('Report server', function () {
   let request = arequest.create({ jar: true })
   this.timeout(10000)
   let restPort
+  let observer
+  let baseUrl
+
   before(() => co(function * () {
     yield db.sync({ force: true })
     yield db.seed()
     restPort = yield aport()
-    yield reportServer.listen({ port: restPort })
+    baseUrl = `http://localhost:${restPort}`
+    yield reportServer.listen(restPort)
+    observer = reportServer.createObserver()
+    yield observer.start()
   }))
 
   after(() => co(function * () {
+    if (observer) {
+      yield observer.stop()
+    }
     yield reportServer.close()
     yield db.drop()
   }))
 
   it('Api request', () => co(function * () {
-    let baseUrl = `http://localhost:${restPort}`
     let report_full_id
     // Get open reports
     {
@@ -80,6 +90,52 @@ describe('Report server', function () {
       assert.equal(statusCode, 200)
       assert.ok(body.find(report => report.report_full_id === report_full_id))
     }
+  }))
+
+  it('Observer', () => co(function * () {
+    let reportId = 1
+    let actorKey = 'qq:reporter:99'
+    let reportFullId = `${actorKey}#${reportId}`
+    // Actor connection
+    let reporter = new Module({
+      report () {
+        this.emit('emergency', {
+          id: reportId,
+          heartRate: 40,
+          location: [1, 2, 3],
+          date: (new Date()).toString()
+        })
+      }
+    })
+    let actor = sugoActor({
+      port: restPort,
+      key: actorKey,
+      modules: {
+        reporter
+      }
+    })
+    yield actor.connect()
+
+    // Emit report
+    yield asleep(1000)
+    reporter.report()
+    yield asleep(2000)
+    let { body: reports } = yield request({
+      url: `${baseUrl}${reportUrl.getOpenReports()}`,
+      method: 'GET',
+      json: true
+    })
+    assert.ok(reports.find((report) => report.report_full_id === reportFullId))
+
+    let url = `${baseUrl}${reportUrl.getReportInfo(reportFullId)}`
+    let { body: reportInfo } = yield request({
+      url,
+      method: 'GET',
+      json: true
+    })
+    assert.ok(reportInfo.report_full_id, reportFullId)
+
+    yield actor.disconnect()
   }))
 })
 

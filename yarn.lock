@@ -332,7 +332,7 @@ asap@~2.0.3:
   version "2.0.5"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/asap/-/asap-2.0.5.tgz#522765b50c3510490e52d7dcfe085ef9ba96958f"
 
-asenv@^1.1.0:
+asenv@^1.0.4, asenv@^1.0.6, asenv@^1.1.0:
   version "1.1.0"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/asenv/-/asenv-1.1.0.tgz#70bd3f5181c747e8e78c6e47d817708c9f6fe56a"
   dependencies:
@@ -857,6 +857,10 @@ base64-arraybuffer@0.1.2:
   version "0.1.2"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/base64-arraybuffer/-/base64-arraybuffer-0.1.2.tgz#474df4a9f2da24e05df3158c3b1db3c3cd46a154"
 
+base64-arraybuffer@0.1.5:
+  version "0.1.5"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/base64-arraybuffer/-/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
+
 base64-js@^1.0.2:
   version "1.2.0"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/base64-js/-/base64-js-1.2.0.tgz#a39992d723584811982be5e290bb6a53d86700f1"
@@ -990,6 +994,10 @@ buffer@^4.9.0:
 builtin-modules@^1.0.0:
   version "1.1.1"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
+
+bwindow@^1.0.7:
+  version "1.0.7"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/bwindow/-/bwindow-1.0.7.tgz#0f89b43c53aee57b19fe055e41e46b245d17c235"
 
 bytes@2.3.0:
   version "2.3.0"
@@ -1647,6 +1655,23 @@ engine.io-client@1.6.9:
     xmlhttprequest-ssl "1.5.1"
     yeast "0.1.2"
 
+engine.io-client@1.7.2:
+  version "1.7.2"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/engine.io-client/-/engine.io-client-1.7.2.tgz#12f01d3d9d676908a86339cee067ff799a585c3d"
+  dependencies:
+    component-emitter "1.1.2"
+    component-inherit "0.0.3"
+    debug "2.2.0"
+    engine.io-parser "1.3.1"
+    has-cors "1.1.0"
+    indexof "0.0.1"
+    parsejson "0.0.1"
+    parseqs "0.0.2"
+    parseuri "0.0.4"
+    ws "1.1.1"
+    xmlhttprequest-ssl "1.5.1"
+    yeast "0.1.2"
+
 engine.io-parser@1.2.4:
   version "1.2.4"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/engine.io-parser/-/engine.io-parser-1.2.4.tgz#e0897b0bf14e792d4cd2a5950553919c56948c42"
@@ -1657,6 +1682,17 @@ engine.io-parser@1.2.4:
     blob "0.0.4"
     has-binary "0.1.6"
     utf8 "2.1.0"
+
+engine.io-parser@1.3.1:
+  version "1.3.1"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/engine.io-parser/-/engine.io-parser-1.3.1.tgz#9554f1ae33107d6fbd170ca5466d2f833f6a07cf"
+  dependencies:
+    after "0.8.1"
+    arraybuffer.slice "0.0.6"
+    base64-arraybuffer "0.1.5"
+    blob "0.0.4"
+    has-binary "0.1.6"
+    wtf-8 "1.0.0"
 
 engine.io@1.6.10:
   version "1.6.10"
@@ -1714,6 +1750,16 @@ es6-iterator@2:
     d "^0.1.1"
     es5-ext "^0.10.7"
     es6-symbol "3"
+
+es6-promise@^4.0.3:
+  version "4.0.5"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/es6-promise/-/es6-promise-4.0.5.tgz#7882f30adde5b240ccfa7f7d78c548330951ae42"
+
+es6-promisify:
+  version "5.0.0"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/es6-promisify/-/es6-promisify-5.0.0.tgz#5109d62f3e56ea967c4b63505aef08291c8a5203"
+  dependencies:
+    es6-promise "^4.0.3"
 
 es6-symbol@^3.0.2, es6-symbol@~3.1, es6-symbol@3:
   version "3.1.0"
@@ -2003,6 +2049,10 @@ for-own@^0.1.4:
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/for-own/-/for-own-0.1.4.tgz#0149b41a39088c7515f51ebe1c1386d45f935072"
   dependencies:
     for-in "^0.1.5"
+
+foreach@^2.0.4:
+  version "2.0.5"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/foreach/-/foreach-2.0.5.tgz#0bee005018aeb260d0a3af3ae658dd0136ec1b99"
 
 forever-agent@~0.6.1:
   version "0.6.1"
@@ -2592,6 +2642,12 @@ jsesc@~0.5.0:
 json-loader@^0.5.4:
   version "0.5.4"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/json-loader/-/json-loader-0.5.4.tgz#8baa1365a632f58a3c46d20175fc6002c96e37de"
+
+json-pointer@^0.5.0:
+  version "0.5.0"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/json-pointer/-/json-pointer-0.5.0.tgz#e0cdd1e561d50608fbc7de810923beb4df11ba0c"
+  dependencies:
+    foreach "^2.0.4"
 
 json-schema@0.2.3:
   version "0.2.3"
@@ -4096,13 +4152,49 @@ setprototypeof@1.0.1:
   version "1.0.1"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/setprototypeof/-/setprototypeof-1.0.1.tgz#52009b27888c4dc48f591949c0a8275834c1ca7e"
 
-sg-check@^1.0.2:
+sg-check@^1.0.2, sg-check@^1.0.6:
   version "1.0.6"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sg-check/-/sg-check-1.0.6.tgz#6331e6177d44e20934c7d38aed1b6fdc28240d6e"
   dependencies:
     asfs "^1.0.5"
     co "^4.6.0"
     hasbin "^1.2.3"
+
+sg-queue@^1.0.2:
+  version "1.0.2"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sg-queue/-/sg-queue-1.0.2.tgz#0c51848d63bd12d08c7a26aab0c05d343966e277"
+  dependencies:
+    co "^4.6.0"
+
+sg-schemas@^2.1.3:
+  version "2.1.3"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sg-schemas/-/sg-schemas-2.1.3.tgz#62224d6d982fa1f781df08dc25cd5a9d6401331e"
+  dependencies:
+    co "^4.6.0"
+    filecopy "^2.0.2"
+
+sg-serializer@^1.1.6:
+  version "1.1.6"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sg-serializer/-/sg-serializer-1.1.6.tgz#ba2ba0cb7672fc0a41ff5878ff3e6493cc9cbec3"
+  dependencies:
+    co "^4.6.0"
+    json-pointer "^0.5.0"
+
+sg-socket-client@^1.2.17:
+  version "1.2.17"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sg-socket-client/-/sg-socket-client-1.2.17.tgz#d58c41792d65e453c75a4576f0e2552e66cfa8d8"
+  dependencies:
+    asenv "^1.0.4"
+    co "^4.6.0"
+    debug "^2.2.0"
+    sg-socket-constants "^1.3.6"
+    socket.io-client "^1.4.8"
+
+sg-socket-constants@^1.3.10, sg-socket-constants@^1.3.6:
+  version "1.3.10"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sg-socket-constants/-/sg-socket-constants-1.3.10.tgz#886b8679557205ecc454fd823a450dfa1dfb62c9"
+  dependencies:
+    co "^4.6.0"
 
 sg-travis@^1.1.33:
   version "1.1.33"
@@ -4118,6 +4210,13 @@ sg-travis@^1.1.33:
     ignore "^3.1.3"
     request "^2.74.0"
     request-promise "^4.0.2"
+
+sg-validator@^1.0.4:
+  version "1.0.4"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sg-validator/-/sg-validator-1.0.4.tgz#907bf547d2942f8efcf532c15cd900f75dfa800f"
+  dependencies:
+    co "^4.6.0"
+    tv4 "^1.2.7"
 
 sha.js@2.2.6:
   version "2.2.6"
@@ -4143,6 +4242,22 @@ socket.io-adapter@0.4.0:
   dependencies:
     debug "2.2.0"
     socket.io-parser "2.2.2"
+
+socket.io-client@^1.4.8:
+  version "1.5.1"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/socket.io-client/-/socket.io-client-1.5.1.tgz#0f366eae7de34bc880ebd71106e1ce8143775827"
+  dependencies:
+    backo2 "1.0.2"
+    component-bind "1.0.0"
+    component-emitter "1.2.0"
+    debug "2.2.0"
+    engine.io-client "1.7.2"
+    has-binary "0.1.7"
+    indexof "0.0.1"
+    object-component "0.0.3"
+    parseuri "0.0.4"
+    socket.io-parser "2.3.1"
+    to-array "0.1.4"
 
 socket.io-client@1.4.6:
   version "1.4.6"
@@ -4175,6 +4290,15 @@ socket.io-parser@2.2.6:
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/socket.io-parser/-/socket.io-parser-2.2.6.tgz#38dfd61df50dcf8ab1d9e2091322bf902ba28b99"
   dependencies:
     benchmark "1.0.0"
+    component-emitter "1.1.2"
+    debug "2.2.0"
+    isarray "0.0.1"
+    json3 "3.3.2"
+
+socket.io-parser@2.3.1:
+  version "2.3.1"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/socket.io-parser/-/socket.io-parser-2.3.1.tgz#dd532025103ce429697326befd64005fcfe5b4a0"
+  dependencies:
     component-emitter "1.1.2"
     debug "2.2.0"
     isarray "0.0.1"
@@ -4353,6 +4477,25 @@ style-loader@^0.13.1:
   dependencies:
     loader-utils "^0.2.7"
 
+sugo-actor:
+  version "4.4.6"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sugo-actor/-/sugo-actor-4.4.6.tgz#5b0b210529cfcc1f3f32c47c92a2f4e26537fb74"
+  dependencies:
+    argx "^3.0.1"
+    asenv "^1.0.6"
+    asleep "^1.0.3"
+    bwindow "^1.0.7"
+    co "^4.6.0"
+    sg-queue "^1.0.2"
+    sg-schemas "^2.1.3"
+    sg-serializer "^1.1.6"
+    sg-socket-client "^1.2.17"
+    sg-socket-constants "^1.3.10"
+    sg-validator "^1.0.4"
+    sugo-constants "^2.0.0"
+    sugo-module-base "^1.1.2"
+    uuid "^2.0.2"
+
 sugo-ci-site@^1.0.21:
   version "1.0.21"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sugo-ci-site/-/sugo-ci-site-1.0.21.tgz#96a5c4aa0129ed533c80a6ce9d623c7decfc9391"
@@ -4372,6 +4515,22 @@ sugo-ci-site@^1.0.21:
     sg-check "^1.0.2"
     stringcase "^3.0.1"
     sugos-assets "^2.0.4"
+
+sugo-constants@^2.0.0:
+  version "2.0.0"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sugo-constants/-/sugo-constants-2.0.0.tgz#adcc501747267b360050e7596186cd03e07d2d2b"
+  dependencies:
+    co "^4.6.0"
+
+sugo-module-base@^1.1.2:
+  version "1.1.2"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/sugo-module-base/-/sugo-module-base-1.1.2.tgz#41f98807ef4a814fce437be0434e13ee1b44fbae"
+  dependencies:
+    co "^4.6.0"
+    debug "^2.2.0"
+    defaults "^1.0.3"
+    sg-check "^1.0.6"
+    sugo-constants "^2.0.0"
 
 sugos-assets@^2.0.4:
   version "2.0.4"
@@ -4516,6 +4675,10 @@ tty-browserify@0.0.0:
 tunnel-agent@~0.4.1:
   version "0.4.3"
   resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/tunnel-agent/-/tunnel-agent-0.4.3.tgz#6373db76909fe570e08d73583365ed828a74eeeb"
+
+tv4@^1.2.7:
+  version "1.2.7"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/tv4/-/tv4-1.2.7.tgz#bd29389afc73ade49ae5f48142b5d544bf68d120"
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.3"
@@ -4822,6 +4985,17 @@ ws@1.0.1:
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"
+
+ws@1.1.1:
+  version "1.1.1"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/ws/-/ws-1.1.1.tgz#082ddb6c641e85d4bb451f03d52f06eabdb1f018"
+  dependencies:
+    options ">=0.0.5"
+    ultron "1.0.x"
+
+wtf-8@1.0.0:
+  version "1.0.0"
+  resolved "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual/wtf-8/-/wtf-8-1.0.0.tgz#392d8ba2d0f1c34d1ee2d630f15d0efb68e1048a"
 
 xmlhttprequest-ssl@1.5.1:
   version "1.5.1"
