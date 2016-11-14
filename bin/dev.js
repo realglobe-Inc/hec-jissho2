@@ -1,33 +1,36 @@
 #!/usr/bin/env node
-/**
- * Start webpack-dev-server.
- */
-const co = require('co')
-const webpack = require('webpack')
-const DevServer = require('webpack-dev-server')
-const config = require('../webpack.config.dev')
 
-const PORT = 3000
-const HOST = 'localhost'
+process.env.NODE_ENV = 'development'
+process.env.DEBUG = 'sg:*,hec:*'
+
+const { port } = require('@self/server/env')
+const ui = require('@self/server/lib/ui_server')
+const camera = require('@self/server/lib/camera_server')
+const report = require('@self/server/lib/report_server')
+const proxy = require('../ci/dev/proxy_server')
+const co = require('co')
+const debug = require('debug')('hec:dev')
 
 co(function * () {
-  const compiler = webpack(config)
-  let server = new DevServer(compiler, {
-    contentBase: 'public',
-    hot: true,
-    historyApiFallback: false,
-    compress: false,
-    staticOptions: {},
+  // UI
+  yield ui.listen(port.UI)
+  debug(`UI server listening on port ${port.UI}`)
 
-    // webpack-dev-middleware options
-    quiet: false,
-    noInfo: true,
-    publicPath: '/',
-    stats: { colors: true }
-  })
+  // Camera
+  yield camera.listen(port.CAMERA)
+  debug(`Camera server listening on port ${port.CAMERA}`)
 
-  server.listen(PORT, HOST, function (err) {
-    err ? console.error(err)
-        : console.log(`webpack-dev-server listening at http://${HOST}:${PORT}`)
+  // Report
+  yield report.listen(port.REPORT)
+  debug(`Report server listening on port ${port.REPORT}`)
+  let observer = report.createObserver({
+    // Master actor config
+    protocol: 'http',
+    host: `localhost:${port.UI}`
   })
+  yield observer.start()
+
+  // Proxy
+  yield proxy.listen(port.PROXY)
+  debug(`Proxy server listening on port ${port.PROXY}`)
 })

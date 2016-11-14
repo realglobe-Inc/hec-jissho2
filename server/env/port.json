@@ -2,11 +2,13 @@
   "default": {
     "UI": 3001,
     "CAMERA": 3002,
-    "REPORT": 3003
+    "REPORT": 3003,
+    "PROXY": 3030
   },
   "test": {
     "UI": 3101,
     "CAMERA": 3102,
-    "REPORT": 3103
+    "REPORT": 3103,
+    "PROXY": 3030
   }
 }
