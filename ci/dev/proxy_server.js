@@ -6,32 +6,19 @@
 
 const Koa = require('koa')
 const proxy = require('koa-proxy')
+const promisify = require('es6-promisify')
 const { port } = require('@self/server/env')
 
-// function app (name, port) {
-//   let server = new Koa()
-//   server.use(function * () {
-//     this.body = `APP: ${name},URL: ${this.request.url}\n`
-//   })
-//   server.listen(port)
-// }
-//
-// app('app1', 3001)
-// app('app2', 3002)
-// app('app3', 3003)
-
 let proxyServer = new Koa()
+
+// Depends on @self/server/lib/consts
 useProxy(proxyServer, /^\/jissho2\/rest\/cameras/, port.CAMERA)
 useProxy(proxyServer, /^\/jissho2\/rest\/reports/, port.REPORT)
 useProxy(proxyServer, /^\/jissho2/, port.UI)
+
+// promisify listen
 let listen = proxyServer.listen.bind(proxyServer)
-proxyServer.listen = (port) => {
-  return new Promise((resolve, reject) => {
-    listen(port, (err) => {
-      err ? reject(err) : resolve()
-    })
-  })
-}
+proxyServer.listen = promisify(listen)
 
 if (!module.parent) {
   proxyServer.listen(port.PROXY)
@@ -49,7 +36,7 @@ function useProxy (server, match, port) {
 }
 
 /**
- * /jissho2/hoge -> /hoge
+ * Cut URL: /jissho2/hoge -> /hoge
  */
 function cut (path) {
   let shorten = path.replace(/^\/jissho2/, '') || '/'

@@ -3,7 +3,8 @@
     "UI": 3001,
     "CAMERA": 3002,
     "REPORT": 3003,
-    "PROXY": 3030
+    "PROXY": 3030,
+    "DEV": 3000
   },
   "test": {
     "UI": 3101,

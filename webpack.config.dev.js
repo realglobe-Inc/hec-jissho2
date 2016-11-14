@@ -3,22 +3,23 @@ const { join } = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const autoprefixer = require('autoprefixer')
+const jsonImporter = require('node-sass-json-importer')
+const { port } = require('./server/env')
 
-const HOST = 'localhost'
-const PORT = 3000
 const JS_ENTRY_PATH = 'ui/js/entries'
 const CSS_ENTRY_PATH = 'ui/scss'
 const PUBLIC_PATH = join(__dirname, 'server/public')
 
 const JsConfig = () => {
   let entries = readdirSync(join(__dirname, JS_ENTRY_PATH))
+    .filter((file) => file.match(/\.tsx$/))
     .map((file) => file.split('.')[0])
 
   return {
     entry: entries.reduce((obj, name) => {
       return Object.assign(obj, {
         [name]: [
-          `webpack-dev-server/client?http://${HOST}:${PORT}/`,
+          `webpack-dev-server/client?http://localhost:${port.DEV}/`,
           'webpack/hot/dev-server',
           join(__dirname, JS_ENTRY_PATH, name)
         ]
@@ -51,7 +52,8 @@ const JsConfig = () => {
       preLoaders: [
         {
           test: /\.js$/,
-          loader: 'source-map-loader'
+          loader: 'source-map-loader',
+          exclude: /node_modules/
         }
       ]
     },
@@ -90,7 +92,7 @@ const CssConfig = () => {
       ]
     },
     sassLoader: {
-      // importer: jsonImporter
+      importer: jsonImporter
     },
     postcss () {
       return [ autoprefixer ]

@@ -157,7 +157,7 @@ describe('Report server', function () {
     assert.equal(reportInfo.report_full_id, reportFullId)
     assert.equal(gotReport.report_full_id, reportFullId)
 
-    yield masterActor.disconnect()
+    yield masterActor.disconnect(MASTER_ACTOR.KEY)
     yield actor.disconnect()
   }))
 })

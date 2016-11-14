@@ -1,56 +1,40 @@
+#!/usr/bin/env node
 /**
- * Start a build server by webpack-dev-server.
- * @function devServer
- * @param {Object} options - Optional settings
- * @returns {Promise}
+ * Dev server of webpack
  */
 
-const co = require('co')
-const defaults = require('defaults')
 const DevServer = require('webpack-dev-server')
 const webpack = require('webpack')
-const config = require('../webpack.config.dev')
+const config = require('../../webpack.config.dev')
+const promisify = require('es6-promisify')
+const { port } = require('@self/server/env')
 
-/** @lends devServer */
-function devServer (options = {}) {
-  let { host, port } = defaults(options, {
-    host: 'localhost',
-    port: {
-      SERVER: 3000,
-      BUILD_SERVER: 3002
-    }
-  })
+const compiler = webpack(config)
+const HOST = 'localhost'
 
-  return co(function * () {
-    const compiler = webpack(config({
-      host,
-      port: port.BUILD_SERVER
-    }))
-    let server = new DevServer(compiler, {
-      contentBase: `http://${host}/`,
-      hot: true,
-      historyApiFallback: false,
-      compress: false,
-      proxy: {
-        '*': `http://${host}:${port.SERVER}`
-      },
-      staticOptions: {},
+let devServer = new DevServer(compiler, {
+  contentBase: `http://${HOST}/`,
+  hot: true,
+  historyApiFallback: false,
+  compress: false,
+  proxy: {
+    '*': `http://${HOST}:${port.PROXY}`
+  },
+  staticOptions: {},
 
-      // webpack-dev-middleware options
-      quiet: false,
-      noInfo: true,
-      publicPath: '/',
-      stats: { colors: true }
-    })
+  // webpack-dev-middleware options
+  quiet: false,
+  noInfo: true,
+  publicPath: '/',
+  stats: { colors: true }
+})
 
-    server.listen(port.BUILD_SERVER, host, function (err) {
-      if (err) {
-        console.error(err)
-        return
-      }
-      console.log(`webpack-dev-server listening at http://${host}:${port.BUILD_SERVER}`)
-    })
-  })
+// promisify listen
+let listen = devServer.listen.bind(devServer)
+devServer.listen = promisify(listen)
+
+if (!module.parent) {
+  devServer.listen(port.DEV)
 }
 
 module.exports = devServer
