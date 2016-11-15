@@ -1,0 +1,35 @@
+import * as App from './app'
+import * as Im from 'immutable'
+
+// reducer
+export type Reducer<T> = (state: T, action: {type: string}) => T
+
+// Store state
+export namespace Store {
+  export type InfoDisplay = boolean
+
+  export interface Map {
+    center: App.Location
+  }
+
+  export type Markers = Im.Map<string, App.Marker>
+
+  export interface ModalWindow {
+    reportClose: boolean
+    okWarning: boolean
+  }
+
+  export interface ReportClosed {
+    report: App.Report
+    closed: boolean
+  }
+
+  type reportFullId = string
+  export type Reports = Im.Map<reportFullId, App.Report>
+
+  export interface SelectedMarkerKey {
+    isSelected: boolean
+    key: string
+  }
+}
+

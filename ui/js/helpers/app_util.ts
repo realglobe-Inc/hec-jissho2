@@ -1,15 +1,6 @@
 /**
  * Application util functions
  */
-// import store from '../store'
-// import actions from '../actions'
-// import co from 'co'
-// import urls from './urls'
-// import { request } from './js_util'
-// import callerManager from './caller_manager'
-// import {MODAL} from '../constants'
-//
-// const debug = require('debug')('hec:app_util')
 
 export default {
   // /**

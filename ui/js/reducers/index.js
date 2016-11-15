@@ -42,6 +42,7 @@ State shape is below.
 */
 
 import { combineReducers } from 'redux'
+import dominantColor from './dominant_color'
 import hitoeCallers from './hitoe_callers'
 import infoDisplay from './info_display'
 import markers from './markers'
@@ -52,6 +53,7 @@ import reports from './reports'
 import reportClosed from './report_closed'
 
 const Reducer = combineReducers({
+  dominantColor,
   hitoeCallers,
   infoDisplay,
   markers,
