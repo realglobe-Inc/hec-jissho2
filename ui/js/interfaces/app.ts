@@ -22,8 +22,16 @@ export interface Report {
 }
 
 export interface Marker {
-  key: string
+  id: number
   type: string
   name: string
   location: Location
+  keys: {
+    reportFullId?: string
+    actorKey?: string
+  }
+}
+
+export interface Caller {
+  get()
 }

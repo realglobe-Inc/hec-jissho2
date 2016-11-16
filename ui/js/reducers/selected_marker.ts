@@ -1,29 +1,29 @@
 import { Reducer, Store } from '../interfaces/store'
 import * as Actions from '../interfaces/actions'
 
-let init: Store.SelectedMarkerKey = {
+let init: Store.SelectedMarker = {
   isSelected: false,
-  key: ''
+  id: -1
 }
 
 /**
  * Reducer of selected spot
  */
-const selectedMarkerKey: Reducer<Store.SelectedMarkerKey> = (state: Store.SelectedMarkerKey = init, action: Actions.SelectedMarkerKeyAction) => {
+const selectedMarker: Reducer<Store.SelectedMarker> = (state: Store.SelectedMarker = init, action: Actions.SelectedMarkerAction) => {
   switch (action.type) {
-    case Actions.SELECT_MARKER_KEY:
+    case Actions.SELECT_MARKER:
       return {
         isSelected: true,
-        key: action.key
+        id: action.id
       }
     case Actions.CANCEL_SELECT_MARKER:
       return {
         isSelected: false,
-        key: action.key
+        id: -1
       }
     default:
       return state
   }
 }
 
-export default selectedMarkerKey
+export default selectedMarker

@@ -1,4 +1,4 @@
-import { Location, Report, ReportInfo, Marker } from './app'
+import { Location, Report, ReportInfo, Marker, Caller } from './app'
 
 export interface Action {
   type: string
@@ -66,18 +66,26 @@ interface AddMarkerAction {
 }
 interface RemoveMarkerAction {
   type: 'REMOVE_MARKER'
-  key: string
+  id: number
 }
 interface UpdateMarkerAction {
   type: 'UPDATE_MARKER'
-  key: string
+  id: number
   location: Location
 }
 export type MarkersAction = SetMarkerAction | AddMarkerAction | RemoveMarkerAction | UpdateMarkerAction
 
 // selected marker key
-export const SELECT_MARKER_KEY: string = 'SELECT_MARKER_KEY'
+export const SELECT_MARKER: string = 'SELECT_MARKER_KEY'
 export const CANCEL_SELECT_MARKER: string = 'CANCEL_SELECT_MARKER'
-export interface SelectedMarkerKeyAction extends Action {
-  key?: string
+export interface SelectedMarkerAction extends Action {
+  id?: number
+}
+
+// callers
+export const ADD_CALLER: string = 'ADD_CALLER'
+export const REMOVE_CALLER: string = 'REMOVE_CALLER'
+export interface CallersAction extends Action {
+  key: string
+  caller?: Caller
 }

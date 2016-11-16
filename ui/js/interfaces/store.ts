@@ -12,7 +12,7 @@ export namespace Store {
     center: App.Location
   }
 
-  export type Markers = Im.Map<string, App.Marker>
+  export type Markers = Im.Map<number, App.Marker>
 
   export interface ModalWindow {
     reportClose: boolean
@@ -27,9 +27,12 @@ export namespace Store {
   type reportFullId = string
   export type Reports = Im.Map<reportFullId, App.Report>
 
-  export interface SelectedMarkerKey {
+  export interface SelectedMarker {
     isSelected: boolean
-    key: string
+    id: number
   }
+
+  type actorKey = string
+  export type Callers = Im.Map<actorKey, App.Caller>
 }
 
