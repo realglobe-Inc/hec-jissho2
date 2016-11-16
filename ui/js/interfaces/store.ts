@@ -34,5 +34,18 @@ export namespace Store {
 
   type actorKey = string
   export type Callers = Im.Map<actorKey, App.Caller>
+
+  export interface State {
+    infoDisplay: InfoDisplay
+    map: Map
+    markers: Markers
+    modalWindow: ModalWindow
+    reportClosed: ReportClosed
+    reports: Reports
+    selectedMarker: SelectedMarker
+    callers: Callers
+  }
 }
 
+
+export default Store

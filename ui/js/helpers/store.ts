@@ -1,8 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-// import thunkMiddleware from 'redux-thunk'
 import Reducer from '../reducers'
 
-// const middlewares = [thunkMiddleware]
 const middlewares: any[] = []
 
 let store = createStore(

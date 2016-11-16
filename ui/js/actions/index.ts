@@ -6,7 +6,6 @@ import * as modalWindow from './modal_window'
 import * as reportClosed from './report_closed'
 import * as reports from './reports'
 import * as selectedMarker from './selected_marker'
-import * as A from '../interfaces/actions'
 
 const actions = {
   callers,

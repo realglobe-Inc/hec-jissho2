@@ -10,14 +10,15 @@ interface Props {
 
 class Counter extends React.Component<Props, {}> {
   render () {
-    return (
-      <div>
-        <input type='button' onClick={() => { this.props.dispatch(actions.incrementCount()) }} value='Button'/>
-        <div>
-          Counter: {this.props.storeState.count}
-        </div>
-      </div>
-    )
+    return <div></div>
+    // return (
+    //   <div>
+    //     <input type='button' onClick={() => { this.props.dispatch(actions.incrementCount()) }} value='Button'/>
+    //     <div>
+    //       Counter: {this.props.storeState.count}
+    //     </div>
+    //   </div>
+    // )
   }
 }
 

@@ -4,7 +4,9 @@ export interface Action {
   type: string
 }
 
-export type ActionCreator<T> = (any) => T
+type creatorAny<T> = (any) => T
+type creatorNull<T> = () => T
+export type ActionCreator<T> = creatorAny<T> | creatorNull<T>
 
 // info_display
 export const TOGGLE_INFO_DISPLAY: string = 'TOGGLE_INFO_DISPLAY';

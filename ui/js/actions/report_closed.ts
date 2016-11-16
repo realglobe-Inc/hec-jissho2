@@ -1,13 +1,13 @@
 import * as Actions from '../interfaces/actions'
 import { Report } from '../interfaces/app'
 
-type Creator = Actions.ActionCreator<Actions.ReportClosedAction>
+type Action = Actions.ReportClosedAction
 
-export const setClosedReport: Creator = (report: Report) => ({
+export const setClosedReport = (report: Report): Action => ({
   type: Actions.SET_CLOSED_REPORT,
   report: report
 })
 
-export const clearClosedReport: Creator = () => ({
+export const clearClosedReport = (): Action => ({
   type: Actions.CLEAR_CLOSED_REPORT
 })

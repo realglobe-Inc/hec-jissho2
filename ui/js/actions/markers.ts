@@ -1,24 +1,24 @@
 import * as Actions from '../interfaces/actions'
 import { Marker, Location } from '../interfaces/app'
 
-type Creator = Actions.ActionCreator<Actions.MarkersAction>
+type Action = Actions.MarkersAction
 
-export const setMarker: Creator = (markers: Marker[]) => ({
+export const setMarker = (markers: Marker[]): Action => ({
   type: Actions.SET_MARKERS,
   markers
 })
 
-export const addMarker: Creator = (marker: Marker) => ({
+export const addMarker = (marker: Marker): Action => ({
   type: Actions.ADD_MARKER,
   marker
 })
 
-export const removeMarker: Creator = (id: number) => ({
+export const removeMarker = (id: number): Action => ({
   type: Actions.REMOVE_MARKER,
   id
 })
 
-export const updateMarker: Creator = ({id, location}: {id: number, location: Location}) => ({
+export const updateMarker = ({id, location}: {id: number, location: Location}): Action => ({
   type: Actions.UPDATE_MARKER,
   id,
   location

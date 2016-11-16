@@ -1,15 +1,15 @@
 import * as Actions from '../interfaces/actions'
 import { Caller } from '../interfaces/app'
 
-type Creator = Actions.ActionCreator<Actions.CallersAction>
+type Action = Actions.CallersAction
 
-export const addCaller: Creator = ({key, caller}: {key: string, caller: Caller}) => ({
+export const addCaller = ({key, caller}: {key: string, caller: Caller}): Action => ({
   type: Actions.ADD_CALLER,
   key,
   caller
 })
 
-export const removeCaller: Creator = (key: string) => ({
+export const removeCaller = (key: string): Action => ({
   type: Actions.REMOVE_CALLER,
   key
 })
