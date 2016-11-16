@@ -4,6 +4,8 @@ export interface Action {
   type: string
 }
 
+export type ActionCreator<T> = (any) => T
+
 // info_display
 export const TOGGLE_INFO_DISPLAY: string = 'TOGGLE_INFO_DISPLAY';
 export interface InfoDisplayAction extends Action {}
@@ -25,7 +27,7 @@ export interface ModalWindowAction extends Action {}
 export const SET_CLOSED_REPORT: string = 'SET_CLOSED_REPORT'
 export const CLEAR_CLOSED_REPORT: string = 'CLEAR_CLOSED_REPORT'
 export interface ReportClosedAction extends Action {
-  report: Report
+  report?: Report
 }
 
 // reports
