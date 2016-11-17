@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import c from 'classnames'
+import * as c from 'classnames'
 import { ApButton } from 'apeman-react-button'
 import actions from '../actions'
 import Store from '../interfaces/store'

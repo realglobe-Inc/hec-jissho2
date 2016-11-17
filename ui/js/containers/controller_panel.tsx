@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import ControllerPanelArea from '../containers/controller_panel_area'
 import ControllerPanelSelect from '../containers/controller_panel_select'
 import actions from '../actions'
-import c from 'classnames'
+import * as c from 'classnames'
 import Store from '../interfaces/store'
 
 const debug = require('debug')('hec:ControllerPanel')
@@ -24,7 +24,7 @@ class ControllerPanel extends React.Component<Props, any> {
       <div className={c('controller-panel', display ? '' : 'pannel-hidden')}>
         <div className='panel-display-toggle'>
           <i className={c('fa', 'fa-3x', display ? 'fa-caret-left' : 'fa-caret-right')} aria-hidden></i>
-          <div className='expand' onClick={s.toggleDisplay}></div>
+          <div className='expand' onClick={s.toggleDisplay.bind(s)}></div>
         </div>
         <ControllerPanelSelect/>
         <ControllerPanelArea/>

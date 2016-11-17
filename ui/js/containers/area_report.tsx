@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import actions from '../actions'
-import c from 'classnames'
+import * as c from 'classnames'
 import Store from '../interfaces/store'
 import storeUtil from '../helpers/store_util'
 import appUtil from '../helpers/app_util'

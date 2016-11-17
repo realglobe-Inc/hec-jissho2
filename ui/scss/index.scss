@@ -1,10 +1,9 @@
 @import "vars.json";
-@import "partials/base.scss";
-@import "partials/header.scss";
-
-body, html {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  color: #555;
-}
+@import "partials/base";
+@import "partials/color";
+@import "partials/header";
+@import "partials/controller";
+@import "partials/report";
+@import "partials/modals";
+@import "partials/warning";
+@import "partials/controller-panel";

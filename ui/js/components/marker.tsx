@@ -2,7 +2,7 @@
  * Marker of marker on map
  */
 import * as React from 'react'
-import c from 'classnames'
+import * as c from 'classnames'
 import { MarkerType } from '../interfaces/app'
 
 const debug = require('debug')('hec:components:marker')
