@@ -15,15 +15,17 @@ export interface Report {
   reportFullId: string
   reportId: number
   actorKey: string
-  reportAt: string
+  reportAt: Date
   closedAt: string
   isOpen: boolean
   latestInfo?: ReportInfo
 }
 
+export type MarkerType = 'report' | 'center' | 'drone' | 'person' | 'default'
+
 export interface Marker {
   id: number
-  type: string
+  type: MarkerType
   name: string
   location: Location
   keys: {
