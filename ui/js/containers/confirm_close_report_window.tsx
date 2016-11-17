@@ -24,8 +24,8 @@ class ConfirmCloseReportWindow extends React.Component<Props, any> {
             通報をクローズしますか？
           </div>
           <div className='buttons'>
-            <ApButton onTap={s.yes}>はい</ApButton>
-            <ApButton onTap={s.no}>いいえ</ApButton>
+            <ApButton onTap={s.yes.bind(s)}>はい</ApButton>
+            <ApButton onTap={s.no.bind(s)}>いいえ</ApButton>
           </div>
         </div>
       </div>

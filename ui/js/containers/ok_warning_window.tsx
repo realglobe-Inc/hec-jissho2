@@ -25,7 +25,7 @@ class OkWarningWindow extends React.Component<Props, any> {
             通報が来ました！
           </div>
           <div className='buttons'>
-            <ApButton onTap={s.stop}>閉じる</ApButton>
+            <ApButton onTap={s.stop.bind(s)}>閉じる</ApButton>
           </div>
         </div>
       </div>

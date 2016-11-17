@@ -22,7 +22,7 @@ class ControllerPanelSelect extends React.Component<Props, any> {
           (
             <div className={'controller-panel-item' + (marker.id === selectedMarker.id ? ' controller-panel-item-selected' : '')}
                  key={marker.id}
-                 onClick={s.selectMarker}
+                 onClick={s.selectMarker.bind(s)}
                  data={String(marker.id)}>
               {marker.name}
             </div>

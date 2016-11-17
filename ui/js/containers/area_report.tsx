@@ -127,7 +127,7 @@ class AreaReport extends React.Component<Props, any> {
       <div className='close-report'>
         <ApButton
           primary wide danger style={{border: '0 solid'}}
-          onTap={this.showConfirmWindow}
+          onTap={this.showConfirmWindow.bind(this)}
           >
           通報をクローズする
         </ApButton>
