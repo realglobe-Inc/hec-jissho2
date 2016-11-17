@@ -9,7 +9,7 @@ import storeUtil from '../helpers/store_util'
 
 const debug = require('debug')('hec:ControllerPanelArea')
 
-// 情報の type
+// 表示する情報の type
 const NOT_SELECTED = 1
 const DEFAULT = 2
 const OPEN_REPORT = 3
@@ -67,23 +67,27 @@ class ControllerPanelArea extends React.Component<Props, any> {
 
   contentType () {
     const s = this
-    let {isSelected, id} = s.props.storeState.selectedMarker
+    let { storeState } = s.props
+    let { isSelected, id } = s.props.storeState.selectedMarker
     if (!isSelected) {
       return NOT_SELECTED
     }
-    // TODO あとまわし
-    return DEFAULT
-    // let marker = storeUtil.getSelectedMarker(s.props.storeState)
-    // let isReportSelected = actorKey.startsWith(HITOE_ACTORKEY_PREFIX)
-    // if (!isReportSelected) {
-    //   return DEFAULT
-    // }
-    // let has = storeUtil.hasOpenReport({state: s.props.storeState, actorKey})
-    // if (has) {
-    //   return OPEN_REPORT
-    // } else {
-    //   return CLOSED_REPORT
-    // }
+    let marker = storeState.markers.get(id)
+    switch (marker.type) {
+      case 'report':
+        let report = storeState.reports.get(marker.keys.reportFullId)
+        if (report.isOpen) {
+          return OPEN_REPORT
+        } else {
+          return CLOSED_REPORT
+        }
+      case 'drone':
+      case 'center':
+      case 'person':
+      case 'default':
+      default:
+        return DEFAULT
+    }
   }
 }
 

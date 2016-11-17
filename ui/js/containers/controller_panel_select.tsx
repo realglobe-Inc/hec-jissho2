@@ -4,6 +4,7 @@ import actions from '../actions'
 import * as c from 'classnames'
 import Store from '../interfaces/store'
 import storeUtil from '../helpers/store_util'
+import { Marker } from '../interfaces/app'
 
 const debug = require('debug')('hec:controller-panel-select')
 
@@ -37,7 +38,7 @@ class ControllerPanelSelect extends React.Component<Props, any> {
     let { storeState, dispatch } = s.props
     let id = Number(e.target.attributes.data.value)
     dispatch(actions.selectedMarker.selectMarker(id))
-    let marker = storeUtil.getSelectedMarker(storeState)
+    let marker = storeState.markers.get(id)
     dispatch(actions.map.changeMapCenter(marker.location))
   }
 }

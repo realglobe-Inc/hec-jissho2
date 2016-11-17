@@ -70,7 +70,7 @@ class ControllerMap extends React.Component<Props, any> {
   renderMarkers () {
     const s = this
     let {markers, selectedMarker} = s.props.storeState
-    return markers.map((marker) =>
+    return markers.toArray().map((marker) =>
       <Marker   key={marker.id}
                 {...marker.location}
                 markerName={marker.name}

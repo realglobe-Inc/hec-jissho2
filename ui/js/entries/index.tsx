@@ -7,6 +7,7 @@ import Header from '../components/header'
 import OkWarningWindow from '../containers/ok_warning_window'
 import ConfirmCloseReportWindow from '../containers/confirm_close_report_window'
 import MapController from '../components/map_controller'
+import { initialize } from '../helpers/store_util'
 
 const rootElement = document.getElementById('site')
 
@@ -23,4 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     </Provider>,
     rootElement
   )
+
+  initialize(store)
 })

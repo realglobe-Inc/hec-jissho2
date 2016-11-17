@@ -56,12 +56,12 @@ interface UpdateReportInfoAction {
 export type ReportsAction = SetReportsAction | AddReportAction | RemoveReportAction | UpdateReportInfoAction
 
 // markers
-export const SET_MARKERS: 'SET_MARKERS' = 'SET_MARKERS'
+export const ADD_MARKERS: 'ADD_MARKERS' = 'ADD_MARKERS'
 export const ADD_MARKER: 'ADD_MARKER' = 'ADD_MARKER'
 export const REMOVE_MARKER: 'REMOVE_MARKER' = 'REMOVE_MARKER'
 export const UPDATE_MARKER: 'UPDATE_MARKER' = 'UPDATE_MARKER'
-interface SetMarkerAction {
-  type: 'SET_MARKERS'
+interface AddMarkersAction {
+  type: 'ADD_MARKERS'
   markers: Marker[]
 }
 interface AddMarkerAction {
@@ -77,7 +77,7 @@ interface UpdateMarkerAction {
   id: number
   location: Location
 }
-export type MarkersAction = SetMarkerAction | AddMarkerAction | RemoveMarkerAction | UpdateMarkerAction
+export type MarkersAction = AddMarkersAction | AddMarkerAction | RemoveMarkerAction | UpdateMarkerAction
 
 // selected marker key
 export const SELECT_MARKER: string = 'SELECT_MARKER_KEY'

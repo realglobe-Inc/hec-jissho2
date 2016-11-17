@@ -1,6 +1,9 @@
 /**
  * Application util functions
  */
+import co from 'co'
+
+const debug = require('debug')('hec:app_util')
 
 export default {
   // /**
@@ -46,7 +49,7 @@ export default {
       case 'simple':
         return `${hours}:${minutes}:${seconds}`
     }
-  }
+  },
   // /**
   //  * 画面に警告の効果
   //  */
@@ -67,35 +70,35 @@ export default {
   //   audio.autoplay = true
   //   store.dispatch(actions.toggleModal(MODAL.OK_WARNING))
   // },
-  // /**
-  //  * 自分の位置情報を {lat, lng} で取得する
-  //  */
-  // getMyLocation () {
-  //   return co(function * () {
-  //     if (!navigator.geolocation) {
-  //       throw new Error('Not found navigator.geolocation')
-  //     }
-  //     let location = yield new Promise((resolve, reject) => {
-  //       navigator.geolocation.getCurrentPosition(
-  //         ({coords}) => {
-  //           let location = {
-  //             lat: coords.latitude,
-  //             lng: coords.longitude
-  //           }
-  //           debug(location)
-  //           resolve(location)
-  //         },
-  //         (err) => {
-  //           reject(err)
-  //         }, {
-  //           enableHighAccuracy: true,
-  //           timeout: 10000
-  //         }
-  //       )
-  //     })
-  //     return location
-  //   })
-  // },
+  /**
+   * 自分の位置情報を {lat, lng} で取得する
+   */
+  getMyLocation () {
+    return co(function * () {
+      if (!navigator.geolocation) {
+        throw new Error('Not found navigator.geolocation')
+      }
+      let location: Location = yield new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          ({coords}) => {
+            let location = {
+              lat: coords.latitude,
+              lng: coords.longitude
+            }
+            debug(location)
+            resolve(location)
+          },
+          (err) => {
+            reject(err)
+          }, {
+            enableHighAccuracy: true,
+            timeout: 10000
+          }
+        )
+      })
+      return location
+    })
+  },
   // /**
   //  * 緯度経度から住所を取得する
   //  */

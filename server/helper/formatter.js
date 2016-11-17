@@ -22,16 +22,16 @@ const formatter = {
     })
     return data
   },
+  infoDbToUI (reportInfo) {
+    let formatted = camel(reportInfo)
+    for (let key of Object.keys(formatted)) {
+      if (_isDate(key)) {
+        formatted[key] = new Date(formatted[key])
+      }
+    }
+    return formatted
+  },
   // TODO あとで
-  // infoDbToUI (report) {
-  //   let formatted = camel(report)
-  //   for (let key of Object.keys(formatted)) {
-  //     if (_isDate(key)) {
-  //       formatted[key] = new Date(formatted[key])
-  //     }
-  //   }
-  //   return formatted
-  // },
   // infoRawToUI ({report, actorKey, event}) {
   //   return this.formatDbToUI(this.formatRawToDb({report, actorKey, event}))
   // },

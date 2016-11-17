@@ -3,8 +3,8 @@ import { Marker, Location } from '../interfaces/app'
 
 type Action = Actions.MarkersAction
 
-export const setMarker = (markers: Marker[]): Action => ({
-  type: Actions.SET_MARKERS,
+export const addMarkers = (markers: Marker[]): Action => ({
+  type: Actions.ADD_MARKERS,
   markers
 })
 

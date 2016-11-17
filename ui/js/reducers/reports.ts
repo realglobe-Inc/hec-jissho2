@@ -11,12 +11,8 @@ let init: Store.Reports = Im.Map<string, Report>()
 const reports: Reducer<Store.Reports> = (state: Store.Reports = init, action: Actions.ReportsAction) => {
   switch (action.type) {
     case Actions.SET_REPORTS:
-      let next = action.reports.reduce((report: Report) => {
-        return {
-          [report.reportFullId]: report
-        }
-      }, {})
-      return Im.Map<string, Report>(next)
+      let setting = action.reports.map((report) => [report.reportFullId, report])
+      return Im.Map<string, Report>(setting)
     case Actions.ADD_REPORT:
       return state.set(action.report.reportFullId, action.report)
     case Actions.REMOVE_REPORT:
