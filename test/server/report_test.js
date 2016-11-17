@@ -81,7 +81,7 @@ describe('Report server', function () {
         method: 'POST',
         json: true,
         body: {
-          closed_date: new Date()
+          closed_at: new Date()
         }
       })
       assert.ok(body.success)

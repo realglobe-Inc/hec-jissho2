@@ -50,6 +50,7 @@ class ControllerPanelArea extends React.Component<Props, any> {
           <AreaReport/>
         )
       case CLOSED_REPORT:
+      // ここに来られない
         return (
           <div className='area-no-report'>
             <h4>通報をクローズしました</h4>
@@ -76,11 +77,7 @@ class ControllerPanelArea extends React.Component<Props, any> {
     switch (marker.type) {
       case 'report':
         let report = storeState.reports.get(marker.keys.reportFullId)
-        if (report.isOpen) {
-          return OPEN_REPORT
-        } else {
-          return CLOSED_REPORT
-        }
+        return OPEN_REPORT
       case 'drone':
       case 'center':
       case 'person':

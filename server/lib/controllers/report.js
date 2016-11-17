@@ -72,22 +72,22 @@ const reportController = {
       schemaMW({
         type: 'object',
         properties: {
-          closed_date: {
+          closed_at: {
             type: 'string'
           }
         },
         required: [
-          'closed_date'
+          'closed_at'
         ]
       }),
       (ctx) => {
         return co(function * () {
           let { report_full_id } = ctx.params
-          let { closed_date } = ctx.request.body
-          closed_date = new Date(closed_date)
+          let { closed_at } = ctx.request.body
+          closed_at = new Date(closed_at)
           yield Report.update({
             is_open: false,
-            closed_date
+            closed_at
           }, {
             where: { report_full_id }
           })

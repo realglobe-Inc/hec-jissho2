@@ -70,7 +70,11 @@ export function initialize (store: Redux.Store<any>) {
     method: 'GET',
     json: true
   }, (err, res, body) => {
-    let centerLocation: Location = err ? { lat: 0, lng: 0 } : body
+    // let centerLocation: Location = err ? { lat: 0, lng: 0 } : body
+    let centerLocation = {
+      lat: 35.701562,
+      lng: 139.753148
+    }
     let marker: Marker = {
         id: newMarkerId(),
         type: 'center',
@@ -108,7 +112,10 @@ export function initialize (store: Redux.Store<any>) {
         // latestInfo: dbReport.latest_info
         latestInfo: {
           reportFullId,
-          location: {lat: 100, lng: 100},
+          location: {
+            lat: 35.701562,
+            lng: 139.753148
+          },
           event: 'emergency',
           date: new Date(),
           info: {}

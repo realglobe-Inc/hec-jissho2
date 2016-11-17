@@ -4,7 +4,8 @@ import * as c from 'classnames'
 import { ApButton } from 'apeman-react-button'
 import actions from '../actions'
 import Store from '../interfaces/store'
-// import appUtil from '../utils/app_util'
+import * as bRequest from 'browser-request'
+import urls from '../helpers/urls'
 
 const debug = require('debug')('hec:ConfirmCloseReportWindow')
 
@@ -34,14 +35,33 @@ class ConfirmCloseReportWindow extends React.Component<Props, any> {
 
   yes () {
     const s = this
-    let { selectedMarker, markers } = s.props.storeState
+    let { selectedMarker, markers, reports } = s.props.storeState
     let { id } = selectedMarker
     let marker = markers.get(id)
     let reportFullId = marker.keys.reportFullId
+    let report = reports.get(reportFullId)
 
-    // TODO close処理
-    // app.closeReport(reportFullId)
-
+    let closedDate = new Date()
+    // Store side
+    let { dispatch } = s.props
+    dispatch(actions.selectedMarker.cancelSelectMarker())
+    dispatch(actions.markers.removeMarker(id))
+    dispatch(actions.reportClosed.setClosedReport(report))
+    dispatch(actions.reports.removeReport(reportFullId))
+    // Server side
+    bRequest({
+      method: 'POST',
+      url: urls.closeReport(reportFullId),
+      body: {
+        closed_at: closedDate
+      },
+      json: true
+    }, (err, res, body) => {
+      if (err) {
+        throw err
+      }
+      window.alert('通報をクローズしました。')
+    })
     s.closeSelf()
   }
 
