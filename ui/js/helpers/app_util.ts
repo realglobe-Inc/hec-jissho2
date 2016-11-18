@@ -2,34 +2,9 @@
  * Application util functions
  */
 import co from 'co'
-
 const debug = require('debug')('hec:app_util')
 
 export default {
-  // /**
-  //  * 通報をクローズする
-  //  */
-  // closeReport (actorKey) {
-  //   return co(function * () {
-  //     let closedDate = new Date()
-  //     // Caller
-  //     callerManager.disconnectCaller(actorKey)
-  //     // Store side
-  //     store.dispatch(actions.removeMarker(actorKey))
-  //     store.dispatch(actions.setClosedReport(actorKey))
-  //     store.dispatch(actions.clearReports(actorKey))
-  //     // Server side
-  //     yield request({
-  //       method: 'POST',
-  //       url: urls.closeReport(),
-  //       json: true,
-  //       body: JSON.stringify({
-  //         actor_key: actorKey,
-  //         closed_date: closedDate.toISOString()
-  //       })
-  //     })
-  //   })
-  // },
   /**
    * Date のインスタンスをいい感じにフォーマットした文字列にして返す
    */
@@ -50,26 +25,6 @@ export default {
         return `${hours}:${minutes}:${seconds}`
     }
   },
-  // /**
-  //  * 画面に警告の効果
-  //  */
-  // warnDisplay () {
-  //   let state = store.getState()
-  //   let shouldSkip = state.modalWindow[MODAL.OK_WARNING]
-  //   if (shouldSkip) {
-  //     return
-  //   }
-  //   // 情報画面の表示
-  //   let {infoDisplay} = state
-  //   if (!infoDisplay) {
-  //     store.dispatch(actions.toggleInfoDisplay())
-  //   }
-  //   // 音
-  //   let audio = document.createElement('audio')
-  //   audio.src = 'warning.mp3'
-  //   audio.autoplay = true
-  //   store.dispatch(actions.toggleModal(MODAL.OK_WARNING))
-  // },
   /**
    * 自分の位置情報を {lat, lng} で取得する
    */

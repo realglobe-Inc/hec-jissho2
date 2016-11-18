@@ -17,7 +17,15 @@ module.exports = {
   },
 
   SUGOS: {
-    REPORTER_MODULE: 'reporter',
+    // Camera
+    PHOTO_MONITOR_ACTOR: {
+      KEY: 'camera:photo-monitor',
+      MODULE: 'photo-monitor',
+      CREATED_EVENT: 'created',
+      REMOVED_EVENT: 'removed'
+    },
+    // Reporter
+    REPORTER_MODULE: 'reporter', // 通報を送る側
     MASTER_ACTOR: {
       KEY: 'qq:master-reporter',
       MODULE: 'master-reporter',

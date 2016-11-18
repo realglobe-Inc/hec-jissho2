@@ -13,6 +13,7 @@ const {
   REPORTER_MODULE,
   MASTER_ACTOR
 } = SUGOS
+const { ReportServer } = require('../config')
 
 /**
  * sugo-hub を監視して、 通報用 actor の接続を検出する。
@@ -25,8 +26,7 @@ class ReportObserver {
     const s = this
     let {
       protocol,
-      host,
-      actorOptions
+      host
     } = options
     s.protocol = protocol
     s.host = host
@@ -40,7 +40,7 @@ class ReportObserver {
       modules: {
         [MASTER_ACTOR.MODULE]: s.masterReporter
       }
-    }, actorOptions))
+    }, ReportServer.masterActorConifg))
   }
 
   /**
@@ -147,7 +147,7 @@ class ReportObserver {
           reportFullId: report_full_id,
           reportId: report_id,
           actorKey: actorKey,
-          reportAt: report_at.infoData.date,
+          reportAt: infoData.date,
           isOpen: true,
           latestInfo: formatter.infoDbToUI(infoData)
         })

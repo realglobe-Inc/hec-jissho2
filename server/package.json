@@ -18,8 +18,9 @@
     "sequelize": "^3.24.8",
     "sg-server": "^1.4.2",
     "snake-case": "^2.1.0",
+    "sugo-actor": "^4.4.6",
     "sugo-caller": "^3.0.5",
-    "sugo-hub": "^4.0.9",
+    "sugo-hub": "^4.0.14",
     "sugo-observer": "^2.0.8",
     "urlencode": "^1.1.0",
     "uuid": "^2.0.3"

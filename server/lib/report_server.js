@@ -22,15 +22,14 @@ let reportServer = sugoHub(config)
 /**
  * Create report observer
  */
-reportServer.createObserver = function (actorOptions) {
+reportServer.createObserver = () => {
   let { port } = this
   if (typeof port !== 'number') {
     throw new Error(`Port given to Report observer is ${port}`)
   }
   return new Observer({
     protocol: 'http',
-    host: `localhost:${port}`,
-    actorOptions
+    host: `localhost:${port}`
   })
 }
 

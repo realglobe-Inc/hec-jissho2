@@ -24,11 +24,7 @@ co(function * () {
   // Report
   yield report.listen(port.REPORT)
   debug(`Report server listening on port ${port.REPORT}`)
-  let observer = report.createObserver({
-    // Master actor config
-    protocol: 'http',
-    host: `localhost:${port.UI}`
-  })
+  let observer = report.createObserver()
   yield observer.start()
 
   // Proxy

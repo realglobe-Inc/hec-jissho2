@@ -35,6 +35,13 @@ export namespace Store {
   type actorKey = string
   export type Callers = Im.Map<actorKey, App.Caller>
 
+  export interface PanelTab {
+    // TODO ??
+  }
+
+  /**
+   * Store全体
+   */
   export interface State {
     infoDisplay: InfoDisplay
     map: Map

@@ -17,8 +17,8 @@ $panel-width: 400px;
   display: flex;
   flex-flow: column nowrap;
   background-color: lighten($app-color, 55%);
-  border-right: 1px solid #77C3A6;
-  border-left: 1px solid #77C3A6;
+  border-right: 1px solid $border-color;
+  border-left: 1px solid $border-color;
   z-index: 10;
   transition: left 0.4s ease;
 }
@@ -66,7 +66,7 @@ $panel-width: 400px;
 }
 
 .controller-panel-item:hover {
-  box-shadow: 0px 0px 6px 0px #216e37;
+  box-shadow: 0px 0px 6px 0px $app-dark-color;
 }
 
 .controller-panel-item-selected {

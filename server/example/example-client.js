@@ -5,11 +5,12 @@
 
 'use strict'
 
+const { port } = require('../env')
 const {
   COUNT = 120,
   INTERVAL = 2000,
   PROTOCOL = 'http',
-  HOSTNAME = 'localhost:3002'
+  HOSTNAME = `localhost:${port.CAMERA}`
 } = process.env
 const { v4: newUUID } = require('uuid')
 const co = require('co')

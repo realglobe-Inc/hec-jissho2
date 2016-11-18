@@ -49,6 +49,11 @@ export function initializeReporter (key: string, caller: Caller) {
         reportFullId: report.reportFullId
       }
     }
+    // 警報音
+    let audio = document.createElement('audio')
+    audio.src = 'warning.mp3'
+    audio.autoplay = true
+    // 関係各所にdispatch
     store.dispatch(actions.reports.addReport(report))
     store.dispatch(actions.markers.addMarker(marker))
     store.dispatch(actions.selectedMarker.selectMarker(marker.id))
