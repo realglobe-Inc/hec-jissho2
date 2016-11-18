@@ -142,7 +142,15 @@ class ReportObserver {
       if (!found) {
         let actor_key = formatter.toActorKey(report_full_id)
         let report_id = formatter.toReportId(report_full_id)
-        s.masterReporter.emit(MASTER_ACTOR.NEW_REPORT_EVENT, { report_full_id })
+        s.masterReporter.emit(MASTER_ACTOR.NEW_REPORT_EVENT, {
+          // formatter 使うべき
+          reportFullId: report_full_id,
+          reportId: report_id,
+          actorKey: actorKey,
+          reportAt: report_at.infoData.date,
+          isOpen: true,
+          latestInfo: formatter.infoDbToUI(infoData)
+        })
         yield Report.create({
           report_full_id,
           actor_key,
@@ -153,7 +161,7 @@ class ReportObserver {
       }
 
       yield ReportInfo.create(infoData)
-      s.masterReporter.emit(MASTER_ACTOR.REPORT_INFO_EVENT, infoData)
+      s.masterReporter.emit(MASTER_ACTOR.REPORT_INFO_EVENT, formatter.infoDbToUI(infoData))
     }).catch((err) => console.error(err))
   }
 }

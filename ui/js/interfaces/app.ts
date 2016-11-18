@@ -53,5 +53,5 @@ export interface Marker {
  * SUGO-Caller のインスタンス
  */
 export interface Caller {
-  get()
+  get(key: string): any
 }

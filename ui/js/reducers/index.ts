@@ -3,6 +3,7 @@
  */
 
 import { combineReducers } from 'redux'
+import { Store } from '../interfaces/store'
 import callers from './callers'
 import infoDisplay from './info_display'
 import markers from './markers'
@@ -12,7 +13,7 @@ import selectedMarker from './selected_marker'
 import reports from './reports'
 import reportClosed from './report_closed'
 
-const Reducer = combineReducers({
+const Reducer = combineReducers<Store.State>({
   callers,
   infoDisplay,
   markers,

@@ -6,7 +6,7 @@ const snake = _translateCase('snake')
 
 const formatter = {
   /**
-   * 通報情報をフォーマットする
+   * 通報詳細情報を生 -> DB用に変換する
    */
   infoRawToDb ({report, actorKey, event}) {
     let [lat, lng] = report.location
@@ -22,19 +22,21 @@ const formatter = {
     })
     return data
   },
+  /**
+   * 通報詳細情報をDB -> UI用に変換する
+   */
   infoDbToUI (reportInfo) {
-    let formatted = camel(reportInfo)
-    for (let key of Object.keys(formatted)) {
-      if (_isDate(key)) {
-        formatted[key] = new Date(formatted[key])
-      }
+    return {
+      reportFullId: reportInfo.report_full_id,
+      location: {
+        lat: reportInfo.lat,
+        lng: reportInfo.lng
+      },
+      date: new Date(reportInfo.date),
+      event: reportInfo.event,
+      info: reportInfo.info
     }
-    return formatted
   },
-  // TODO あとで
-  // infoRawToUI ({report, actorKey, event}) {
-  //   return this.formatDbToUI(this.formatRawToDb({report, actorKey, event}))
-  // },
 
   /**
   * データベース関係。 actorKey, reportId, reportFullId の三者変換

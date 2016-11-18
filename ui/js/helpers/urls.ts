@@ -47,17 +47,7 @@ export default {
     return {
       protocol,
       host,
-      path: '/jissho1/socket.io'
-    }
-  },
-  /**
-   * SUGO observers
-   */
-  observers () {
-    return {
-      protocol,
-      host,
-      path: '/jissho1/socket.io'
+      path: '/jissho2/socket.io'
     }
   },
   /**

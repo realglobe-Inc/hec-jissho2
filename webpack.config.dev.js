@@ -21,6 +21,7 @@ const JsConfig = () => {
         [name]: [
           `webpack-dev-server/client?http://localhost:${port.DEV}/`,
           'webpack/hot/dev-server',
+          'babel-polyfill',
           join(__dirname, JS_ENTRY_PATH, name)
         ]
       })
@@ -62,7 +63,9 @@ const JsConfig = () => {
     },
     externals: {
       'react': 'React',
-      'react-dom': 'ReactDOM'
+      'react-dom': 'ReactDOM',
+      'react-redux': 'ReactRedux',
+      'redux': 'Redux'
     }
   }
 }
