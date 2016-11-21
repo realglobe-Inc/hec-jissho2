@@ -16,10 +16,11 @@ const mkdirpAsync = promisify(mkdirp)
 function savePhotoImage (camera, photo, stream, options = {}) {
   return co(function * () {
     let filename = path.join(
-        __dirname, '../..', PHOTO_DIR, camera.uuid, photo.uuid
+        PHOTO_DIR, camera.uuid, photo.uuid
       ) + options.extension
-    yield mkdirpAsync(path.dirname(filename))
-    let write = fs.createWriteStream(filename)
+    let absPath = path.join(__dirname, '../..', filename)
+    yield mkdirpAsync(path.dirname(absPath))
+    let write = fs.createWriteStream(absPath)
     stream.pipe(write)
     yield new Promise((resolve, reject) => {
       write
