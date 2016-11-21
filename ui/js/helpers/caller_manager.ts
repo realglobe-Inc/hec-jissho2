@@ -10,7 +10,8 @@ const debug = require('debug')('hec:caller_manager')
 const { SUGOS } = require('@self/server/lib/consts')
 const {
   REPORTER_MODULE,
-  MASTER_ACTOR
+  MASTER_ACTOR,
+  PHOTO_MONITOR_ACTOR
 } = SUGOS
 
 /**
@@ -26,8 +27,20 @@ export function connectCallers () {
         debug(`Connected caller: ${key}`)
         initializeReporter(key, caller)
         store.dispatch(actions.callers.addCaller({
-          key,
-          caller
+          key, caller
+        }))
+      })
+  }
+  {
+    // Camera Actor
+    let key: string = PHOTO_MONITOR_ACTOR.KEY
+    sugoCaller(urls.callers())
+      .connect(key)
+      .then((caller: Caller) => {
+        debug(`Connected caller: ${key}`)
+        initializeCameraMonitor(key, caller)
+        store.dispatch(actions.callers.addCaller({
+          key, caller
         }))
       })
   }
@@ -66,5 +79,18 @@ export function initializeReporter (key: string, caller: Caller) {
       return
     }
     store.dispatch(actions.reports.UpdateReportInfo(info))
+  })
+}
+
+/**
+ * カメラサーバー監視callerの初期化
+ */
+function initializeCameraMonitor(key: string, caller: Caller) {
+  let monitor = caller.get(PHOTO_MONITOR_ACTOR.MODULE)
+  monitor.on(PHOTO_MONITOR_ACTOR.CREATED_EVENT, (data) => {
+    debug(data)
+  })
+  monitor.on(PHOTO_MONITOR_ACTOR.REMOVED_EVENT, (data) => {
+    debug(data)
   })
 }

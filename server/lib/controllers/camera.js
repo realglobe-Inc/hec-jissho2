@@ -141,6 +141,23 @@ const cameraController = {
           ctx.body = { destroyed }
         })
       }
+    ]),
+    /**
+     * Get phtos list
+     */
+    list: compose([
+      oneCameraMW(Camera),
+      (ctx) => {
+        let { camera } = ctx
+        return co(function * () {
+          let photos = yield Photo.findAll({
+            where: {
+              cameraId: camera.id
+            }
+          })
+          ctx.body = photos
+        })
+      }
     ])
   }
 }

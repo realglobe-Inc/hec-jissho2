@@ -12,3 +12,7 @@ function generateToken () {
 }
 
 module.exports = generateToken
+
+if (!module.parent) {
+  console.log(generateToken())
+}

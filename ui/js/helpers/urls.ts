@@ -1,6 +1,7 @@
 import { Location } from '../interfaces/app'
 
 const restUrls = require('@self/server/helper/urls')
+const camera = require('@self/server/env/camera.json').default
 const { apiKey: googleMapApiKey } = require('@self/ui/config')
 let { protocol, host } = window.location
 const ORIGIN_URL = `${protocol}//${host}/jissho2`
@@ -55,5 +56,17 @@ export default {
    */
   geocode ({lat, lng}: Location) {
     return `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${googleMapApiKey}&language=ja`
+  },
+  /**
+   * 写真のイメージデータ
+   */
+  getPhoto (photoUUID) {
+    return ORIGIN_URL + `/uploaded/photos/${camera.uuid}/${photoUUID}.png`
+  },
+  /**
+   * 写真のリスト
+   */
+  getPhotoList () {
+    return ORIGIN_URL + restUrls.camera.getPhotoList(camera.uuid) + `?token=${camera.token}`
   }
 }

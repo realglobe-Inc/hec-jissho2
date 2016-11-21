@@ -25,7 +25,8 @@ const JsConfig = () => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
+        'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+        'process.env.RG_GOOGLE_API_KEY': JSON.stringify(process.env.RG_GOOGLE_API_KEY)
       }),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin()

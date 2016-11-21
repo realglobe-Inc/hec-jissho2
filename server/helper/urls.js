@@ -38,6 +38,9 @@ const urls = {
     },
     deletePhoto (camera_uuid, photo_uuid) {
       return replace(CAMERA_URL.PHOTO, { camera_uuid, photo_uuid })
+    },
+    getPhotoList (camera_uuid) {
+      return replace(CAMERA_URL.PHOTO_LIST, { camera_uuid })
     }
   },
 

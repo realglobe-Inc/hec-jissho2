@@ -2,6 +2,10 @@
  * Application util functions
  */
 import co from 'co'
+import * as bRequest from 'browser-request'
+import urls from './urls'
+import { PhotoInfo } from '../interfaces/app'
+
 const debug = require('debug')('hec:app_util')
 
 export default {
@@ -54,6 +58,20 @@ export default {
       return location
     })
   },
+  /**
+   * 写真の情報リストを取ってくる
+   */
+  fetchPhotoList () {
+    return new Promise((resolve, reject) => {
+      bRequest({
+        url: urls.getPhotoList(),
+        method: 'GET',
+        json: true
+      }, (err, res, list: PhotoInfo[]) => {
+        err ? reject(err) : resolve(list)
+      })
+    })
+  }
   // /**
   //  * 緯度経度から住所を取得する
   //  */

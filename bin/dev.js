@@ -20,6 +20,8 @@ co(function * () {
   // Camera
   yield camera.listen(port.CAMERA)
   debug(`Camera server listening on port ${port.CAMERA}`)
+  let monitorActor = camera.photoMonitorActor()
+  yield monitorActor.connect()
 
   // Report
   yield report.listen(port.REPORT)

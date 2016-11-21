@@ -50,6 +50,18 @@ export interface Marker {
 }
 
 /**
+ * 写真の情報
+ */
+export interface PhotoInfo {
+  id: number
+  info: JSON | null
+  image_alt: null | string
+  createdAt: Date | string
+  updateAt: Date | string
+  uuid: string
+}
+
+/**
  * SUGO-Caller のインスタンス
  */
 export interface Caller {

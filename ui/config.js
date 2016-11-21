@@ -6,11 +6,13 @@
 'use strict'
 const cssVars = require('./scss/vars.json')
 
+console.log(process.env.RG_GOOGLE_API_KEY)
+
 module.exports = {
   /* テーマカラー */
   color: cssVars['app-color'],
   /* Google Map API Key */
-  apiKey: 'AIzaSyBiVMLPxmXQU7B4I3Txb1zffguybZ7HLD0',
+  apiKey: process.env.RG_GOOGLE_API_KEY,
   /* 地図のデフォルト中心かつ救急センターの位置 */
   mapCenter: {
     lat: 35.701562,

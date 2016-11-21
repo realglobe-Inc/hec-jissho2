@@ -21,5 +21,8 @@ module.exports = {
   [URL.PHOTO]: {
     GET: controller.photo.one,
     DELETE: controller.photo.destroy
+  },
+  [URL.PHOTO_LIST]: {
+    GET: controller.photo.list
   }
 }

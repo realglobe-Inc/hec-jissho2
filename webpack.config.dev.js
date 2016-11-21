@@ -33,7 +33,8 @@ const JsConfig = () => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('development')
+        'process.env.NODE_ENV': JSON.stringify('development'),
+        'process.env.RG_GOOGLE_API_KEY': JSON.stringify(process.env.RG_GOOGLE_API_KEY)
       }),
       new webpack.HotModuleReplacementPlugin()
     ],

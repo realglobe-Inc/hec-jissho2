@@ -4,7 +4,8 @@ module.exports = {
       CAMERAS: '/rest/cameras',
       CAMERA : '/rest/cameras/:camera_uuid',
       PHOTOS : '/rest/cameras/:camera_uuid/photos',
-      PHOTO  : '/rest/cameras/:camera_uuid/photos/:photo_uuid'
+      PHOTO  : '/rest/cameras/:camera_uuid/photos/:photo_uuid',
+      PHOTO_LIST: '/rest/cameras/:camera_uuid/photolist'
     },
 
     OF_REPORT: {
