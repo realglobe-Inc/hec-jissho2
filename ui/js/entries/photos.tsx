@@ -11,27 +11,17 @@ import { PhotoInfo } from '../interfaces/app'
 
 const rootElement = document.getElementById('site')
 
-class App extends React.Component<{}, { list: PhotoInfo[] }> {
-  constructor () {
-    super()
-    this.state = { list: [] }
-  }
+class App extends React.Component<{}, {}> {
   render () {
-    let { list } = this.state
     return (
     <div>
       <AppStyle/>
       <Header/>
       <div style={{margin: '1em'}}>
-        <PhotoList list={list}/>
+        <PhotoList/>
       </div>
     </div>
     )
-  }
-
-  componentDidMount () {
-    const s = this
-    appUtil.fetchPhotoList().then((list: PhotoInfo[]) => s.setState({ list }))
   }
 }
 

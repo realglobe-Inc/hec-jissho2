@@ -1,4 +1,4 @@
-import { Location, Report, ReportInfo, Marker, Caller } from './app'
+import { Location, Report, ReportInfo, Marker, Caller, PhotoInfo } from './app'
 
 export interface Action {
   type: string
@@ -93,3 +93,17 @@ export interface CallersAction extends Action {
   key: string
   caller?: Caller
 }
+
+// photos
+export const ADD_PHOTO: 'ADD_PHOTO' = 'ADD_PHOTO'
+// export const REMOVE_PHOTO: string = 'REMOVE_MARKER'
+export const SET_PHOTOS: 'SET_PHOTOS' = 'SET_PHOTOS'
+export interface AddPhoto extends Action {
+  type: 'ADD_PHOTO'
+  photo: PhotoInfo
+}
+export interface SetPhotos extends Action {
+  type: 'SET_PHOTOS'
+  photos: PhotoInfo[]
+}
+export type PhotosAction = AddPhoto | SetPhotos

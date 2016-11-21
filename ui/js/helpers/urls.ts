@@ -60,13 +60,17 @@ export default {
   /**
    * 写真のイメージデータ
    */
-  getPhoto (photoUUID) {
-    return ORIGIN_URL + `/uploaded/photos/${camera.uuid}/${photoUUID}.png`
+  getPhoto (photoUrl): string {
+    if (photoUrl) {
+      return ORIGIN_URL + photoUrl + `?token=${camera.token}`
+    } else {
+      return ''
+    }
   },
   /**
    * 写真のリスト
    */
-  getPhotoList () {
+  getPhotoList () : string {
     return ORIGIN_URL + restUrls.camera.getPhotoList(camera.uuid) + `?token=${camera.token}`
   }
 }

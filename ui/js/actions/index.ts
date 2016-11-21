@@ -6,6 +6,7 @@ import * as modalWindow from './modal_window'
 import * as reportClosed from './report_closed'
 import * as reports from './reports'
 import * as selectedMarker from './selected_marker'
+import * as photos from './photos'
 
 const actions = {
   callers,
@@ -15,7 +16,8 @@ const actions = {
   modalWindow,
   reportClosed,
   reports,
-  selectedMarker
+  selectedMarker,
+  photos
 }
 
 export default actions

@@ -35,9 +35,7 @@ export namespace Store {
   type actorKey = string
   export type Callers = Im.Map<actorKey, App.Caller>
 
-  export interface PanelTab {
-    // TODO ??
-  }
+  export type Photos = Im.Map<string, App.PhotoInfo>
 
   /**
    * Store全体
@@ -50,7 +48,8 @@ export namespace Store {
     reportClosed: ReportClosed
     reports: Reports
     selectedMarker: SelectedMarker
-    callers: Callers
+    callers: Callers,
+    photos: Photos
   }
 }
 

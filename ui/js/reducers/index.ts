@@ -12,6 +12,7 @@ import modalWindow from './modal_window'
 import selectedMarker from './selected_marker'
 import reports from './reports'
 import reportClosed from './report_closed'
+import photos from './photos'
 
 const Reducer = combineReducers<Store.State>({
   callers,
@@ -21,7 +22,8 @@ const Reducer = combineReducers<Store.State>({
   modalWindow,
   selectedMarker,
   reports,
-  reportClosed
+  reportClosed,
+  photos
 })
 
 export default Reducer

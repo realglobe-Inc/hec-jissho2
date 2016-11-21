@@ -6,8 +6,6 @@
 'use strict'
 const cssVars = require('./scss/vars.json')
 
-console.log(process.env.RG_GOOGLE_API_KEY)
-
 module.exports = {
   /* テーマカラー */
   color: cssVars['app-color'],

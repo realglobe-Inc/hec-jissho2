@@ -55,6 +55,7 @@ export interface Marker {
 export interface PhotoInfo {
   id: number
   info: JSON | null
+  image: string
   image_alt: null | string
   createdAt: Date | string
   updateAt: Date | string
