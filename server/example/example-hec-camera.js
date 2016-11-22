@@ -7,7 +7,7 @@
 
 const { port, camera } = require('../env')
 const {
-  COUNT = 10,
+  COUNT = 100,
   INTERVAL = 2000,
   PROTOCOL = 'http',
   HOSTNAME = `localhost:${port.DEV}`

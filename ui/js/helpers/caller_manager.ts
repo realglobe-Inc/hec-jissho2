@@ -2,7 +2,7 @@ import * as sugoCaller from 'sugo-caller'
 import urls from './urls'
 import store from './store'
 import actions from '../actions'
-import { Caller, Report, ReportInfo, Marker } from '../interfaces/app'
+import { Caller, Report, ReportInfo, Marker, PhotoInfo } from '../interfaces/app'
 import { newMarkerId } from './store_util'
 import { Store } from '../interfaces/store'
 
@@ -87,8 +87,8 @@ export function initializeReporter (key: string, caller: Caller) {
  */
 function initializeCameraMonitor(key: string, caller: Caller) {
   let monitor = caller.get(PHOTO_MONITOR_ACTOR.MODULE)
-  monitor.on(PHOTO_MONITOR_ACTOR.CREATED_EVENT, (data) => {
-    debug(data)
+  monitor.on(PHOTO_MONITOR_ACTOR.CREATED_EVENT, (photo: PhotoInfo) => {
+    store.dispatch(actions.photos.addPhoto(photo))
   })
   monitor.on(PHOTO_MONITOR_ACTOR.REMOVED_EVENT, (data) => {
     debug(data)

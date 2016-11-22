@@ -7,92 +7,67 @@ import { PhotoInfo, Caller } from '../interfaces/app'
 import urls from '../helpers/urls'
 import appUtil from '../helpers/app_util'
 import * as sugoCaller from 'sugo-caller'
+import { Store } from '../interfaces/store'
 
 const { PHOTO_MONITOR_ACTOR } = require('@self/server/lib/consts').SUGOS
 
 interface Props {
   style?: Object
+  photos: Store.Photos
 }
 
 interface State {
-  list?: PhotoInfo[]
   modalMode?: boolean
-  selectedUrl?: string
-  caller?: any
+  selectedPhoto?: PhotoInfo | null
 }
 
 class PhotoList extends React.Component<Props, State> {
   constructor () {
     super()
     this.state = {
-      list: [],
       modalMode: false,
+      selectedPhoto: null
     }
   }
 
   render () {
     const s = this
+    let style = s.props.style || {}
     return (
       <div className='photo-list-outer'>
-        <div className='photo-list' style={s.props.style}>
-          {s.state.list.map((photo) => {
+        <div className='photo-list' style={style}>
+          {s.props.photos.toArray().map((photo) => {
             return (
                 <img className='photo-list-item'
-                      src={urls.getPhoto(photo.image)}
-                      onClick={s.openModal.bind(this)}
-                      key={photo.uuid}
-                      data={photo.image}
+                     src={urls.getPhoto(photo.image)}
+                     onClick={s.openModal.bind(this)}
+                     key={photo.uuid}
+                     data={photo.uuid}
                 />
             )
           })}
         </div>
         <div className={c('photo-zoom-outer', s.state.modalMode ? '' : 'hidden')} onClick={s.closeModal.bind(s)}>
-          <img className='photo-zoom'
-               src={urls.getPhoto(this.state.selectedUrl)}/>
+          {s.renderZoomImage()}
         </div>
       </div>
     )
   }
 
-  componentDidMount () {
-    const s = this
-    appUtil.fetchPhotoList()
-      .then((list: PhotoInfo[]) => {
-        s.setState({ list })
-      })
-
-    let KEY: string = PHOTO_MONITOR_ACTOR.KEY
-    let MODULE: string = PHOTO_MONITOR_ACTOR.MODULE
-    let CREATED_EVENT: string = PHOTO_MONITOR_ACTOR.CREATED_EVENT
-    if (s.state.caller) {
-      return
+  renderZoomImage () {
+    let { selectedPhoto } = this.state
+    if (!selectedPhoto) {
+      return null
     }
-    console.log('hogehoge')
-    let caller = sugoCaller(urls.callers())
-    caller.connect(KEY)
-      .then((actor: Caller) => {
-        let monitor = actor.get(MODULE)
-        monitor.on(CREATED_EVENT, (data: PhotoInfo) => {
-          s.setState({
-            list: [ data ].concat(s.state.list)
-          })
-        })
-      })
-    s.setState({ caller })
-  }
-
-  componentWillUnmount () {
-    let { caller } = this.state
-    if (caller) {
-      caller.disconnect()
-    }
+    return <img className='photo-zoom' src={urls.getPhoto(selectedPhoto.image)} />
   }
 
   openModal (e) {
-    let selectedUrl = e.target.attributes.data.value
+    let uuid = e.target.attributes.data.value
+    let photo = this.props.photos.get(uuid)
     this.setState({
       modalMode: true,
-      selectedUrl
+      selectedPhoto: photo
     })
   }
 

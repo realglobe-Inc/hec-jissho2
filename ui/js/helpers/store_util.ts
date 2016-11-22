@@ -1,6 +1,6 @@
 import assert from 'assert'
 import Store from '../interfaces/store'
-import { Marker, Report, Location } from '../interfaces/app'
+import { Marker, Report, Location, PhotoInfo } from '../interfaces/app'
 import appUtil from './app_util'
 import actions from '../actions'
 import urls from './urls'
@@ -112,8 +112,6 @@ export function initialize (store: Redux.Store<any>) {
         actorKey,
         isOpen: true,
         reportAt: new Date(dbReport.report_at),
-        // TODO latestInfoはどうするか？
-        // latestInfo: dbReport.latest_info
         latestInfo: {
           reportFullId,
           location: {
@@ -144,6 +142,12 @@ export function initialize (store: Redux.Store<any>) {
     })
     store.dispatch(actions.markers.addMarkers(markers))
   })
+
+  // 画像の情報
+  appUtil.fetchPhotoList()
+    .then((photoArray: PhotoInfo[]) => {
+      store.dispatch(actions.photos.setPhotos(photoArray))
+    })
 }
 
 // getLatestReport ({state, actorKey}) {

@@ -14,6 +14,7 @@ import { Location } from '../interfaces/app'
 const { apiKey } = require('../../config')
 const cssVars = require('../../scss/vars.json')
 const debug = require('debug')('hec:ControllerMap')
+const mapStyle = require('../helpers/map_style.json')
 
 interface Props {
   storeState: Store.State
@@ -45,20 +46,7 @@ class ControllerMap extends React.Component<Props, any> {
    */
   createMapOptions () {
     return {
-      styles: [
-        {
-          featureType: 'all',
-          stylers: [
-            { saturation: 40 }
-          ]
-        }, {
-          featureType: 'poi',
-          elementType: 'labels',
-          stylers: [
-            { visibility: 'off' }
-          ]
-        }
-      ]
+      styles: mapStyle
     }
   }
 

@@ -35,6 +35,9 @@ export namespace Store {
   type actorKey = string
   export type Callers = Im.Map<actorKey, App.Caller>
 
+  /**
+   * key は uuid
+   */
   export type Photos = Im.Map<string, App.PhotoInfo>
 
   /**
