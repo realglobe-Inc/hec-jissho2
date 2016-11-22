@@ -5,5 +5,5 @@ const uiServer = require('../lib/ui_server')
 uiServer
   .listen(port.UI)
   .then(() => {
-    console.log(`CAMERA server listening on port ${port.UI}`)
+    console.log(`UI server listening on port ${port.UI}`)
   })

@@ -18,7 +18,7 @@ let devServer = new DevServer(compiler, {
   historyApiFallback: false,
   compress: false,
   proxy: {
-    '*': `http://${HOST}:${port.PROXY}`
+    '*': `http://${HOST}:${80}` // Nginx がプロキシサーバとして動いているはずである
   },
   staticOptions: {},
 

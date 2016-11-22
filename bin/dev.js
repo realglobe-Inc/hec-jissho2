@@ -7,7 +7,6 @@ const { port } = require('@self/server/env')
 const ui = require('@self/server/lib/ui_server')
 const camera = require('@self/server/lib/camera_server')
 const report = require('@self/server/lib/report_server')
-const proxy = require('../ci/dev/proxy_server')
 const dev = require('../ci/dev/dev_server')
 const co = require('co')
 const debug = require('debug')('hec:dev')
@@ -28,10 +27,6 @@ co(function * () {
   debug(`Report server listening on port ${port.REPORT}`)
   let observer = report.createObserver()
   yield observer.start()
-
-  // Proxy
-  yield proxy.listen(port.PROXY)
-  debug(`Proxy server listening on port ${port.PROXY}`)
 
   // Dev
   yield dev.listen(port.DEV)
