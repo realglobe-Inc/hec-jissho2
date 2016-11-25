@@ -23,6 +23,8 @@ export const OPEN_REPORTCLOSE_MODAL: string = 'OPEN_REPORTCLOSE_MODAL'
 export const CLOSE_REPORTCLOSE_MODAL: string = 'CLOSE_REPORTCLOSE_MODAL'
 export const OPEN_OKWARNING_MODAL: string = 'OPEN_OKWARNING_MODAL'
 export const CLOSE_OKWARNING_MODAL: string = 'CLOSE_OKWARNING_MODAL'
+export const OPEN_CENTERCONF_MODAL: string = 'OPEN_CENTERCONF_MODAL'
+export const CLOSE_CENTERCONF_MODAL: string = 'CLOSE_CENTERCONF_MODAL'
 export interface ModalWindowAction extends Action {}
 
 // report closed

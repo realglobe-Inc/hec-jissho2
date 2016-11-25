@@ -15,10 +15,9 @@ const markers: Reducer<Store.Markers> = (state: Store.Markers = init, action: Ac
     case Actions.REMOVE_MARKER:
       return state.remove(action.id)
     case Actions.UPDATE_MARKER:
-      return state.update(action.id, (marker: Marker) => {
-        marker.location = action.location
-        return marker
-      })
+      let updating = state.get(action.id)
+      let updated = Object.assign({}, updating, { location: action.location })
+      return state.set(action.id, updated)
     default:
       return state
   }

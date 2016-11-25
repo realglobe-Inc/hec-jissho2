@@ -6,7 +6,8 @@ import * as Actions from '../interfaces/actions'
 
 let init: Store.ModalWindow = {
   reportClose: false,
-  okWarning: false
+  okWarning: false,
+  centerConf: false
 }
 
 let merge = (state: Store.ModalWindow, next: any): Store.ModalWindow => {
@@ -30,6 +31,14 @@ const modalWindow: Reducer<Store.ModalWindow> = (state: Store.ModalWindow = init
     case Actions.CLOSE_OKWARNING_MODAL:
       return merge(state, {
         okWarning: false
+      })
+    case Actions.OPEN_CENTERCONF_MODAL:
+      return merge(state, {
+        centerConf: true
+      })
+    case Actions.CLOSE_CENTERCONF_MODAL:
+      return merge(state, {
+        centerConf: false
       })
     default:
       return state

@@ -68,7 +68,8 @@ class ControllerMap extends React.Component<Props, any> {
     )
   }
 
-  onMarkerClick (id) {
+  onMarkerClick (key) {
+    let id = Number(key)
     let { dispatch } = this.props
     dispatch(actions.selectedMarker.selectMarker(id))
   }

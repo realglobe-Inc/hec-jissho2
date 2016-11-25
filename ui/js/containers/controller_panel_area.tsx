@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import actions from '../actions'
 import * as c from 'classnames'
 import Store from '../interfaces/store'
+import { Marker } from '../interfaces/app'
 import AreaReport from './area_report'
+import AreaCenter from './area_center'
 import storeUtil from '../helpers/store_util'
 // import {HITOE_ACTORKEY_PREFIX} from '../constants'
 
@@ -14,6 +16,7 @@ const NOT_SELECTED = 1
 const DEFAULT = 2
 const OPEN_REPORT = 3
 const CLOSED_REPORT = 4
+const CENTER = 5
 
 interface Props {
   storeState: Store.State
@@ -57,6 +60,8 @@ class ControllerPanelArea extends React.Component<Props, any> {
             <div><a href='reports.html'>対応済み通報一覧</a></div>
           </div>
         )
+      case CENTER:
+        return <AreaCenter/>
       case DEFAULT:
       default:
         let marker = storeUtil.getSelectedMarker(s.props.storeState)
@@ -73,13 +78,14 @@ class ControllerPanelArea extends React.Component<Props, any> {
     if (!isSelected) {
       return NOT_SELECTED
     }
-    let marker = storeState.markers.get(id)
+    let marker: Marker = storeState.markers.get(id)
     switch (marker.type) {
       case 'report':
         let report = storeState.reports.get(marker.keys.reportFullId)
         return OPEN_REPORT
-      case 'drone':
       case 'center':
+        return CENTER
+      case 'drone':
       case 'person':
       case 'default':
       default:

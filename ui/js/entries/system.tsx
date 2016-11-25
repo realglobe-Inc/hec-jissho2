@@ -7,6 +7,7 @@ import Header from '../components/header'
 import OkWarningWindow from '../containers/ok_warning_window'
 import ConfirmCloseReportWindow from '../containers/confirm_close_report_window'
 import MapController from '../components/map_controller'
+import ModalCenterconf from '../containers/modal_centerconf'
 import { initialize } from '../helpers/store_util'
 import PhotoListContainer from '../containers/photo_list_container'
 
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <PhotoListContainer />
         <OkWarningWindow/>
         <ConfirmCloseReportWindow/>
+        <ModalCenterconf/>
       </div>
     </Provider>,
     rootElement

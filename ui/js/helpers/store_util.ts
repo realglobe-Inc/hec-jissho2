@@ -9,6 +9,7 @@ import { connectCallers } from './caller_manager'
 
 const formatter = require('@self/server/helper/formatter')
 const debug = require('debug')('hec:store_util')
+const { mapCenter } = require('../../config')
 
 /**
  * 選択されているマーカーを取得
@@ -74,11 +75,7 @@ export function initialize (store: Redux.Store<any>) {
     method: 'GET',
     json: true
   }, (err, res, body) => {
-    // let centerLocation: Location = err ? { lat: 0, lng: 0 } : body
-    let centerLocation = {
-      lat: 35.701562,
-      lng: 139.753148
-    }
+    let centerLocation: Location = err ? mapCenter : body
     let marker: Marker = {
         id: newMarkerId(),
         type: 'center',
