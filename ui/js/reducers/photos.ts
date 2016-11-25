@@ -7,6 +7,7 @@ let init: Store.Photos = Im.OrderedMap<string, PhotoInfo>()
 
 /**
  * Reducer of photos
+ * 古い順
  */
 const photos: Reducer<Store.Photos> = (state: Store.Photos = init, action: Actions.PhotosAction) => {
   switch (action.type) {

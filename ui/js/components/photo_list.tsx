@@ -9,6 +9,7 @@ import appUtil from '../helpers/app_util'
 import * as sugoCaller from 'sugo-caller'
 import { Store } from '../interfaces/store'
 
+const cssVars = require('../../scss/vars.json')
 const { PHOTO_MONITOR_ACTOR } = require('@self/server/lib/consts').SUGOS
 const THUMBNAIL_PHOTO_SIZE = {
   width: 320,
@@ -16,7 +17,6 @@ const THUMBNAIL_PHOTO_SIZE = {
 }
 
 interface Props {
-  style?: Object
   photos: Store.Photos
 }
 
@@ -36,21 +36,28 @@ class PhotoList extends React.Component<Props, State> {
 
   render () {
     const s = this
-    let style = s.props.style || {}
     // photos は古い順にセットされている
+    // TODO ここで制限するべきかどうか
+    let max = 20
+    let listHeight = window.innerHeight - parseInt(cssVars['header-height'], 10)
     return (
-      <div className='photo-list-outer'>
-        <div className='photo-list' style={style}>
-          {s.props.photos.toArray().map((photo) => {
-            return (
-                <img className='photo-list-item'
-                     src={urls.getPhoto(photo.image, THUMBNAIL_PHOTO_SIZE)}
-                     onClick={s.openModal.bind(this)}
-                     key={photo.uuid}
-                     data={photo.uuid}
-                />
-            )
-          })}
+      <div className='photo-list-ex'>
+        <div className='photo-list-outer'>
+          <div className='title'>
+            ドローンからの画像
+          </div>
+          <div className='photo-list' style={{height: `${listHeight}px`}}>
+            {s.props.photos.toArray().reverse().slice(0, max).map((photo) => {
+              return (
+                  <img className='photo-list-item'
+                      src={urls.getPhoto(photo.image, THUMBNAIL_PHOTO_SIZE)}
+                      onClick={s.openModal.bind(this)}
+                      key={photo.uuid}
+                      data={photo.uuid}
+                  />
+              )
+            })}
+          </div>
         </div>
         <div className={c('photo-zoom-outer', s.state.modalMode ? '' : 'hidden')} onClick={s.closeModal.bind(s)}>
           {s.renderZoomImage()}

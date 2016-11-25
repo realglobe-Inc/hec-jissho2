@@ -1,13 +1,33 @@
-.photo-list {
-  height: 100%;
+.photo-list-outer {
+  position: fixed;
+  flex-flow: column nowrap;
+  top: $header-height;
+  right: 0;
   display: flex;
-  flex-flow: column-reverse nowrap;
+  width: 340;
+  border-left: 1px solid $app-color;
+}
+
+.photo-list-outer .title {
+  background: $app-color;
+  height: $panel-area-title-height;
+  line-height: $panel-area-title-height;
+  font-size: 25px;
+  padding-left: 0.5em;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.photo-list {
+  /*height は js で定義した*/
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
   overflow-y: scroll;
   overflow-x: hidden;
-  flex-wrap: no-wrap;
+  box-sizing: border-box;
   .photo-list-item {
-    margin-left: 3px;
-    margin-right: 3px;
     cursor: pointer;
     animation: fadeIn 0.5s ease 0s 1 normal;
   }
