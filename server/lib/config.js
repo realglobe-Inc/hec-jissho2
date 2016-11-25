@@ -1,4 +1,5 @@
 const { port } = require('../env')
+const { SUGOS_URL } = require('./consts')
 
 module.exports = {
   // Report Server の Master Actor の接続先
@@ -6,7 +7,20 @@ module.exports = {
     masterActorConifg: {
       protocol: 'http',
       hostname: 'localhost',
-      port: port.UI
+      port: port.UI,
+      path: SUGOS_URL.UI_PATH
+    },
+    observerConfig: {
+      protocol: 'http',
+      hostname: 'localhost',
+      port: port.REPORT,
+      path: SUGOS_URL.REPORT_PATH
+    },
+    callerConfig: {
+      protocol: 'http',
+      hostname: 'localhost',
+      port: port.REPORT,
+      path: SUGOS_URL.REPORT_PATH
     }
   },
   // Camera server の notify Actor の接続先
@@ -14,7 +28,8 @@ module.exports = {
     cameraActorConfig: {
       protocol: 'http',
       hostname: 'localhost',
-      port: port.UI
+      port: port.UI,
+      path: SUGOS_URL.UI_PATH
     }
   }
 }

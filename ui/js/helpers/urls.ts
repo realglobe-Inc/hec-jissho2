@@ -1,6 +1,7 @@
 import { Location } from '../interfaces/app'
 
 const restUrls = require('@self/server/helper/urls')
+const { SUGOS_URL } = require('@self/server/lib/consts')
 const camera = require('@self/server/env/camera.json').default
 const { apiKey: googleMapApiKey } = require('@self/ui/config')
 let { protocol, host } = window.location
@@ -48,7 +49,7 @@ export default {
     return {
       protocol,
       host,
-      path: '/jissho2/socket.io'
+      path: '/jissho2' + SUGOS_URL.UI_PATH
     }
   },
   /**

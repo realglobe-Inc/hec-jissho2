@@ -22,15 +22,9 @@ class ReportObserver {
   /**
    * options should have url information
    */
-  constructor (options) {
+  constructor () {
     const s = this
-    let {
-      protocol,
-      host
-    } = options
-    s.protocol = protocol
-    s.host = host
-    s.observer = sugoObserver(s._handler.bind(s), options)
+    s.observer = sugoObserver(s._handler.bind(s), ReportServer.observerConfig)
     s.callers = {}
 
     // masterReporter が emit する
@@ -90,9 +84,7 @@ class ReportObserver {
       if (event === 'actor:update' && data.spec.reporter) {
         // caller
         debug('Trying to connect caller: ', actorKey)
-        let {protocol, host} = s
-        console.log(protocol, host)
-        let caller = sugoCaller({protocol, host})
+        let caller = sugoCaller(ReportServer.callerConfig)
         let actor = yield caller.connect(actorKey)
         let reporter = actor.get(REPORTER_MODULE)
         if (!reporter) {
@@ -101,8 +93,7 @@ class ReportObserver {
         s.callers[actorKey] = actor
         // Add event listener
         // hitoe.on('warning', s._pushReportDb(actorKey)('warning'))
-        let event = 'emergency'
-        reporter.on(event, s._pushReportDb({actorKey, event}).bind(s))
+        reporter.on('emergency', s._pushReportDb({actorKey, event}).bind(s))
         reporter.on('error', (err) => { console.error(err) })
       }
 

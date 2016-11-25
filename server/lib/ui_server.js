@@ -6,6 +6,7 @@ const env = require('@self/env')
 // const endpoints = require('./endpoints/ui')
 const endpoints = {}
 const { join } = require('path')
+const { SUGOS_URL } = require('./consts')
 
 let isTest = process.env.NODE_ENV === 'test'
 
@@ -17,6 +18,9 @@ let config = {
       url: env.redis.URL,
       db: 1
     }
+  },
+  socketIoOptions: {
+    path: SUGOS_URL.UI_PATH
   }
 }
 

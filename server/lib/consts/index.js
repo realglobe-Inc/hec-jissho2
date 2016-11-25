@@ -17,6 +17,11 @@ module.exports = {
     }
   },
 
+  SUGOS_URL: {
+    REPORT_PATH: '/sugos/report/socket.io',
+    UI_PATH: '/sugos/ui/socket.io'
+  },
+
   SUGOS: {
     // Camera
     PHOTO_MONITOR_ACTOR: {

@@ -5,6 +5,7 @@ const sugoHub = require('sugo-hub')
 const env = require('@self/env')
 const endpoints = require('./endpoints/report')
 const Observer = require('./helpers/report_observer')
+const { SUGOS_URL } = require('./consts')
 
 let isTest = process.env.NODE_ENV === 'test'
 let config = {
@@ -14,6 +15,9 @@ let config = {
       url: env.redis.URL,
       db: 1
     }
+  },
+  socketIoOptions: {
+    path: SUGOS_URL.REPORT_PATH
   }
 }
 
@@ -27,10 +31,7 @@ reportServer.createObserver = () => {
   if (typeof port !== 'number') {
     throw new Error(`Port given to Report observer is ${port}`)
   }
-  return new Observer({
-    protocol: 'http',
-    host: `localhost:${port}`
-  })
+  return new Observer()
 }
 
 module.exports = reportServer
