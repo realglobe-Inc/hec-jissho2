@@ -38,7 +38,7 @@ export namespace Store {
   /**
    * key は uuid
    */
-  export type Photos = Im.Map<string, App.PhotoInfo>
+  export type Photos = Im.OrderedMap<string, App.PhotoInfo>
 
   /**
    * Store全体

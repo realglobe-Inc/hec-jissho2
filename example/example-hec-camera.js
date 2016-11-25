@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 /**
- * This is an example script for client of drone view share
+ * プロキシ経由で実行する
  */
 
 'use strict'
 
-const { port } = require('../env')
+const { port, camera } = require('@self/server/env')
 const {
-  COUNT = 120,
+  COUNT = 100,
   INTERVAL = 2000,
   PROTOCOL = 'http',
-  HOSTNAME = `localhost:${port.CAMERA}`
+  HOSTNAME = `localhost:${port.DEV}`
 } = process.env
 const { v4: newUUID } = require('uuid')
 const co = require('co')
@@ -20,7 +20,7 @@ const asleep = require('asleep')
 const colorprint = require('colorprint')
 const arequest = require('arequest')
 
-const baseUrl = `${PROTOCOL}://${HOSTNAME}`
+const baseUrl = `${PROTOCOL}://${HOSTNAME}/jissho2`
 let request = arequest.create({ jar: true })
 let create = (pathname, config) => co(function * () {
   let { statusCode, body } = yield request(Object.assign({
@@ -34,25 +34,13 @@ let create = (pathname, config) => co(function * () {
 })
 
 co(function * () {
-  const mockImages = yield aglob(`${__dirname}/../misc/mocks/mock-images/*.jpg`)
+  const mockImages = yield aglob(`${__dirname}/../server/misc/mocks/mock-images/*.jpg`)
   if (mockImages.length === 0) {
     throw new Error('mockImages not found')
   }
   {
     colorprint.notice('Start example client...')
     colorprint.trace(`Server URL: ${baseUrl}`)
-    let cameraUUID = newUUID()
-    let camera = yield create(`/rest/cameras`, {
-      json: true,
-      body: {
-        // Human readable name
-        name: `Example camera (${new Date().toLocaleDateString()})`,
-        // Generated UUID,
-        uuid: cameraUUID,
-        // Key to identify user
-        owner: 'demo'
-      }
-    })
 
     // Create photos
     for (let i = 0; i < Number(COUNT); i++) {

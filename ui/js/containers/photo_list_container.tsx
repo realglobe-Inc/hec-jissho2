@@ -7,6 +7,8 @@ import storeUtil from '../helpers/store_util'
 import appUtil from '../helpers/app_util'
 import PhotoList from '../components/photo_list'
 
+const cssVars = require('../../scss/vars.json')
+
 interface Props {
   storeState: Store.State
   dispatch: any
@@ -18,9 +20,9 @@ class PhotoListContainer extends React.Component<Props, {}> {
     // system.html 用
     let style = {
       position: 'fixed',
-      bottom: 0,
-      left: 0,
-      width: '100%'
+      right: 0,
+      top: cssVars['header-height'],
+      height: (window.innerWidth - cssVars['header-height']) + 'px'
     }
     return <PhotoList photos={photos} style={style}/>
   }

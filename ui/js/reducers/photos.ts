@@ -3,7 +3,7 @@ import { PhotoInfo } from '../interfaces/app'
 import * as Actions from '../interfaces/actions'
 import * as Im from 'immutable'
 
-let init: Store.Photos = Im.Map<string, PhotoInfo>()
+let init: Store.Photos = Im.OrderedMap<string, PhotoInfo>()
 
 /**
  * Reducer of photos
@@ -11,8 +11,10 @@ let init: Store.Photos = Im.Map<string, PhotoInfo>()
 const photos: Reducer<Store.Photos> = (state: Store.Photos = init, action: Actions.PhotosAction) => {
   switch (action.type) {
     case Actions.SET_PHOTOS:
-      let setting = action.photos.map((photo) => [photo.uuid, photo])
-      return Im.Map<string, PhotoInfo>(setting)
+      let setting = action.photos
+        .sort((photo1, photo2) => Number(photo1.createdAt) - Number(photo2.createdAt))
+        .map((photo) => [photo.uuid, photo])
+      return Im.OrderedMap<string, PhotoInfo>(setting)
     case Actions.ADD_PHOTO:
       return state.set(action.photo.uuid, action.photo)
     default:

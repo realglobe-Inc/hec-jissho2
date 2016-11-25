@@ -88,6 +88,7 @@ export function initializeReporter (key: string, caller: Caller) {
 function initializeCameraMonitor(key: string, caller: Caller) {
   let monitor = caller.get(PHOTO_MONITOR_ACTOR.MODULE)
   monitor.on(PHOTO_MONITOR_ACTOR.CREATED_EVENT, (photo: PhotoInfo) => {
+    debug(`Added photo ${photo.uuid}`)
     store.dispatch(actions.photos.addPhoto(photo))
   })
   monitor.on(PHOTO_MONITOR_ACTOR.REMOVED_EVENT, (data) => {

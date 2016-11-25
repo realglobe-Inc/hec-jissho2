@@ -37,6 +37,7 @@ class PhotoList extends React.Component<Props, State> {
   render () {
     const s = this
     let style = s.props.style || {}
+    // photos は古い順にセットされている
     return (
       <div className='photo-list-outer'>
         <div className='photo-list' style={style}>
