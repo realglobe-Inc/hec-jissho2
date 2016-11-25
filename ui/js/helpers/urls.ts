@@ -60,9 +60,16 @@ export default {
   /**
    * 写真のイメージデータ
    */
-  getPhoto (photoUrl): string {
+  getPhoto (photoUrl, size: {width?: number, height?: number} = {}): string {
     if (photoUrl) {
-      return ORIGIN_URL + photoUrl + `?token=${camera.token}`
+      let sizeToken = ''
+      if (size.width) {
+        sizeToken += `&width=${size.width}`
+      }
+      if (size.height) {
+        sizeToken += `&height=${size.height}`
+      }
+      return ORIGIN_URL + photoUrl + `?token=${camera.token}` + sizeToken
     } else {
       return ''
     }

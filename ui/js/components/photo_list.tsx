@@ -10,6 +10,10 @@ import * as sugoCaller from 'sugo-caller'
 import { Store } from '../interfaces/store'
 
 const { PHOTO_MONITOR_ACTOR } = require('@self/server/lib/consts').SUGOS
+const THUMBNAIL_PHOTO_SIZE = {
+  width: 320,
+  height: 180
+}
 
 interface Props {
   style?: Object
@@ -39,7 +43,7 @@ class PhotoList extends React.Component<Props, State> {
           {s.props.photos.toArray().map((photo) => {
             return (
                 <img className='photo-list-item'
-                     src={urls.getPhoto(photo.image)}
+                     src={urls.getPhoto(photo.image, THUMBNAIL_PHOTO_SIZE)}
                      onClick={s.openModal.bind(this)}
                      key={photo.uuid}
                      data={photo.uuid}

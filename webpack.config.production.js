@@ -15,7 +15,10 @@ const JsConfig = () => {
   return {
     entry: entries.reduce((obj, name) => {
       return Object.assign(obj, {
-        [name]: [ join(__dirname, `ui/js/entries/${name}`) ]
+        [name]: [
+          'babel-polyfill',
+          join(__dirname, `ui/js/entries/${name}`)
+        ]
       })
     }, {}),
     output: {
@@ -54,7 +57,9 @@ const JsConfig = () => {
     },
     externals: {
       'react': 'React',
-      'react-dom': 'ReactDOM'
+      'react-dom': 'ReactDOM',
+      'react-redux': 'ReactRedux',
+      'redux': 'Redux'
     }
   }
 }
