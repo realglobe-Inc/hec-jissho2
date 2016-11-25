@@ -1,5 +1,5 @@
 import * as callers from './callers'
-import * as infoDisplay from './info_display'
+import * as showPanel from './show_panel'
 import * as map from './map'
 import * as markers from './markers'
 import * as modalWindow from './modal_window'
@@ -10,7 +10,7 @@ import * as photos from './photos'
 
 const actions = {
   callers,
-  infoDisplay,
+  showPanel,
   map,
   markers,
   modalWindow,

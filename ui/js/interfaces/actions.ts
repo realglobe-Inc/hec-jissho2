@@ -8,9 +8,10 @@ type creatorAny<T> = (any) => T
 type creatorNull<T> = () => T
 export type ActionCreator<T> = creatorAny<T> | creatorNull<T>
 
-// info_display
+// show_panel
 export const TOGGLE_INFO_DISPLAY: string = 'TOGGLE_INFO_DISPLAY';
-export interface InfoDisplayAction extends Action {}
+export const TOGGLE_PHOTO_DISPLAY: string = 'TOGGLE_PHOTO_DISPLAY'
+export interface ShowPanelAction extends Action {}
 
 // map
 export const CHANGE_MAP_CENTER: 'CHANGE_MAP_CENTER' = 'CHANGE_MAP_CENTER'

@@ -9,7 +9,7 @@ import ConfirmCloseReportWindow from '../containers/confirm_close_report_window'
 import MapController from '../components/map_controller'
 import ModalCenterconf from '../containers/modal_centerconf'
 import { initialize } from '../helpers/store_util'
-import PhotoListContainer from '../containers/photo_list_container'
+import PhotoList from '../containers/photo_list'
 
 const rootElement = document.getElementById('site')
 
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <AppStyle/>
         <Header/>
         <MapController/>
-        <PhotoListContainer />
+        <PhotoList />
         <OkWarningWindow/>
         <ConfirmCloseReportWindow/>
         <ModalCenterconf/>

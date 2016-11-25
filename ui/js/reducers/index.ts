@@ -5,7 +5,7 @@
 import { combineReducers } from 'redux'
 import { Store } from '../interfaces/store'
 import callers from './callers'
-import infoDisplay from './info_display'
+import showPanel from './show_panel'
 import markers from './markers'
 import map from './map'
 import modalWindow from './modal_window'
@@ -16,7 +16,7 @@ import photos from './photos'
 
 const Reducer = combineReducers<Store.State>({
   callers,
-  infoDisplay,
+  showPanel,
   markers,
   map,
   modalWindow,

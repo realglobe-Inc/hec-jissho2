@@ -2,6 +2,8 @@
  * 単一のコンポーネントで画像の一覧表示、全画面表示、リアルタイム更新を担当する
  */
 import * as React from 'react'
+import { connect } from 'react-redux'
+import actions from '../actions'
 import * as c from 'classnames'
 import { PhotoInfo, Caller } from '../interfaces/app'
 import urls from '../helpers/urls'
@@ -18,6 +20,8 @@ const THUMBNAIL_PHOTO_SIZE = {
 
 interface Props {
   photos: Store.Photos
+  showPanel: Store.ShowPanel
+  dispatch: any
 }
 
 interface State {
@@ -40,9 +44,15 @@ class PhotoList extends React.Component<Props, State> {
     // TODO ここで制限するべきかどうか
     let max = 20
     let listHeight = window.innerHeight - parseInt(cssVars['header-height'], 10)
+
+    let show = s.props.showPanel.photo
     return (
       <div className='photo-list-ex'>
-        <div className='photo-list-outer'>
+        <div className={c('photo-list-outer', show ? 'photo-list-show' : 'photo-list-hidden')}>
+          <div className='photo-list-toggle'>
+            <i className={c('fa', 'fa-3x', show ? 'fa-caret-right' : 'fa-caret-left')} aria-hidden></i>
+            <div className='expand' onClick={s.toggleDisplay.bind(s)}></div>
+          </div>
           <div className='title'>
             ドローンからの画像
           </div>
@@ -64,6 +74,10 @@ class PhotoList extends React.Component<Props, State> {
         </div>
       </div>
     )
+  }
+
+  toggleDisplay () {
+    this.props.dispatch(actions.showPanel.togglePhotoDisplay())
   }
 
   renderZoomImage () {
@@ -88,4 +102,7 @@ class PhotoList extends React.Component<Props, State> {
   }
 }
 
-export default PhotoList
+export default connect(
+  (state: Store.State) => ({ photos: state.photos, showPanel: state.showPanel }),
+  (dispatch) => ({ dispatch })
+)(PhotoList)

@@ -1,11 +1,21 @@
+$photo-list-width: 340px;
+
 .photo-list-outer {
   position: fixed;
   flex-flow: column nowrap;
   top: $header-height;
-  right: 0;
   display: flex;
-  width: 340;
+  width: $photo-list-width;
   border-left: 1px solid $app-color;
+  transition: right 0.4s ease;
+}
+
+.photo-list-show {
+  right: 0;
+}
+
+.photo-list-hidden {
+  right: -$photo-list-width;
 }
 
 .photo-list-outer .title {
@@ -49,5 +59,26 @@
     display: block;
     box-shadow: 8px 8px 15px 1px #666;
     cursor: pointer;
+  }
+}
+
+.photo-list-toggle {
+  position: absolute;
+  top: 2px;
+  right: $photo-list-width;
+  width: 50px;
+  height: 50px;
+  background-color: rgba($app-color, 0.6);
+  color: white;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+  .expand {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: -25px;
+    left: -25px;
+    user-select: none;
   }
 }

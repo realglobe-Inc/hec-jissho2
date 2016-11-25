@@ -5,7 +5,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import AppStyle from '../components/app_style'
 import Header from '../components/header'
-import PhotoList from '../components/photo_list'
+import PhotoList from '../containers/photo_list'
 import appUtil from '../helpers/app_util'
 import { PhotoInfo } from '../interfaces/app'
 import * as Im from 'immutable'
@@ -30,7 +30,7 @@ class App extends React.Component<{}, State> {
       <AppStyle/>
       <Header/>
       <div style={{margin: '1em'}}>
-        <PhotoList photos={this.state.photos}/>
+        <PhotoList/>
       </div>
     </div>
     )

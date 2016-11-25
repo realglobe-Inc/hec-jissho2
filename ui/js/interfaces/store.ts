@@ -6,7 +6,10 @@ export type Reducer<T> = (state: T, action: {type: string}) => T
 
 // Store state
 export namespace Store {
-  export type InfoDisplay = boolean
+  export type ShowPanel = {
+    info: boolean
+    photo: boolean
+  }
 
   export interface Map {
     center: App.Location
@@ -45,7 +48,7 @@ export namespace Store {
    * Store全体
    */
   export interface State {
-    infoDisplay: InfoDisplay
+    showPanel: ShowPanel
     map: Map
     markers: Markers
     modalWindow: ModalWindow

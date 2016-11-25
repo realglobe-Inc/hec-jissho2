@@ -12,18 +12,18 @@ import Store from '../interfaces/store'
 const debug = require('debug')('hec:ControllerPanel')
 
 interface Props {
-  storeState: Store.State
+  showPanel: Store.ShowPanel
   dispatch: any
 }
 
 class ControllerPanel extends React.Component<Props, any> {
   render () {
     const s = this
-    let display = s.props.storeState.infoDisplay
+    let show = s.props.showPanel.info
     return (
-      <div className={c('controller-panel', display ? '' : 'pannel-hidden')}>
+      <div className={c('controller-panel', show ? '' : 'pannel-hidden')}>
         <div className='panel-display-toggle'>
-          <i className={c('fa', 'fa-3x', display ? 'fa-caret-left' : 'fa-caret-right')} aria-hidden></i>
+          <i className={c('fa', 'fa-3x', show ? 'fa-caret-left' : 'fa-caret-right')} aria-hidden></i>
           <div className='expand' onClick={s.toggleDisplay.bind(s)}></div>
         </div>
         <ControllerPanelSelect/>
@@ -33,13 +33,12 @@ class ControllerPanel extends React.Component<Props, any> {
   }
 
   toggleDisplay () {
-    debug('Toggle panel')
-    this.props.dispatch(actions.infoDisplay.toggleInfoDisplay())
+    this.props.dispatch(actions.showPanel.toggleInfoDisplay())
   }
 }
 
 export default connect(
-  (storeState: Store.State) => ({ storeState }),
+  (state: Store.State) => ({ showPanel: state.showPanel }),
   (dispatch) => ({ dispatch })
 )(ControllerPanel)
 
