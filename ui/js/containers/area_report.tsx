@@ -62,16 +62,29 @@ class ReportWatch extends React.Component<ReportWatchProps, any> {
 }
 
 interface Props {
-  storeState: Store.State
+  reports: Store.Reports
+  selectedMarker: Store.SelectedMarker
+  markers: Store.Markers
   dispatch: any
 }
 
-class AreaReport extends React.Component<Props, any> {
+interface State {
+  address?: string,
+  reportFullId?: string
+}
+
+class AreaReport extends React.Component<Props, State> {
+  constructor() {
+    super()
+    this.state = {
+      address: ''
+    }
+  }
+
   render () {
     const s = this
-    let state = s.props.storeState
-    let { selectedMarker, reports } = state
-    let marker = storeUtil.getSelectedMarker(state)
+    let { selectedMarker, reports, markers } = s.props
+    let marker = markers.get(selectedMarker.id)
     let report = reports.get(marker.keys.reportFullId)
     return (
       <div className='area-report'>
@@ -81,7 +94,7 @@ class AreaReport extends React.Component<Props, any> {
             住所
           </div>
           <div className='value'>
-            {/* /marker ? marker.address : '' */}
+            {s.state.address}
           </div>
         </div>
         <div className='info'>
@@ -111,7 +124,7 @@ class AreaReport extends React.Component<Props, any> {
         </div>
         <div className='info'>
           <div className='name'>
-            心拍数
+            情報
           </div>
           <div className='value'>
           </div>
@@ -120,6 +133,24 @@ class AreaReport extends React.Component<Props, any> {
         {s.renderCloseButton()}
       </div>
     )
+  }
+
+  componentDidMount () {
+    const s = this
+    let { selectedMarker, markers } = s.props
+    let marker = markers.get(selectedMarker.id)
+    let nextReportFullId = marker.keys.reportFullId    
+    s.setState({
+      reportFullId: nextReportFullId
+    })
+    appUtil.fetchAddress(marker.location)
+      .then((address: string) => {
+        debug('Update report adress', address)
+        s.setState({ address })
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   renderCloseButton () {
@@ -144,6 +175,10 @@ class AreaReport extends React.Component<Props, any> {
 }
 
 export default connect(
-  (storeState: Store.State) => ({ storeState }),
+  (state: Store.State) => ({
+    selectedMarker: state.selectedMarker,
+    reports: state.reports,
+    markers: state.markers
+  }),
   (dispatch) => ({ dispatch })
 )(AreaReport)
