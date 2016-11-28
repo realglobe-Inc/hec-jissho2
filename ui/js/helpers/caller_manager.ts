@@ -15,35 +15,35 @@ const {
 } = SUGOS
 
 /**
- * 必要な Actor に接続しに行く
+ * Camera server の actor に接続する
  */
-export function connectCallers () {
-  {
-    // Report Actor
-    let key: string = MASTER_ACTOR.KEY
-    sugoCaller(urls.callers())
-      .connect(key)
-      .then((caller: Caller) => {
-        debug(`Connected caller: ${key}`)
-        initializeReporter(key, caller)
-        store.dispatch(actions.callers.addCaller({
-          key, caller
-        }))
-      })
-  }
-  {
-    // Camera Actor
-    let key: string = PHOTO_MONITOR_ACTOR.KEY
-    sugoCaller(urls.callers())
-      .connect(key)
-      .then((caller: Caller) => {
-        debug(`Connected caller: ${key}`)
-        initializeCameraMonitor(key, caller)
-        store.dispatch(actions.callers.addCaller({
-          key, caller
-        }))
-      })
-  }
+export function connectCameraCaller () {
+  let key: string = PHOTO_MONITOR_ACTOR.KEY
+  return sugoCaller(urls.callers())
+          .connect(key)
+          .then((caller: Caller) => {
+            debug(`Connected caller: ${key}`)
+            initializeCameraMonitor(key, caller)
+            store.dispatch(actions.callers.addCaller({
+              key, caller
+            }))
+          })
+}
+
+/**
+ * Report server の actor に接続する
+ */
+export function connectReportCaller () {
+  let key: string = MASTER_ACTOR.KEY
+  return sugoCaller(urls.callers())
+          .connect(key)
+          .then((caller: Caller) => {
+            debug(`Connected caller: ${key}`)
+            initializeReporter(key, caller)
+            store.dispatch(actions.callers.addCaller({
+              key, caller
+            }))
+          })
 }
 
 /**

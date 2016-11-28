@@ -5,7 +5,7 @@ import appUtil from './app_util'
 import actions from '../actions'
 import urls from './urls'
 import * as bRequest from 'browser-request'
-import { connectCallers } from './caller_manager'
+import { connectReportCaller, connectCameraCaller } from './caller_manager'
 
 const formatter = require('@self/server/helper/formatter')
 const debug = require('debug')('hec:store_util')
@@ -36,8 +36,9 @@ export const newMarkerId = (() => {
  * Storeの初期化処理
  */
 export function initialize (store: Redux.Store<any>) {
-  // Caller
-  connectCallers()
+  // Callers
+  connectReportCaller()
+  connectReportCaller()
 
   // 自分の位置
   if (navigator.geolocation) {
