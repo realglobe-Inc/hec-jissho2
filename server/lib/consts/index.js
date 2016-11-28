@@ -17,8 +17,7 @@ module.exports = {
     },
 
     OF_PUB_PHOTO: {
-      SELECT_PHOTO: '/rest/pub_photo/cameras/:camera_uuid/photos/:photo_uuid',
-      SELECTED_PHOTO: '/rest/pub_photo'
+      SELECT_PHOTO: '/rest/pub_photo',
     }
   },
 

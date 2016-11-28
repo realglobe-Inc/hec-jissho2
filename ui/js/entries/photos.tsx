@@ -1,51 +1,65 @@
 /**
- * 写真の一覧を見るページ
+ * タブレットから写真を見るページ
  */
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import AppStyle from '../components/app_style'
 import Header from '../components/header'
-import PhotoList from '../containers/photo_list'
 import appUtil from '../helpers/app_util'
 import { PhotoInfo } from '../interfaces/app'
-import * as Im from 'immutable'
+import urls from '../helpers/urls'
+import * as bRequest from 'browser-request'
+import { connectPubPhotoCaller } from '../helpers/tablet_caller_manager'
 
 const rootElement = document.getElementById('site')
+const camera = require('@self/server/env/camera.json').default
 
-interface State {
-  photos: Im.Map<string, PhotoInfo>
-}
-
-class App extends React.Component<{}, State> {
+class Photo extends React.Component<{}, { photo?: PhotoInfo }> {
   constructor () {
     super()
-    this.state = {
-      photos: Im.Map<string, PhotoInfo>()
-    }
+    this.state = {}
   }
 
   render () {
+    let { photo } = this.state
+    let url = photo ? urls.getPhoto(photo.image) : ''
     return (
-    <div>
-      <AppStyle/>
-      <Header/>
-      <div style={{margin: '1em'}}>
-        <PhotoList/>
-      </div>
-    </div>
+      <img src={url} width={`${window.innerWidth}px`}/>
     )
   }
 
   componentDidMount () {
     const s = this
-    appUtil.fetchPhotoList()
-      .then((photoArray: PhotoInfo[]) => {
-        let setting = photoArray.map((photo) => ([photo.uuid, photo]))
-        let photos = Im.Map<string, PhotoInfo>(setting)
-        s.setState({ photos })
-      })
+    bRequest({
+      url: urls.sharePhoto(),
+      method: 'GET',
+      json: true
+    }, (err, res, body) => {
+      if (body && body.uuid) {
+        s.setState({ photo: body })
+      }
+    })
 
-    // TODO Caller 部分の実装
+    // caller が写真変更イベントを受け取ったら写真を更新する
+    let onChangePhoto = (photo: PhotoInfo) => {
+      console.log('change', photo)
+      s.setState({
+        photo
+      })
+    }
+    connectPubPhotoCaller(onChangePhoto)
+  }
+}
+
+class App extends React.Component<{}, {}> {
+  render () {
+    return (
+    <div>
+      <AppStyle/>
+      <Header/>
+      <Photo/>
+    </div>
+    )
   }
 }
 

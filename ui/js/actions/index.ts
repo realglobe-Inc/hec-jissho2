@@ -7,6 +7,7 @@ import * as reportClosed from './report_closed'
 import * as reports from './reports'
 import * as selectedMarker from './selected_marker'
 import * as photos from './photos'
+import * as selectedPhoto from './selected_photo'
 
 const actions = {
   callers,
@@ -17,7 +18,8 @@ const actions = {
   reportClosed,
   reports,
   selectedMarker,
-  photos
+  photos,
+  selectedPhoto
 }
 
 export default actions

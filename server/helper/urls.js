@@ -67,11 +67,11 @@ const urls = {
    * URL of pub photo server
    */
   pubPhoto: {
-    selectPhoto (camera_uuid, photo_uuid) {
-      return replace(PUB_PHOTO_URL.SELECT_PHOTO, { camera_uuid, photo_uuid })
+    selectPhoto () {
+      return PUB_PHOTO_URL.SELECT_PHOTO
     },
     getPhoto () {
-      return PUB_PHOTO_URL.SELECTED_PHOTO
+      return PUB_PHOTO_URL.SELECT_PHOTO
     }
   }
 }

@@ -110,3 +110,11 @@ export interface SetPhotos extends Action {
   photos: PhotoInfo[]
 }
 export type PhotosAction = AddPhoto | SetPhotos
+
+// selectedPhoto
+export const SELECT_PHOTO = 'SELECT_PHOTO'
+export interface SelectPhoto extends Action {
+  type: 'SELECT_PHOTO'
+  uuid: string
+}
+export type SelectedPhotoAction = SelectPhoto

@@ -11,29 +11,21 @@ const debug = require('debug')('hec:pub_photo_server')
 let isTest = process.env.NODE_ENV === 'test'
 
 // DB ではなくサーバーが保持
-let selectedPhoto = {
-  camera_uuid: '',
-  photo_uuid: ''
-}
+let selectedPhoto = {}
 
 let config = {
   endpoints: {
     /** 配信する写真を選択する */
     [REST_URL.OF_PUB_PHOTO.SELECT_PHOTO]: {
+      GET: (ctx) => {
+        ctx.body = selectedPhoto
+      },
       POST: (ctx) => {
-        let { camera_uuid, photo_uuid } = ctx.params 
-        let selected = {
-          camera_uuid, photo_uuid
-        }
-        debug(`Selected. camera_uuid: ${camera_uuid}, photo_uuid: ${photo_uuid}`)
+        let selected = ctx.request.body
+        debug(selected)
         selectedPhoto = selected
         pubPhotoActor.emitter.emit(SUGOS.PUB_PHOTO_ACTOR.UPDATE_PHOTO_EVENT, selected)
         ctx.body = { success: true }
-      }
-    },
-    [REST_URL.OF_PUB_PHOTO.SELECTED_PHOTO]: {
-      GET: (ctx) => {
-        ctx.body = selectedPhoto
       }
     }
   },

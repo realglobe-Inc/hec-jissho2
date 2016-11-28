@@ -82,3 +82,10 @@ $photo-list-width: 340px;
     user-select: none;
   }
 }
+
+.share-photo-button {
+  position: fixed;
+  top: 5em;
+  left: 5em;
+  font-size: 2em;
+}

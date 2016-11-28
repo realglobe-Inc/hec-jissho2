@@ -10,6 +10,8 @@ import urls from '../helpers/urls'
 import appUtil from '../helpers/app_util'
 import * as sugoCaller from 'sugo-caller'
 import { Store } from '../interfaces/store'
+import { ApButton } from 'apeman-react-button'
+import * as bRequest from 'browser-request'
 
 const cssVars = require('../../scss/vars.json')
 const { PHOTO_MONITOR_ACTOR } = require('@self/server/lib/consts').SUGOS
@@ -70,6 +72,9 @@ class PhotoList extends React.Component<Props, State> {
           </div>
         </div>
         <div className={c('photo-zoom-outer', s.state.modalMode ? '' : 'hidden')} onClick={s.closeModal.bind(s)}>
+          <div className='share-photo-button'>
+            <ApButton wide onTap={s.sendPhotoInfo.bind(s)}>共有する</ApButton>
+          </div>
           {s.renderZoomImage()}
         </div>
       </div>
@@ -99,6 +104,23 @@ class PhotoList extends React.Component<Props, State> {
 
   closeModal () {
     this.setState({ modalMode: false })
+  }
+
+  sendPhotoInfo () {
+    let photo = this.state.selectedPhoto
+    let url = urls.sharePhoto()
+    bRequest({
+      url,
+      method: 'POST',
+      json: true,
+      body: photo
+    }, (err, res, body) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+      console.log(body)
+    })
   }
 }
 

@@ -44,6 +44,11 @@ export namespace Store {
    */
   export type Photos = Im.OrderedMap<string, App.PhotoInfo>
 
+  export type SelectedPhoto = {
+    isSelected: boolean
+    uuid: string
+  }
+
   /**
    * Store全体
    */
@@ -56,7 +61,8 @@ export namespace Store {
     reports: Reports
     selectedMarker: SelectedMarker
     callers: Callers,
-    photos: Photos
+    photos: Photos,
+    selectedPhoto: SelectedPhoto
   }
 }
 

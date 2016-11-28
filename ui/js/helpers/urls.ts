@@ -43,13 +43,23 @@ export default {
     return ORIGIN_URL + '/center'
   },
   /**
-   * SUGO Caller
+   * SUGO Caller of UI server
    */
-  callers () {
+  uiCallers () {
     return {
       protocol,
       host,
       path: '/jissho2' + SUGOS_URL.UI_PATH
+    }
+  },
+  /**
+   * SUGO Caller of PubPhoto server
+   */
+  pubPhotoCallers () {
+    return {
+      protocol,
+      host,
+      path: '/jissho2' + SUGOS_URL.PUB_PHOTO_PATH
     }
   },
   /**
@@ -80,5 +90,11 @@ export default {
    */
   getPhotoList () : string {
     return ORIGIN_URL + restUrls.camera.getPhotoList(camera.uuid) + `?token=${camera.token}`
+  },
+  /**
+   * 写真を共有
+   */
+  sharePhoto (): string {
+    return ORIGIN_URL + restUrls.pubPhoto.selectPhoto()
   }
 }

@@ -48,11 +48,15 @@ describe('PubPhoto server', function () {
     })
     {
       // Select a photo
-      let url = `${baseUrl}${pubPhotoUrl.selectPhoto(camera_uuid, photo_uuid)}`
+      let url = `${baseUrl}${pubPhotoUrl.selectPhoto()}`
       let { statusCode, body } = yield request({
         url,
         method: 'POST',
-        json: true
+        json: true,
+        body: {
+          camera_uuid,
+          photo_uuid
+        }
       })
       assert.ok(body.success)
       assert.equal(statusCode, 200)

@@ -15,11 +15,11 @@ const {
 } = SUGOS
 
 /**
- * Camera server の actor に接続する
+ * Camera server 用の actor に接続する
  */
 export function connectCameraCaller () {
   let key: string = PHOTO_MONITOR_ACTOR.KEY
-  return sugoCaller(urls.callers())
+  return sugoCaller(urls.uiCallers())
           .connect(key)
           .then((caller: Caller) => {
             debug(`Connected caller: ${key}`)
@@ -31,11 +31,11 @@ export function connectCameraCaller () {
 }
 
 /**
- * Report server の actor に接続する
+ * Report server 用の actor に接続する
  */
 export function connectReportCaller () {
   let key: string = MASTER_ACTOR.KEY
-  return sugoCaller(urls.callers())
+  return sugoCaller(urls.uiCallers())
           .connect(key)
           .then((caller: Caller) => {
             debug(`Connected caller: ${key}`)
@@ -85,7 +85,7 @@ export function initializeReporter (key: string, caller: Caller) {
 /**
  * カメラサーバー監視callerの初期化
  */
-function initializeCameraMonitor(key: string, caller: Caller) {
+function initializeCameraMonitor (key: string, caller: Caller) {
   let monitor = caller.get(PHOTO_MONITOR_ACTOR.MODULE)
   monitor.on(PHOTO_MONITOR_ACTOR.CREATED_EVENT, (photo: PhotoInfo) => {
     debug(`Added photo ${photo.uuid}`)
