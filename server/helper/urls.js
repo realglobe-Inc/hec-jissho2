@@ -5,6 +5,7 @@ const encode = require('urlencode')
 const { REST_URL } = require('@self/lib/consts')
 const CAMERA_URL = REST_URL.OF_CAMERA
 const REPORT_URL = REST_URL.OF_REPORT
+const PUB_PHOTO_URL = REST_URL.OF_PUB_PHOTO
 
 function replace (target, opt) {
   let keys = Object.keys(opt)
@@ -59,6 +60,18 @@ const urls = {
     },
     closeReport (report_full_id) {
       return replace(REPORT_URL.CLOSE_REPORT, { report_full_id })
+    }
+  },
+
+  /**
+   * URL of pub photo server
+   */
+  pubPhoto: {
+    selectPhoto (camera_uuid, photo_uuid) {
+      return replace(PUB_PHOTO_URL.SELECT_PHOTO, { camera_uuid, photo_uuid })
+    },
+    getPhoto () {
+      return PUB_PHOTO_URL.SELECTED_PHOTO
     }
   }
 }

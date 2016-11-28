@@ -8,7 +8,7 @@ const assert = require('assert')
 const co = require('co')
 const arequest = require('arequest')
 const reportServer = require('@self/server/lib/report_server')
-const aport = require('aport')
+const { port } = require('@self/server/env')
 const asleep = require('asleep')
 const db = require('@self/server/db')
 const reportUrl = require('@self/server/helper/urls').report
@@ -23,19 +23,17 @@ const {
 describe('Report server', function () {
   let request = arequest.create({ jar: true })
   this.timeout(15000)
-  let restPort
   let observer
   let baseUrl
 
   before(() => co(function * () {
     yield db.sync({ force: true })
     yield db.seed()
-    restPort = yield aport()
-    baseUrl = `http://localhost:${restPort}`
-    yield reportServer.listen(restPort)
+    baseUrl = `http://localhost:${port.REPORT}`
+    yield reportServer.listen(port.REPORT)
     observer = reportServer.createObserver({
       protocol: 'http',
-      host: `localhost:${restPort}`
+      host: `localhost:${port.REPORT}`
     })
     yield observer.start()
   }))
@@ -116,7 +114,7 @@ describe('Report server', function () {
       }
     })
     let actor = sugoActor({
-      port: restPort,
+      port: port.REPORT,
       key: actorKey,
       modules: {
         reporter
@@ -127,7 +125,7 @@ describe('Report server', function () {
     // Connect master actor
     let caller = sugoCaller({
       protocol: 'http',
-      host: `localhost:${restPort}`
+      host: `localhost:${port.REPORT}`
     })
     let masterActor = yield caller.connect(MASTER_ACTOR.KEY)
     let masterReporter = masterActor.get(MASTER_ACTOR.MODULE)
