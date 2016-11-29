@@ -36,7 +36,7 @@ class OkWarningWindow extends React.Component<Props, any> {
     const s = this
     let appear = !prevProps.modalWindow.okWarning && s.props.modalWindow.okWarning
     if (appear) {
-      document.addEventListener('keydown', s.detectEnter)
+      document.addEventListener('keydown', s.detectEnter.bind(s))
       return
     }
   }

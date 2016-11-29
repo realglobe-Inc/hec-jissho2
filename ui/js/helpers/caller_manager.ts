@@ -53,6 +53,7 @@ export function initializeReporter (key: string, caller: Caller) {
   let reporter = caller.get(MASTER_ACTOR.MODULE)
   reporter.on(MASTER_ACTOR.NEW_REPORT_EVENT, (report: Report) => {
     debug('New report: ', report)
+    report.reportAt = new Date(report.reportAt) // Date 型だけ注意
     let marker: Marker = {
       id: newMarkerId(),
       type: 'report',
@@ -73,6 +74,7 @@ export function initializeReporter (key: string, caller: Caller) {
     store.dispatch(actions.modalWindow.openOkWarningModal())
   })
   reporter.on(MASTER_ACTOR.REPORT_INFO_EVENT, (info: ReportInfo) => {
+    info.date = new Date(info.date) // Date 型だけ注意
     let state: Store.State = store.getState()
     let report: Report = state.reports.get(info.reportFullId, null)
     if (!report) {

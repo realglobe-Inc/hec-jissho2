@@ -10,7 +10,7 @@ const {
   COUNT = 100,
   INTERVAL = 2000,
   PROTOCOL = 'http',
-  HOSTNAME = `localhost:${port.DEV}`
+  HOST = `localhost:${port.DEV}`
 } = process.env
 const { v4: newUUID } = require('uuid')
 const co = require('co')
@@ -20,7 +20,7 @@ const asleep = require('asleep')
 const colorprint = require('colorprint')
 const arequest = require('arequest')
 
-const baseUrl = `${PROTOCOL}://${HOSTNAME}/jissho2`
+const baseUrl = `${PROTOCOL}://${HOST}/jissho2`
 let request = arequest.create({ jar: true })
 let create = (pathname, config) => co(function * () {
   let { statusCode, body } = yield request(Object.assign({

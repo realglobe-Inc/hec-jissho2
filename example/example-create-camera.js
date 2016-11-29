@@ -10,7 +10,7 @@ const {
   COUNT = 120,
   INTERVAL = 2000,
   PROTOCOL = 'http',
-  HOSTNAME = `localhost:${port.CAMERA}`
+  HOST = `localhost:${port.CAMERA}`
 } = process.env
 const { v4: newUUID } = require('uuid')
 const co = require('co')
@@ -20,7 +20,7 @@ const asleep = require('asleep')
 const colorprint = require('colorprint')
 const arequest = require('arequest')
 
-const baseUrl = `${PROTOCOL}://${HOSTNAME}`
+const baseUrl = `${PROTOCOL}://${HOST}`
 let request = arequest.create({ jar: true })
 let create = (pathname, config) => co(function * () {
   let { statusCode, body } = yield request(Object.assign({
