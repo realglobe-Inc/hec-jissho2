@@ -37,7 +37,7 @@ export const newMarkerId = (() => {
  */
 export function initialize (store: Redux.Store<any>) {
   // Callers
-  connectReportCaller()
+  connectCameraCaller()
   connectReportCaller()
 
   // 自分の位置
