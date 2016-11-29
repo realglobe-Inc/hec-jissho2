@@ -1,6 +1,7 @@
 const { join } = require('path')
 const { readdirSync } = require('fs')
 const webpack = require('webpack')
+// const ClosureCompilerPlugin = require('webpack-closure-compiler')
 const devConfig = require('./webpack.config.dev')
 const CssConfig = devConfig[1]
 
@@ -33,17 +34,21 @@ const JsConfig = () => {
       }),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin()
-      // new webpack.optimize.UglifyJsPlugin({
-      //   compress: {
-      //     warnings: false
-      //   }
+      // TODO エラー除去
+      // ,new ClosureCompilerPlugin({
+      //   compiler: {
+      //     language_in: 'ECMASCRIPT6',
+      //     language_out: 'ECMASCRIPT5',
+      //     compilation_level: 'ADVANCED'
+      //   },
+      //   concurrency: 3,
       // })
     ],
     module: {
       loaders: [
         {
           test: /\.ts(x?)$/,
-          loader: 'ts-loader',
+          loader: 'ts-loader?sourceMap=false',
           exclude: /node_modules/
         },
         {
