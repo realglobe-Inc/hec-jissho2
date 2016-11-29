@@ -39,9 +39,9 @@ const db = {
       let modelList = Object.keys(models).map((name) => models[name])
       for (let model of modelList) {
         let all = yield model.findAll()
-        debug(colors.green(`--- ${model.name} ---`))
-        debug(all.map((data) => data.dataValues))
-        debug('')
+        console.log(colors.green(`--- ${model.name} ---`))
+        console.log(all.map((data) => data.dataValues))
+        console.log('')
       }
     })
   },
