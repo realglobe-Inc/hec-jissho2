@@ -32,14 +32,12 @@ const JsConfig = () => {
         'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
         'process.env.RG_GOOGLE_API_KEY': JSON.stringify(process.env.RG_GOOGLE_API_KEY)
       }),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.OccurenceOrderPlugin()
       // TODO エラー除去
-      // ,new ClosureCompilerPlugin({
+      // new ClosureCompilerPlugin({
       //   compiler: {
       //     language_in: 'ECMASCRIPT6',
       //     language_out: 'ECMASCRIPT5',
-      //     compilation_level: 'ADVANCED'
+      //     compilation_level: 'SIMPLE'
       //   },
       //   concurrency: 3,
       // })
@@ -48,7 +46,7 @@ const JsConfig = () => {
       loaders: [
         {
           test: /\.ts(x?)$/,
-          loader: 'ts-loader?sourceMap=false',
+          loader: 'ts-loader',
           exclude: /node_modules/
         },
         {
@@ -56,6 +54,11 @@ const JsConfig = () => {
           loader: 'json-loader'
         }
       ]
+    },
+    ts: {
+      compilerOptions: {
+        sourceMap: false
+      }
     },
     resolve: {
       extensions: [ '', '.js', '.jsx', '.ts', '.tsx', '.json' ]

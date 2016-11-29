@@ -1,8 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import AppStyle from '../components/app_style'
 import Header from '../components/header'
-import { ApButton } from 'apeman-react-button'
 
 const rootElement = document.getElementById('site')
 
@@ -20,7 +18,6 @@ let links = [
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <div className='app'>
-      <AppStyle/>
       <Header/>
       <div className='menu-wrapper'>
         {
