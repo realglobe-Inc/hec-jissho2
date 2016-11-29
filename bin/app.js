@@ -6,7 +6,7 @@ const camera = require('@self/server/lib/camera_server')
 const report = require('@self/server/lib/report_server')
 const PubPhoto = require('@self/server/lib/pub_photo_server')
 const co = require('co')
-const debug = require('debug')('hec:dev')
+const debug = require('debug')('hec:app')
 
 function app () {
   return co(function * () {

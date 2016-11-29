@@ -10,10 +10,15 @@ import MapController from '../components/map_controller'
 import ModalCenterconf from '../containers/modal_centerconf'
 import { initialize } from '../helpers/store_util'
 import PhotoList from '../containers/photo_list'
+import auth from '../helpers/auth'
 
 const rootElement = document.getElementById('site')
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (!auth(window.prompt, window.localStorage)) {
+    return
+  }
+
   ReactDOM.render(
     <Provider store={store}>
       <div>

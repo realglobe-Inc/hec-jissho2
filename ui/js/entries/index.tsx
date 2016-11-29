@@ -1,8 +1,10 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import Header from '../components/header'
+import auth from '../helpers/auth'
 
 const rootElement = document.getElementById('site')
+
 
 let links = [
   {
@@ -16,6 +18,9 @@ let links = [
 ]
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (!auth(window.prompt, window.localStorage)) {
+    return
+  }
   ReactDOM.render(
     <div className='app'>
       <Header/>

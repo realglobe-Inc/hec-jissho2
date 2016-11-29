@@ -10,6 +10,7 @@ import { PhotoInfo } from '../interfaces/app'
 import urls from '../helpers/urls'
 import * as bRequest from 'browser-request'
 import { connectPubPhotoCaller } from '../helpers/tablet_caller_manager'
+import auth from '../helpers/auth'
 
 const rootElement = document.getElementById('site')
 const camera = require('@self/server/env/camera.json').default
@@ -64,6 +65,10 @@ class App extends React.Component<{}, {}> {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (!auth(window.prompt, window.localStorage)) {
+    return
+  }
+
   ReactDOM.render(
     <App/>,
     rootElement
