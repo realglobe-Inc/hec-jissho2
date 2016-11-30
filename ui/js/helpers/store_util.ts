@@ -6,10 +6,11 @@ import actions from '../actions'
 import urls from './urls'
 import * as bRequest from 'browser-request'
 import { connectReportCaller, connectCameraCaller } from './caller_manager'
+import * as formatter from '@self/server/helper/formatter'
+import * as config from '@self/ui/config'
 
-const formatter = require('@self/server/helper/formatter')
+const { mapCenter } = config
 const debug = require('debug')('hec:store_util')
-const { mapCenter } = require('../../config')
 
 /**
  * 選択されているマーカーを取得
@@ -52,13 +53,14 @@ export function initialize (store: Redux.Store<any>) {
           keys: {}
         }
         store.dispatch(actions.markers.addMarker(myMarker))
-      }).then(() => {
+        return myMarker.id
+      }).then((id: number) => {
         // 一定時間ごとに更新
         setInterval(() => {
           appUtil.getMyLocation()
           .then((location: Location) => {
             store.dispatch(actions.markers.updateMarker({
-              id: 1,
+              id,
               location
             }))
           })

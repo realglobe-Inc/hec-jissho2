@@ -4,7 +4,9 @@
 import { Location } from '../interfaces/app'
 import { Reducer, Store } from '../interfaces/store'
 import * as Actions from '../interfaces/actions'
-const { mapCenter } = require('../../config')
+import * as config from '@self/ui/config'
+
+const { mapCenter } = config
 
 let init: Store.Map = {
   center: mapCenter

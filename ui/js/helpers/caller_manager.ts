@@ -5,9 +5,10 @@ import actions from '../actions'
 import { Caller, Report, ReportInfo, Marker, PhotoInfo } from '../interfaces/app'
 import { newMarkerId } from './store_util'
 import { Store } from '../interfaces/store'
+import * as CONSTS from '@self/server/lib/consts'
 
 const debug = require('debug')('hec:caller_manager')
-const { SUGOS } = require('@self/server/lib/consts')
+const { SUGOS } = CONSTS
 const {
   REPORTER_MODULE,
   MASTER_ACTOR,

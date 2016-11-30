@@ -1,23 +1,25 @@
 /**
  * urls of entrypoints
+ * UI でも使うので ES5 で書いた。
  */
-const encode = require('urlencode')
-const { REST_URL } = require('@self/lib/consts')
-const CAMERA_URL = REST_URL.OF_CAMERA
-const REPORT_URL = REST_URL.OF_REPORT
-const PUB_PHOTO_URL = REST_URL.OF_PUB_PHOTO
+var encode = require('urlencode')
+var { REST_URL } = require('@self/lib/consts')
+var CAMERA_URL = REST_URL.OF_CAMERA
+var REPORT_URL = REST_URL.OF_REPORT
+var PUB_PHOTO_URL = REST_URL.OF_PUB_PHOTO
 
 function replace (target, opt) {
-  let keys = Object.keys(opt)
-  let replaced = target
-  for (let key of keys) {
-    let encoded = encode(opt[key])
+  var keys = Object.keys(opt)
+  var replaced = target
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i]
+    var encoded = encode(opt[key])
     replaced = replaced.replace(`:${key}`, encoded)
   }
   return replaced
 }
 
-const urls = {
+var urls = {
   /**
    * URL of camera server
    */

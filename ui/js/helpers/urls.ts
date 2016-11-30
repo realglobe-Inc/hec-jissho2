@@ -1,9 +1,11 @@
 import { Location } from '../interfaces/app'
+import * as restUrls from '@self/server/helper/urls'
+import * as CONSTS from '@self/server/lib/consts'
+import * as config from '@self/ui/config'
 
-const restUrls = require('@self/server/helper/urls')
-const { SUGOS_URL } = require('@self/server/lib/consts')
+const { SUGOS_URL } = CONSTS
 const camera = require('@self/server/env/camera.json').default
-const { apiKey: googleMapApiKey } = require('@self/ui/config')
+const { apiKey: googleMapApiKey } = config
 let { protocol, host } = window.location
 const ORIGIN_URL = `${protocol}//${host}/jissho2`
 

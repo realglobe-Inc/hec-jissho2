@@ -5,7 +5,6 @@ import auth from '../helpers/auth'
 
 const rootElement = document.getElementById('site')
 
-
 let links = [
   {
     url: 'system.html',

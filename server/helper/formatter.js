@@ -1,18 +1,22 @@
-const camelcase = require('camelcase')
-const snakecase = require('snake-case')
+/**
+ * データ変換
+ * UIでも使うので ES5 で書いた。
+ */
+var camelcase = require('lodash.camelcase')
+var snakecase = require('snake-case')
 
-const camel = _translateCase('camel')
-const snake = _translateCase('snake')
+var camel = _translateCase('camel')
+var snake = _translateCase('snake')
 
-const formatter = {
+var formatter = {
   /**
    * 通報詳細情報を生 -> DB用に変換する
    */
   infoRawToDb ({report, actorKey, event}) {
-    let [lat, lng] = report.location
-    let {id: reportId, heartRate, date} = report
-    let reportFullId = this.toReportFullId({actorKey, reportId})
-    let data = snake({
+    var [lat, lng] = report.location
+    var {id: reportId, heartRate, date} = report
+    var reportFullId = this.toReportFullId({actorKey, reportId})
+    var data = snake({
       reportFullId,
       lat,
       lng,
@@ -57,13 +61,14 @@ const formatter = {
  */
 function _translateCase (type) {
   return (obj) => {
-    let translate = {
+    var translate = {
       snake: snakecase,
       camel: camelcase
     }[type]
-    let res = {}
-    let keys = Object.keys(obj)
-    for (let key of keys) {
+    var res = {}
+    var keys = Object.keys(obj)
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i]
       res[translate(key)] = obj[key]
     }
     return res

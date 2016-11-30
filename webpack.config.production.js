@@ -1,7 +1,7 @@
 const { join } = require('path')
 const { readdirSync } = require('fs')
 const webpack = require('webpack')
-// const ClosureCompilerPlugin = require('webpack-closure-compiler')
+const ClosureCompilerPlugin = require('webpack-closure-compiler')
 const devConfig = require('./webpack.config.dev')
 const CssConfig = devConfig[1]
 
@@ -33,14 +33,14 @@ const JsConfig = () => {
         'process.env.RG_GOOGLE_API_KEY': JSON.stringify(process.env.RG_GOOGLE_API_KEY)
       }),
       // TODO エラー除去
-      // new ClosureCompilerPlugin({
-      //   compiler: {
-      //     language_in: 'ECMASCRIPT6',
-      //     language_out: 'ECMASCRIPT5',
-      //     compilation_level: 'SIMPLE'
-      //   },
-      //   concurrency: 3,
-      // })
+      new ClosureCompilerPlugin({
+        compiler: {
+          language_in: 'ECMASCRIPT6',
+          language_out: 'ECMASCRIPT5',
+          compilation_level: 'SIMPLE'
+        },
+        concurrency: 3,
+      })
     ],
     module: {
       loaders: [
@@ -66,6 +66,7 @@ const JsConfig = () => {
     externals: {
       'react': 'React',
       'react-dom': 'ReactDOM',
+      'react-dom/server': 'ReactDOMServer',
       'react-redux': 'ReactRedux',
       'redux': 'Redux'
     }

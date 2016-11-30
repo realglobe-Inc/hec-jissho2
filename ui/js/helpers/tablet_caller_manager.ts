@@ -1,9 +1,10 @@
 import * as sugoCaller from 'sugo-caller'
 import urls from './urls'
 import { Caller } from '../interfaces/app'
+import * as CONSTS from '@self/server/lib/consts'
 
 const debug = require('debug')('hec:tablet_caller_manager')
-const { SUGOS } = require('@self/server/lib/consts')
+const { SUGOS } = CONSTS
 const {
   PUB_PHOTO_ACTOR
 } = SUGOS

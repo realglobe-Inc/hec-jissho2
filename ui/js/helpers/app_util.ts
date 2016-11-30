@@ -1,7 +1,6 @@
 /**
  * Application util functions
  */
-import co from 'co'
 import * as bRequest from 'browser-request'
 import urls from './urls'
 import { PhotoInfo, Location } from '../interfaces/app'
@@ -33,29 +32,26 @@ export default {
    * 自分の位置情報を {lat, lng} で取得する
    */
   getMyLocation () {
-    return co(function * () {
+    return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
         throw new Error('Not found navigator.geolocation')
       }
-      let location: Location = yield new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(
-          ({coords}) => {
-            let location = {
-              lat: coords.latitude,
-              lng: coords.longitude
-            }
-            debug(location)
-            resolve(location)
-          },
-          (err) => {
-            reject(err)
-          }, {
-            enableHighAccuracy: true,
-            timeout: 10000
+      navigator.geolocation.getCurrentPosition(
+        ({coords}) => {
+          let location: Location = {
+            lat: coords.latitude,
+            lng: coords.longitude
           }
-        )
-      })
-      return location
+          debug(location)
+          resolve(location)
+        },
+        (err) => {
+          reject(err)
+        }, {
+          enableHighAccuracy: true,
+          timeout: 10000
+        }
+      )
     })
   },
   /**

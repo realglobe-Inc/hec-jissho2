@@ -4,7 +4,7 @@
  * @returns {Object}
  */
 'use strict'
-const cssVars = require('./scss/vars.json')
+var cssVars = require('./scss/vars.json')
 
 module.exports = {
   /* テーマカラー */

@@ -3,7 +3,6 @@
  */
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import AppStyle from '../components/app_style'
 import Header from '../components/header'
 import appUtil from '../helpers/app_util'
 import { PhotoInfo } from '../interfaces/app'
@@ -74,7 +73,6 @@ class App extends React.Component<{}, {}> {
   render () {
     return (
     <div className='app'>
-      <AppStyle/>
       <Header/>
       <Photo/>
     </div>

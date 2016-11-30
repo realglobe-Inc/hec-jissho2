@@ -6,7 +6,7 @@ declare var window: any
 
 const middlewares: any[] = []
 
-let composition = compose(
+let composition = process.env.NODE_ENV === 'production' ? null : compose(
   // applyMiddleware(...middlewares),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )

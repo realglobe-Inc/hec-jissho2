@@ -10,8 +10,9 @@ import storeUtil from '../helpers/store_util'
 import GoogleMap from 'google-map-react'
 import Marker from '../components/marker'
 import { Location } from '../interfaces/app'
+import * as config from '@self/ui/config'
 
-const { apiKey } = require('../../config')
+const { apiKey } = config
 const cssVars = require('../../scss/vars.json')
 const debug = require('debug')('hec:ControllerMap')
 const mapStyle = require('../helpers/map_style.json')

@@ -3,8 +3,9 @@
  */
 import * as React from 'react'
 import { ApButtonStyle } from 'apeman-react-button'
+import * as config from '@self/ui/config'
 
-const { color } = require('../../config')
+const { color } = config
 
 class AppStyle extends React.Component<{}, {}> {
   render () {
