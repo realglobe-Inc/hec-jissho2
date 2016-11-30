@@ -7,6 +7,7 @@ $photo-list-width: 340px;
   display: flex;
   width: $photo-list-width;
   border-left: 1px solid $app-color;
+  background: white;
   transition: right 0.4s ease;
 }
 
@@ -37,6 +38,16 @@ $photo-list-width: 340px;
   overflow-y: scroll;
   overflow-x: hidden;
   box-sizing: border-box;
+
+  .photo-list-item-wrapper {
+    position: relative;
+  }
+  .photo-list-item-info {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    color: white;
+  }
   .photo-list-item {
     cursor: pointer;
     animation: fadeIn 0.5s ease 0s 1 normal;

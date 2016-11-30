@@ -51,32 +51,43 @@ class PhotoList extends React.Component<Props, State> {
     return (
       <div className='photo-list-ex'>
         <div className={c('photo-list-outer', show ? 'photo-list-show' : 'photo-list-hidden')}>
+
           <div className='photo-list-toggle'>
             <i className={c('fa', 'fa-3x', show ? 'fa-caret-right' : 'fa-caret-left')} aria-hidden></i>
             <div className='expand' onClick={s.toggleDisplay.bind(s)}></div>
           </div>
+
           <div className='title'>
             ドローンからの画像
           </div>
+
           <div className='photo-list' style={{height: `${listHeight}px`}}>
             {s.props.photos.toArray().reverse().slice(0, max).map((photo) => {
               return (
+                <div className='photo-list-item-wrapper'>
                   <img className='photo-list-item'
                       src={urls.getPhoto(photo.image, THUMBNAIL_PHOTO_SIZE)}
                       onClick={s.openModal.bind(this)}
                       key={photo.uuid}
                       data={photo.uuid}
                   />
+                  <div className='photo-list-item-info'>
+                    {appUtil.formatTime(photo.createdAt)}
+                  </div>
+                </div>
               )
             })}
           </div>
+
         </div>
+
         <div className={c('photo-zoom-outer', s.state.modalMode ? '' : 'hidden')} onClick={s.closeModal.bind(s)}>
           <div className='share-photo-button'>
             <ApButton wide onTap={s.sendPhotoInfo.bind(s)}>共有する</ApButton>
           </div>
           {s.renderZoomImage()}
         </div>
+
       </div>
     )
   }
