@@ -173,3 +173,11 @@ $panel-width: 400px;
     }
   }
 }
+
+.area-center {
+  margin-top: 100px;
+  text-align: center;
+  .ap-button {
+    font-size: 1.5em;
+  }
+}

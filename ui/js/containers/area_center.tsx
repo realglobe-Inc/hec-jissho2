@@ -17,10 +17,11 @@ class AreaCenter extends React.Component<Props, any> {
   render () {
     const s = this
     return (
-      <div className='area' style={{textAlign: 'center'}}>
+      <div className='area'>
         <h4>本部</h4>
-        <div style={{marginTop: '100px'}}>
-          <ApButton wide onTap={s.openCenterConfigModal.bind(s)}>
+        <div className='area-center'>
+          <ApButton wide
+                    onTap={s.openCenterConfigModal.bind(s)}>
             本部の位置を変更
           </ApButton>
         </div>
