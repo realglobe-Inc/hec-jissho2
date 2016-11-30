@@ -82,9 +82,6 @@ class PhotoList extends React.Component<Props, State> {
         </div>
 
         <div className={c('photo-zoom-outer', s.state.modalMode ? '' : 'hidden')} onClick={s.closeModal.bind(s)}>
-          <div className='share-photo-button'>
-            <ApButton wide onTap={s.sendPhotoInfo.bind(s)}>共有する</ApButton>
-          </div>
           {s.renderZoomImage()}
         </div>
 
@@ -97,11 +94,19 @@ class PhotoList extends React.Component<Props, State> {
   }
 
   renderZoomImage () {
-    let { selectedPhoto } = this.state
+    const s = this
+    let { selectedPhoto } = s.state
     if (!selectedPhoto) {
       return null
     }
-    return <img className='photo-zoom' src={urls.getPhoto(selectedPhoto.image)} />
+    return (
+      <div className='photo-zoom'>
+        <div className='share-photo-button'>
+          <ApButton wide onTap={s.sendPhotoInfo.bind(s)}>共有する</ApButton>
+        </div>
+        <img src={urls.getPhoto(selectedPhoto.image)} />
+      </div>
+    )
   }
 
   openModal (e) {
