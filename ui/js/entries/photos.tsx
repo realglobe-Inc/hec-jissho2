@@ -23,10 +23,28 @@ class Photo extends React.Component<{}, { photo?: PhotoInfo }> {
 
   render () {
     let { photo } = this.state
-    let url = photo ? urls.getPhoto(photo.image) : ''
-    return (
-      <img src={url} width={`${window.innerWidth}px`}/>
-    )
+    let url = photo ? urls.getPhoto(photo.image) : null
+    if (url) {
+      return (
+        <img src={url} width={`${window.innerWidth}px`}/>
+      )
+    } else {
+        let style: React.CSSProperties = {
+          display: 'flex',
+          fontSize: '2em',
+          justifyContent: 'center',
+          alignItems: 'center',
+          color: '#ccc',
+          height: '100%'
+        }
+      return (
+        <div style={style}>
+          <div>
+            共有されている画像がありません
+          </div>
+        </div>
+      )
+    }
   }
 
   componentDidMount () {
@@ -55,7 +73,7 @@ class Photo extends React.Component<{}, { photo?: PhotoInfo }> {
 class App extends React.Component<{}, {}> {
   render () {
     return (
-    <div>
+    <div className='app'>
       <AppStyle/>
       <Header/>
       <Photo/>
