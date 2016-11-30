@@ -6,12 +6,14 @@ declare var window: any
 
 const middlewares: any[] = []
 
-let store = createStore<Store.State>(
+let composition = compose(
+  // applyMiddleware(...middlewares),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+)
+
+let store = process.env.NODE_ENV === 'production' ? createStore<Store.State>(Reducer) : createStore<Store.State>(
   Reducer,
-  compose(
-    // applyMiddleware(...middlewares),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
+  composition
 )
 
 export default store

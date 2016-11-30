@@ -42,11 +42,6 @@ class PhotoList extends React.Component<Props, State> {
 
   render () {
     const s = this
-    // photos は古い順にセットされている
-    // TODO ここで制限するべきかどうか
-    let max = 20
-    let listHeight = window.innerHeight - parseInt(cssVars['header-height'], 10)
-
     let show = s.props.showPanel.photo
     return (
       <div className='photo-list-ex'>
@@ -61,23 +56,7 @@ class PhotoList extends React.Component<Props, State> {
             ドローンからの画像
           </div>
 
-          <div className='photo-list' style={{height: `${listHeight}px`}}>
-            {s.props.photos.toArray().reverse().slice(0, max).map((photo) => {
-              return (
-                <div className='photo-list-item-wrapper'>
-                  <img className='photo-list-item'
-                      src={urls.getPhoto(photo.image, THUMBNAIL_PHOTO_SIZE)}
-                      onClick={s.openModal.bind(this)}
-                      key={photo.uuid}
-                      data={photo.uuid}
-                  />
-                  <div className='photo-list-item-info'>
-                    {appUtil.formatTime(photo.createdAt)}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          {s.renderFullList()}
 
         </div>
 
@@ -89,8 +68,31 @@ class PhotoList extends React.Component<Props, State> {
     )
   }
 
-  toggleDisplay () {
-    this.props.dispatch(actions.showPanel.togglePhotoDisplay())
+  renderFullList () {
+    const s = this
+    // photos は古い順にセットされている
+    // TODO ここで制限するべきかどうか
+    let max = 20
+    let listHeight = window.innerHeight - parseInt(cssVars['header-height'], 10)
+    return (
+      <div className='photo-list' style={{height: `${listHeight}px`}}>
+        {s.props.photos.toArray().reverse().slice(0, max).map((photo) => {
+          return (
+            <div className='photo-list-item-wrapper'>
+              <img className='photo-list-item'
+                  src={urls.getPhoto(photo.image, THUMBNAIL_PHOTO_SIZE)}
+                  onClick={s.openModal.bind(this)}
+                  key={photo.uuid}
+                  data={photo.uuid}
+              />
+              <div className='photo-list-item-info'>
+                {appUtil.formatTime(photo.createdAt)}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
   }
 
   renderZoomImage () {
@@ -107,6 +109,10 @@ class PhotoList extends React.Component<Props, State> {
         <img src={urls.getPhoto(selectedPhoto.image)} />
       </div>
     )
+  }
+
+  toggleDisplay () {
+    this.props.dispatch(actions.showPanel.togglePhotoDisplay())
   }
 
   openModal (e) {
