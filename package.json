@@ -49,6 +49,7 @@
     "ts-loader": "^1.2.2",
     "typescript": "^2.0.8",
     "webpack": "^1.13.3",
+    "webpack-closure-compiler": "^2.1.2",
     "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.13.1"
   },

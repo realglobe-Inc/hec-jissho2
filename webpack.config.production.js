@@ -32,7 +32,6 @@ const JsConfig = () => {
         'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
         'process.env.RG_GOOGLE_API_KEY': JSON.stringify(process.env.RG_GOOGLE_API_KEY)
       }),
-      // TODO エラー除去
       new ClosureCompilerPlugin({
         compiler: {
           language_in: 'ECMASCRIPT6',
