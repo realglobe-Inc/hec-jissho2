@@ -130,7 +130,7 @@ export function initialize (store: Redux.Store<any>) {
       let marker: Marker = {
         id: newMarkerId(),
         type: 'report',
-        name: `通報@${report.reportAt.toString()}`,
+        name: `通報@${appUtil.formatTime(report.reportAt)}`,
         location: report.latestInfo.location,
         keys: {
           reportFullId: report.reportFullId
