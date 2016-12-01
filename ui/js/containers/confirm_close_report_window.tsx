@@ -58,7 +58,6 @@ class ConfirmCloseReportWindow extends React.Component<Props, any> {
       if (err) {
         throw err
       }
-      window.alert('通報をクローズしました。')
     })
     s.closeSelf()
   }
