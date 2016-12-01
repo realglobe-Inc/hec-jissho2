@@ -14,17 +14,12 @@ module.exports = {
       OPEN_REPORT  : '/rest/reports/open/:report_full_id',
       CLOSE_REPORTS: '/rest/reports/close',
       CLOSE_REPORT : '/rest/reports/close/:report_full_id'
-    },
-
-    OF_PUB_PHOTO: {
-      SELECT_PHOTO: '/rest/pub_photo',
     }
   },
 
   SUGOS_URL: {
     REPORT_PATH: '/sugos/report/socket.io',
-    UI_PATH: '/sugos/ui/socket.io',
-    PUB_PHOTO_PATH: '/sugos/pub_photo/socket.io'
+    UI_PATH: '/sugos/ui/socket.io'
   },
 
   SUGOS: {
@@ -43,11 +38,11 @@ module.exports = {
       NEW_REPORT_EVENT: 'new-report',
       REPORT_INFO_EVENT: 'report-info'
     },
-    // PuPhoto
-    PUB_PHOTO_ACTOR: {
-      KEY: 'qq:pub-photo',
-      MODULE: 'pub-photo',
-      UPDATE_PHOTO_EVENT: 'update-photo'
+    // DataSyncer
+    DATA_SYNC_ACTOR: {
+      KEY: 'qq:data-syncer',
+      MODULE: 'data-syncer',
+      UPDATE_EVENT: 'update'
     }
   }
 }

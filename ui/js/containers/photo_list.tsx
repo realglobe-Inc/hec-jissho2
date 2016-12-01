@@ -14,7 +14,7 @@ import { ApButton } from 'apeman-react-button'
 import * as bRequest from 'browser-request'
 
 const cssVars = require('../../scss/vars.json')
-const { PHOTO_MONITOR_ACTOR } = require('@self/server/lib/consts').SUGOS
+const { DATA_SYNC_ACTOR } = require('@self/server/lib/consts').SUGOS
 const THUMBNAIL_PHOTO_SIZE = {
   width: 320,
   height: 180
@@ -23,6 +23,7 @@ const THUMBNAIL_PHOTO_SIZE = {
 interface Props {
   photos: Store.Photos
   showPanel: Store.ShowPanel
+  callers: Store.Callers
   dispatch: any
 }
 
@@ -130,23 +131,18 @@ class PhotoList extends React.Component<Props, State> {
 
   sendPhotoInfo () {
     let photo = this.state.selectedPhoto
-    let url = urls.sharePhoto()
-    bRequest({
-      url,
-      method: 'POST',
-      json: true,
-      body: photo
-    }, (err, res, body) => {
-      if (err) {
-        console.error(err)
-        return
-      }
-      console.log(body)
+    let caller = this.props.callers.get(DATA_SYNC_ACTOR.KEY)
+    let syncer = caller.get(DATA_SYNC_ACTOR.MODULE)
+    syncer.update({
+      key: 'selectedPhoto',
+      nextValue: photo
+    }).catch((err) => {
+      throw err
     })
   }
 }
 
 export default connect(
-  (state: Store.State) => ({ photos: state.photos, showPanel: state.showPanel }),
+  (state: Store.State) => ({ photos: state.photos, showPanel: state.showPanel, callers: state.callers }),
   (dispatch) => ({ dispatch })
 )(PhotoList)

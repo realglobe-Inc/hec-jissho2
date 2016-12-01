@@ -6,4 +6,5 @@ uiServer
   .listen(port.UI)
   .then(() => {
     console.log(`UI server listening on port ${port.UI}`)
+    uiServer.actor.connect()
   })

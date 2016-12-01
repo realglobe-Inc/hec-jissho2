@@ -6,30 +6,36 @@ import * as CONSTS from '@self/server/lib/consts'
 const debug = require('debug')('hec:tablet_caller_manager')
 const { SUGOS } = CONSTS
 const {
-  PUB_PHOTO_ACTOR
+  DATA_SYNC_ACTOR
 } = SUGOS
 
 /**
- * PubPhoto server 用の actor に接続する
+ * UI server 用の actor に接続する
  * タブレットで見る画面用なので store を使わない
  */
-export function connectPubPhotoCaller (cb: Function) {
-  let key: string = PUB_PHOTO_ACTOR.KEY
-  return sugoCaller(urls.pubPhotoCallers())
+export function connectDataSyncCaller (cb: Function) {
+  let key: string = DATA_SYNC_ACTOR.KEY
+  return sugoCaller(urls.uiCallers())
           .connect(key)
           .then((caller: Caller) => {
             debug(`Connected caller: ${key}`)
-            initializePubPhoto(key, caller, cb)
+            initializeDataSyncer(key, caller, cb)
           })
 }
 
 /**
- * pubPhoto caller
+ * Data Syncer の初期化
  */
-function initializePubPhoto (key: string, caller: Caller, cb: Function) {
-  let pubPhoto = caller.get(PUB_PHOTO_ACTOR.MODULE)
-  pubPhoto.on(PUB_PHOTO_ACTOR.UPDATE_PHOTO_EVENT, (data) => {
-    debug(data)
-    cb(data)
+function initializeDataSyncer (key: string, caller: Caller, cb: Function) {
+  let syncer = caller.get(DATA_SYNC_ACTOR.MODULE)
+  syncer.fetch()
+    .then((data) => {
+      cb(data.selectedPhoto)
+    })
+  syncer.on(DATA_SYNC_ACTOR.UPDATE_EVENT, ({ key, nextValue }) => {
+    if (key === 'selectedPhoto') {
+      debug(nextValue)
+      cb(nextValue)
+    }
   })
 }

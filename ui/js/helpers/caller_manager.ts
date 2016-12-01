@@ -12,45 +12,47 @@ const { SUGOS } = CONSTS
 const {
   REPORTER_MODULE,
   MASTER_ACTOR,
-  PHOTO_MONITOR_ACTOR
+  PHOTO_MONITOR_ACTOR,
+  DATA_SYNC_ACTOR
 } = SUGOS
+
+function connectCaller (key: string, initialize: Function) {
+  return sugoCaller(urls.uiCallers())
+          .connect(key)
+          .then((caller: Caller) => {
+            debug(`Connected caller: ${key}`)
+            initialize(key, caller)
+            store.dispatch(actions.callers.addCaller({
+              key, caller
+            }))
+          })
+}
 
 /**
  * Camera server 用の actor に接続する
  */
 export function connectCameraCaller () {
-  let key: string = PHOTO_MONITOR_ACTOR.KEY
-  return sugoCaller(urls.uiCallers())
-          .connect(key)
-          .then((caller: Caller) => {
-            debug(`Connected caller: ${key}`)
-            initializeCameraMonitor(key, caller)
-            store.dispatch(actions.callers.addCaller({
-              key, caller
-            }))
-          })
+  return connectCaller(PHOTO_MONITOR_ACTOR.KEY, initializeCameraMonitor)
 }
 
 /**
  * Report server 用の actor に接続する
  */
 export function connectReportCaller () {
-  let key: string = MASTER_ACTOR.KEY
-  return sugoCaller(urls.uiCallers())
-          .connect(key)
-          .then((caller: Caller) => {
-            debug(`Connected caller: ${key}`)
-            initializeReporter(key, caller)
-            store.dispatch(actions.callers.addCaller({
-              key, caller
-            }))
-          })
+  return connectCaller(MASTER_ACTOR.KEY, initializeReporter)
+}
+
+/**
+ * UI server 用の actor に接続する
+ */
+export function connectDataSyncCaller () {
+  return connectCaller(DATA_SYNC_ACTOR.KEY, initializeDataSyncer)
 }
 
 /**
  * 通報callerの初期化
  */
-export function initializeReporter (key: string, caller: Caller) {
+function initializeReporter (key: string, caller: Caller) {
   let reporter = caller.get(MASTER_ACTOR.MODULE)
   reporter.on(MASTER_ACTOR.NEW_REPORT_EVENT, (report: Report) => {
     debug('New report: ', report)
@@ -96,5 +98,48 @@ function initializeCameraMonitor (key: string, caller: Caller) {
   })
   monitor.on(PHOTO_MONITOR_ACTOR.REMOVED_EVENT, (data) => {
     debug(data)
+  })
+}
+
+/**
+ * Data Syncer の初期化
+ */
+function initializeDataSyncer (key: string, caller: Caller) {
+  let syncer = caller.get(DATA_SYNC_ACTOR.MODULE)
+  syncer.fetch()
+    .then((data) => {
+      // 本部の位置
+      debug(`Sync ${JSON.stringify(data)}`)
+      let { centerLocation } = data
+      let marker: Marker = {
+          id: newMarkerId(),
+          type: 'center',
+          name: '本部',
+          location: centerLocation,
+          keys: {}
+      }
+      store.dispatch(actions.markers.addMarker(marker))
+      store.dispatch(actions.map.changeMapCenter(centerLocation))
+  })
+  syncer.on(DATA_SYNC_ACTOR.UPDATE_EVENT, ({ key, nextValue }) => {
+    // Store を更新する
+    // key 文字列をここに書くのはダサい
+    switch (key) {
+      case 'centerLocation':
+        {
+          let { markers } = store.getState()
+          let centerMarker: Marker = markers.find((marker) => marker.type === 'center') // must be ONE    
+          store.dispatch(actions.markers.updateMarker({
+            id: centerMarker.id,
+            location: nextValue
+          }))
+        }
+        return
+      case 'selectedPhoto':
+        store.dispatch(actions.selectedPhoto.selectPhoto(nextValue.uuid))
+        return
+      default:
+        return
+    }
   })
 }

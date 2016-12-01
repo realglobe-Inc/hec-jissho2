@@ -55,16 +55,6 @@ export default {
     }
   },
   /**
-   * SUGO Caller of PubPhoto server
-   */
-  pubPhotoCallers () {
-    return {
-      protocol,
-      host,
-      path: '/jissho2' + SUGOS_URL.PUB_PHOTO_PATH
-    }
-  },
-  /**
    * Google geocode API (reverse)
    */
   geocode ({lat, lng}: Location) {

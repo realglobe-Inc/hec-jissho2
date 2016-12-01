@@ -8,12 +8,15 @@ import { Marker } from '../interfaces/app'
 import * as bRequest from 'browser-request'
 import urls from '../helpers/urls'
 
+const { DATA_SYNC_ACTOR } = require('@self/server/lib/consts').SUGOS
+
 const Types = React.PropTypes
 const debug = require('debug')('hec:ModalCenterconf')
 
 interface Props {
   modalWindow: Store.ModalWindow
   markers: Store.Markers
+  callers: Store.Callers
   dispatch: any
 }
 
@@ -72,20 +75,19 @@ class ModalCenterconf extends React.Component<Props, any> {
       return
     }
     let centerLocation = {lat, lng}
-    bRequest({
-      url: urls.centerLocation(),
-      method: 'POST',
-      json: true,
-      body: centerLocation
-    }, (err, res, body) => {
-      if (err) {
-        throw err
-      }
+
+    let caller = this.props.callers.get(DATA_SYNC_ACTOR.KEY)
+    let syncer = caller.get(DATA_SYNC_ACTOR.MODULE)
+    syncer.update({
+      key: 'centerLocation',
+      nextValue: centerLocation
+    }).then(() => {
       let centerMarker = s.findCenterMarker()
       s.props.dispatch(actions.markers.updateMarker({
         id: centerMarker.id,
         location: centerLocation
       }))
+      s.props.dispatch(actions.map.changeMapCenter(centerLocation))
     })
     this.props.dispatch(actions.modalWindow.closeCenterConfModal())
   }
@@ -94,7 +96,8 @@ class ModalCenterconf extends React.Component<Props, any> {
 export default connect(
   (state: Store.State) => ({
     modalWindow: state.modalWindow,
-    markers: state.markers
+    markers: state.markers,
+    callers: state.callers
   }),
   (dispatch) => ({ dispatch })
 )(ModalCenterconf)

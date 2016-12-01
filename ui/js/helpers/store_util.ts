@@ -5,7 +5,7 @@ import appUtil from './app_util'
 import actions from '../actions'
 import urls from './urls'
 import * as bRequest from 'browser-request'
-import { connectReportCaller, connectCameraCaller } from './caller_manager'
+import { connectReportCaller, connectCameraCaller, connectDataSyncCaller } from './caller_manager'
 import * as formatter from '@self/server/helper/formatter'
 import * as config from '@self/ui/config'
 
@@ -40,6 +40,7 @@ export function initialize (store: Redux.Store<any>) {
   // Callers
   connectCameraCaller()
   connectReportCaller()
+  connectDataSyncCaller()
 
   // 自分の位置
   if (navigator.geolocation) {
@@ -73,22 +74,22 @@ export function initialize (store: Redux.Store<any>) {
   }
 
   // 本部
-  bRequest({
-    url: urls.centerLocation(),
-    method: 'GET',
-    json: true
-  }, (err, res, body) => {
-    let centerLocation: Location = err ? mapCenter : body
-    let marker: Marker = {
-        id: newMarkerId(),
-        type: 'center',
-        name: '本部',
-        location: centerLocation,
-        keys: {}
-    }
-    store.dispatch(actions.markers.addMarker(marker))
-    store.dispatch(actions.map.changeMapCenter(centerLocation))
-  })
+  // bRequest({
+  //   url: urls.centerLocation(),
+  //   method: 'GET',
+  //   json: true
+  // }, (err, res, body) => {
+  //   let centerLocation: Location = err ? mapCenter : body
+  //   let marker: Marker = {
+  //       id: newMarkerId(),
+  //       type: 'center',
+  //       name: '本部',
+  //       location: centerLocation,
+  //       keys: {}
+  //   }
+  //   store.dispatch(actions.markers.addMarker(marker))
+  //   store.dispatch(actions.map.changeMapCenter(centerLocation))
+  // })
 
   // 最新の通報
   bRequest({
@@ -149,31 +150,6 @@ export function initialize (store: Redux.Store<any>) {
       store.dispatch(actions.photos.setPhotos(photoArray))
     })
 }
-
-// getLatestReport ({state, actorKey}) {
-//   // 末尾が最新
-//   assert.ok(state, 'getLatestReport in store_util.js')
-//   if (!this.hasOpenReport({state, actorKey})) {
-//     return null
-//   }
-//   let {reports} = state
-//   let reportList = reports[actorKey]
-//   return reportList[reportList.length - 1]
-// },
-// getFirstReport ({state, actorKey}) {
-//   assert.ok(state, 'getFirstReport in store_util.js')
-//   // 先頭が最初
-//   if (!this.hasOpenReport({state, actorKey})) {
-//     return null
-//   }
-//   let {reports} = state
-//   let reportList = reports[actorKey]
-//   return reportList[0]
-// },
-// hasOpenReport ({state, actorKey}) {
-//   assert.ok(state, 'hasOpenReport in store_util.js')
-//   return state.reports[actorKey] && state.reports[actorKey].length > 0
-// }
 
 export default {
   getSelectedMarker,

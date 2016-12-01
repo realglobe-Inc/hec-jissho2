@@ -3,7 +3,6 @@
     "UI": 3101,
     "CAMERA": 3102,
     "REPORT": 3103,
-    "PUB_PHOTO": 3104,
     "PROXY": 3130,
     "DEV": 3100
   }

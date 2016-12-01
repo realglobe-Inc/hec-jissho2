@@ -8,7 +8,7 @@ import appUtil from '../helpers/app_util'
 import { PhotoInfo } from '../interfaces/app'
 import urls from '../helpers/urls'
 import * as bRequest from 'browser-request'
-import { connectPubPhotoCaller } from '../helpers/tablet_caller_manager'
+import { connectDataSyncCaller } from '../helpers/tablet_caller_manager'
 import auth from '../helpers/auth'
 
 const rootElement = document.getElementById('site')
@@ -48,15 +48,6 @@ class Photo extends React.Component<{}, { photo?: PhotoInfo }> {
 
   componentDidMount () {
     const s = this
-    bRequest({
-      url: urls.sharePhoto(),
-      method: 'GET',
-      json: true
-    }, (err, res, body) => {
-      if (body && body.uuid) {
-        s.setState({ photo: body })
-      }
-    })
 
     // caller が写真変更イベントを受け取ったら写真を更新する
     let onChangePhoto = (photo: PhotoInfo) => {
@@ -65,7 +56,7 @@ class Photo extends React.Component<{}, { photo?: PhotoInfo }> {
         photo
       })
     }
-    connectPubPhotoCaller(onChangePhoto)
+    connectDataSyncCaller(onChangePhoto)
   }
 }
 

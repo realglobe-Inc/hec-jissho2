@@ -4,7 +4,6 @@ const { port } = require('@self/server/env')
 const ui = require('@self/server/lib/ui_server')
 const camera = require('@self/server/lib/camera_server')
 const report = require('@self/server/lib/report_server')
-const PubPhoto = require('@self/server/lib/pub_photo_server')
 const co = require('co')
 const debug = require('debug')('hec:app')
 
@@ -12,6 +11,7 @@ function app () {
   return co(function * () {
     // UI
     yield ui.listen(port.UI)
+    yield ui.actor.connect()
     debug(`UI server listening on port ${port.UI}`)
 
     // Camera
@@ -25,11 +25,6 @@ function app () {
     debug(`Report server listening on port ${port.REPORT}`)
     let observer = report.createObserver()
     yield observer.start()
-
-    // PubPhoto
-    yield PubPhoto.listen(port.PUB_PHOTO)
-    debug(`PubPhoto server listening on port ${port.PUB_PHOTO}`)
-    yield PubPhoto.actor.connect()
     
   }).catch((err) => console.error(err))
 }
