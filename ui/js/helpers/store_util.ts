@@ -73,24 +73,6 @@ export function initialize (store: Redux.Store<any>) {
     debug('Not found navigator.geolocation')
   }
 
-  // 本部
-  // bRequest({
-  //   url: urls.centerLocation(),
-  //   method: 'GET',
-  //   json: true
-  // }, (err, res, body) => {
-  //   let centerLocation: Location = err ? mapCenter : body
-  //   let marker: Marker = {
-  //       id: newMarkerId(),
-  //       type: 'center',
-  //       name: '本部',
-  //       location: centerLocation,
-  //       keys: {}
-  //   }
-  //   store.dispatch(actions.markers.addMarker(marker))
-  //   store.dispatch(actions.map.changeMapCenter(centerLocation))
-  // })
-
   // 最新の通報
   bRequest({
     url: urls.openReports(),

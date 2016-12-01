@@ -12,7 +12,7 @@ let state = {
     lat: 35.701562,
     lng: 139.753148
   },
-  selectedPhoto: {
+  sharedPhoto: {
     isSelected: false,
     info: null,
     image: '',

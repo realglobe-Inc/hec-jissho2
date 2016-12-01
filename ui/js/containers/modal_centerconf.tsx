@@ -76,20 +76,23 @@ class ModalCenterconf extends React.Component<Props, any> {
     }
     let centerLocation = {lat, lng}
 
-    let caller = this.props.callers.get(DATA_SYNC_ACTOR.KEY)
+    let caller = s.props.callers.get(DATA_SYNC_ACTOR.KEY)
     let syncer = caller.get(DATA_SYNC_ACTOR.MODULE)
     syncer.update({
       key: 'centerLocation',
       nextValue: centerLocation
     }).then(() => {
-      let centerMarker = s.findCenterMarker()
-      s.props.dispatch(actions.markers.updateMarker({
-        id: centerMarker.id,
-        location: centerLocation
-      }))
-      s.props.dispatch(actions.map.changeMapCenter(centerLocation))
+        let centerMarker = s.props.markers.find((marker) => marker.type === 'center')
+        s.props.dispatch(actions.map.changeMapCenter(centerLocation))
+        s.props.dispatch(actions.markers.updateMarker({
+          id: centerMarker.id,
+          location: centerLocation
+        }))
     })
-    this.props.dispatch(actions.modalWindow.closeCenterConfModal())
+
+    s.props.dispatch(actions.modalWindow.closeCenterConfModal())
+
+
   }
 }
 

@@ -2,7 +2,8 @@ import * as sugoCaller from 'sugo-caller'
 import urls from './urls'
 import store from './store'
 import actions from '../actions'
-import { Caller, Report, ReportInfo, Marker, PhotoInfo } from '../interfaces/app'
+import appUtil from './app_util'
+import { Caller, Report, ReportInfo, Marker, PhotoInfo, Location } from '../interfaces/app'
 import { newMarkerId } from './store_util'
 import { Store } from '../interfaces/store'
 import * as CONSTS from '@self/server/lib/consts'
@@ -60,7 +61,7 @@ function initializeReporter (key: string, caller: Caller) {
     let marker: Marker = {
       id: newMarkerId(),
       type: 'report',
-      name: `通報@${report.reportAt}`,
+      name: `通報@${appUtil.formatTime(report.reportAt)}`,
       location: report.latestInfo.location,
       keys: {
         reportFullId: report.reportFullId
@@ -122,21 +123,36 @@ function initializeDataSyncer (key: string, caller: Caller) {
       store.dispatch(actions.map.changeMapCenter(centerLocation))
   })
   syncer.on(DATA_SYNC_ACTOR.UPDATE_EVENT, ({ key, nextValue }) => {
-    // Store を更新する
+    // すでにある state と異なっているなら store を更新する
     // key 文字列をここに書くのはダサい
     switch (key) {
       case 'centerLocation':
         {
-          let { markers } = store.getState()
-          let centerMarker: Marker = markers.find((marker) => marker.type === 'center') // must be ONE    
+          let {map, markers} = store.getState()
+          let centerLocation: Location = nextValue
+          let shouldSkip = centerLocation.lat === map.center.lat && centerLocation.lng === map.center.lng
+          if (shouldSkip) {
+            return
+          }
+          let centerMarker: Marker = markers.find((marker) => marker.type === 'center')
           store.dispatch(actions.markers.updateMarker({
             id: centerMarker.id,
             location: nextValue
           }))
         }
         return
-      case 'selectedPhoto':
-        store.dispatch(actions.selectedPhoto.selectPhoto(nextValue.uuid))
+      case 'reportClosed':
+        {
+          let { reportClosed } = store.getState()
+          let report: Report = nextValue.report
+          let shouldSkip = reportClosed.closed && report.reportFullId === reportClosed.report.reportFullId
+          if (shouldSkip) {
+            return
+          }
+          store.dispatch(actions.reportClosed.setClosedReport(report))
+          return
+        }
+      case 'sharedPhoto':
         return
       default:
         return

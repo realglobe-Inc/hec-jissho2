@@ -42,12 +42,10 @@ class ConfirmCloseReportWindow extends React.Component<Props, any> {
     let report = reports.get(reportFullId)
 
     let closedDate = new Date()
-    // Store side
-    let { dispatch } = s.props
-    dispatch(actions.selectedMarker.cancelSelectMarker())
-    dispatch(actions.markers.removeMarker(id))
-    dispatch(actions.reportClosed.setClosedReport(report))
-    dispatch(actions.reports.removeReport(reportFullId))
+
+    // And middleware will do other tasks
+    s.props.dispatch(actions.reportClosed.setClosedReport(report))
+
     // Server side
     bRequest({
       method: 'POST',

@@ -130,11 +130,12 @@ class PhotoList extends React.Component<Props, State> {
   }
 
   sendPhotoInfo () {
+    // TODO 共有されている画像についてもstoreで管理すべき
     let photo = this.state.selectedPhoto
     let caller = this.props.callers.get(DATA_SYNC_ACTOR.KEY)
     let syncer = caller.get(DATA_SYNC_ACTOR.MODULE)
     syncer.update({
-      key: 'selectedPhoto',
+      key: 'sharedPhoto',
       nextValue: photo
     }).catch((err) => {
       throw err

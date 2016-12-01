@@ -30,10 +30,10 @@ function initializeDataSyncer (key: string, caller: Caller, cb: Function) {
   let syncer = caller.get(DATA_SYNC_ACTOR.MODULE)
   syncer.fetch()
     .then((data) => {
-      cb(data.selectedPhoto)
+      cb(data.sharedPhoto)
     })
   syncer.on(DATA_SYNC_ACTOR.UPDATE_EVENT, ({ key, nextValue }) => {
-    if (key === 'selectedPhoto') {
+    if (key === 'sharedPhoto') {
       debug(nextValue)
       cb(nextValue)
     }
