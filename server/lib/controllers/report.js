@@ -23,30 +23,26 @@ const reportController = {
      */
     findAll (ctx) {
       return co(function * () {
-        let openReports = yield Report.findAll({
+        let openReportsData = yield Report.findAll({
           where: {
             is_open: true
           }
         })
-        ctx.body = openReports.map(data => data.dataValues)
-      })
-    },
+        let openReports = openReportsData.map(data => data.dataValues)
 
-    findLatestInfo (ctx) {
-      return co(function * () {
-        let { report_full_id } = ctx.params
-        let latest = yield ReportInfo.findOne({
-          where: {
-            report_full_id
-          },
-          order: 'date'
-        })
-        if (!latest) {
-          // ここは通らない
-          ctx.body = {}
-          return
+        // Latest info of each report
+        for (let openReport of openReports) {
+          let { report_full_id } = openReport
+          let latest = yield ReportInfo.findOne({
+            where: {
+              report_full_id
+            },
+            order: 'date'
+          })
+          openReport.latestInfo = latest.dataValues
         }
-        ctx.body = latest.dataValues
+
+        ctx.body = openReports
       })
     }
   },

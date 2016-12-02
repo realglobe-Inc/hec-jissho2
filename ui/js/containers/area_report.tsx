@@ -139,18 +139,20 @@ class AreaReport extends React.Component<Props, State> {
     const s = this
     let { selectedMarker, markers } = s.props
     let marker = markers.get(selectedMarker.id)
-    let nextReportFullId = marker.keys.reportFullId    
-    s.setState({
-      reportFullId: nextReportFullId
-    })
-    appUtil.fetchAddress(marker.location)
-      .then((address: string) => {
-        debug('Update report adress', address)
-        s.setState({ address })
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    s.updateAdress(marker.keys.reportFullId, marker.location)
+  }
+
+  componentWillReceiveProps (nextProps: Props) {
+    const s = this
+    let { selectedMarker, markers } = s.props
+    let marker = markers.get(selectedMarker.id)
+    let reportFullId = marker.keys.reportFullId
+    let nextMarker = nextProps.markers.get(nextProps.selectedMarker.id)
+    let nextReportFullId = nextMarker.keys.reportFullId
+    
+    if (reportFullId !== nextReportFullId) {
+      s.updateAdress(nextReportFullId, nextMarker.location)
+    }
   }
 
   renderCloseButton () {
@@ -171,6 +173,21 @@ class AreaReport extends React.Component<Props, State> {
    */
   showConfirmWindow () {
     this.props.dispatch(actions.modalWindow.openReportCloseModal())
+  }
+
+  updateAdress (reportFullId, location) {
+    const s = this
+    s.setState({
+      reportFullId: reportFullId
+    })
+    appUtil.fetchAddress(location)
+      .then((address: string) => {
+        debug('Update report adress', address)
+        s.setState({ address })
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 }
 

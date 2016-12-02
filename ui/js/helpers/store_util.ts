@@ -98,12 +98,12 @@ export function initialize (store: Redux.Store<any>) {
         latestInfo: {
           reportFullId,
           location: {
-            lat: 35.701562,
-            lng: 139.753148
+            lat: dbReport.latestInfo.lat,
+            lng: dbReport.latestInfo.lng
           },
-          event: 'emergency',
-          date: new Date(),
-          info: {}
+          event: dbReport.latestInfo.event,
+          date: dbReport.latestInfo.date,
+          info: dbReport.latestInfo.info
         }
       }
       return report

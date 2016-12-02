@@ -41,7 +41,6 @@ export default {
    * 本部の位置情報
    */
   centerLocation () {
-    // TODO 未実装
     return ORIGIN_URL + '/center'
   },
   /**

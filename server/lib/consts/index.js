@@ -11,7 +11,7 @@ module.exports = {
     OF_REPORT: {
       // REPORTS      : '/rest/reports',
       OPEN_REPORTS : '/rest/reports/open',
-      OPEN_REPORT  : '/rest/reports/open/:report_full_id',
+      // OPEN_REPORT  : '/rest/reports/open/:report_full_id',
       CLOSE_REPORTS: '/rest/reports/close',
       CLOSE_REPORT : '/rest/reports/close/:report_full_id'
     }
