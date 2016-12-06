@@ -13,10 +13,10 @@
     console.error(rejection.reason)
 
     // 同じエラーメッセージは複数回警告しないように
-    let first = errs.some(function (err) {
+    let skip = errs.some(function (err) {
       return err.message === rejection.reason.message
     })
-    if (first) {
+    if (!skip) {
       handleError()
       errs.push(rejection.reason)
     }
