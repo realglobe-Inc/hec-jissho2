@@ -1,5 +1,5 @@
 (function () {
-  var handleError = function () {
+  var handleError = function (err) {
     window.alert('予期せぬエラーが発生しました:')
   }
 
@@ -7,9 +7,18 @@
 
   // addEventListener できなかった
   var onUnhandled = window.onunhandledrejection
+  var errs = []
   window.onunhandledrejection = function (rejection) {
     onUnhandled && onUnhandled(rejection)
     console.error(rejection.reason)
-    handleError()
+
+    // 同じエラーメッセージは複数回警告しないように
+    let first = errs.some(function (err) {
+      return err.message === rejection.reason.message
+    })
+    if (first) {
+      handleError()
+      errs.push(rejection.reason)
+    }
   }
 })()
